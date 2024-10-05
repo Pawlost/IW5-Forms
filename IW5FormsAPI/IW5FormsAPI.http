@@ -1,6 +1,0 @@
-@IW5FormsAPI_HostAddress = http://localhost:5063
-
-GET {{IW5FormsAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
