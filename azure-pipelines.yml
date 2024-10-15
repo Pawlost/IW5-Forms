@@ -14,7 +14,11 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-    - template: build-API.yml
+  - task: DotNetCoreCLI@2
+    name: "Build"
+    inputs:
+      command: 'build'
+      projects: '**/FormsIW5.Api.csproj'
 
     - task: DotNetCoreCLI@2
       inputs:
