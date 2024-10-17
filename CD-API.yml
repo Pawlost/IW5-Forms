@@ -13,6 +13,9 @@ pool:
 variables:
   solution: '**/*.sln'
   buildConfiguration: 'Release'
+  dotNetFramework: 'net9.0'
+  dotNetVersion: '9.0.x'
+  targetRuntime: 'win-x64'
 
 steps:
   - task: DotNetCoreCLI@2
@@ -22,12 +25,18 @@ steps:
       projects: '**/FormsIW5.Api.csproj'
 
   - task: DotNetCoreCLI@2
+    name: "Test"
+    inputs:
+      command: 'test'
+      projects: '**/*Tests*.csproj'
+
+  - task: DotNetCoreCLI@2
     name: "Publish"
     inputs:
       command: 'publish'
       publishWebProjects: false
       projects: '**/FormsIW5.Api.csproj'
-      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/api'
+      arguments: '--configuration $(BuildConfiguration) --framework $(dotNetFramework) --output $(Build.ArtifactStagingDirectory)/api'
       modifyOutputPath: false
     
   - task: PublishBuildArtifacts@1

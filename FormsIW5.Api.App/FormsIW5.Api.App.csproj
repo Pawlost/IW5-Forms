@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FormsIW5.BL\FormsIW5.BL.csproj" />
+    <ProjectReference Include="..\FormsIW5.BL\FormsIW5.Api.BL.csproj" />
   </ItemGroup>
 
 </Project>
