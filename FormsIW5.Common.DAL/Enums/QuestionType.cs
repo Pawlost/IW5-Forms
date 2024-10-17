@@ -1,4 +1,4 @@
-﻿namespace FormsIW5.Api.DAL.Enums;
+﻿namespace FormsIW5.Common.DAL.Enums;
 
 public enum QuestionType
 {
