@@ -1,4 +1,4 @@
-﻿using FormsIW5.Api.DAL.Enums;
+﻿using FormsIW5.Common.DAL.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace FormsIW5.Api.DAL.Entities;

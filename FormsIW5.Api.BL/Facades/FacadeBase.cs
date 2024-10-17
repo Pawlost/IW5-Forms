@@ -1,118 +1,75 @@
-﻿using FormsIW5.Api.BL.Facades.Interfaces;
+﻿using AutoMapper;
+using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Api.DAL.Entities.Interfaces;
-using FormsIW5.Api.DAL.Repositories;
-using FormsIW5.Common.BL.Models.Form;
+using FormsIW5.Api.DAL.Repositories.Interfaces;
+using FormsIW5.Common.BL.Models;
 
-namespace FormsIW5.Api.BL.Facades
+namespace FormsIW5.Api.BL.Facades;
+
+public class FacadeBase<TEntity, TListModel, TDetailModel> : IAppFacade<TListModel, TDetailModel>
+    where TEntity : IEntity
+    where TListModel : ListModelBase
+    where TDetailModel : DetailModelBase
 {
-    public class FacadeBase<TEntity> : IAppFacade<FormListModel, FormDetailModel>
-        where TEntity : IEntity
+    private readonly IApiRepository<TEntity> recipeRepository;
+    private readonly IMapper mapper;
+
+    public FacadeBase(
+        IApiRepository<TEntity> recipeRepository,
+        IMapper mapper)
     {
-        private readonly IApiRepository<> recipeRepository;
-        private readonly IMapper mapper;
+        this.recipeRepository = recipeRepository;
+        this.mapper = mapper;
+    }
 
-        public RecipeFacade(
-            IRecipeRepository recipeRepository,
-            IMapper mapper)
-        {
-            this.recipeRepository = recipeRepository;
-            this.mapper = mapper;
-        }
+    public Guid Create(TDetailModel detailModel)
+    {
+        var recipeEntity = mapper.Map<TEntity>(detailModel);
+        return recipeRepository.Insert(recipeEntity);
+    }
 
-        public List<RecipeListModel> GetAll()
-        {
-            var recipeEntities = recipeRepository.GetAll();
-            return mapper.Map<List<RecipeListModel>>(recipeEntities);
-        }
+    public Guid CreateOrUpdate(TDetailModel detailModel)
+    {
+        return recipeRepository.Exists(detailModel.Id)
+            ? Update(detailModel)!.Value
+            : Create(detailModel);
+    }
 
-        public RecipeDetailModel? GetById(Guid id)
-        {
-            var recipeEntity = recipeRepository.GetById(id);
-            return mapper.Map<RecipeDetailModel>(recipeEntity);
-        }
+    public void Delete(Guid id)
+    {
+        recipeRepository.Remove(id);
+    }
 
-        public Guid CreateOrUpdate(RecipeDetailModel recipeModel)
-        {
-            return recipeRepository.Exists(recipeModel.Id)
-                ? Update(recipeModel)!.Value
-                : Create(recipeModel);
-        }
+    public List<TListModel> GetAll()
+    {
+        var recipeEntities = recipeRepository.GetAll();
+        return mapper.Map<List<TListModel>>(recipeEntities);
+    }
 
-        public Guid Create(RecipeDetailModel recipeModel)
-        {
-            MergeIngredientAmounts(recipeModel);
-            var recipeEntity = mapper.Map<RecipeEntity>(recipeModel);
-            return recipeRepository.Insert(recipeEntity);
-        }
+    public TDetailModel? GetById(Guid id)
+    {
+        var recipeEntity = recipeRepository.GetById(id);
+        return mapper.Map<TDetailModel>(recipeEntity);
+    }
 
-        public Guid? Update(RecipeDetailModel recipeModel)
-        {
-            MergeIngredientAmounts(recipeModel);
-
-            var recipeEntity = mapper.Map<RecipeEntity>(recipeModel);
-            recipeEntity.IngredientAmounts = recipeModel.IngredientAmounts.Select(t =>
-                new IngredientAmountEntity
-                {
-                    Id = t.Id,
-                    Amount = t.Amount,
-                    Unit = t.Unit,
-                    RecipeId = recipeEntity.Id,
-                    IngredientId = t.Ingredient.Id
-                }).ToList();
-            var result = recipeRepository.Update(recipeEntity);
-            return result;
-        }
-
-        public void MergeIngredientAmounts(RecipeDetailModel recipe)
-        {
-            var result = new List<RecipeDetailIngredientModel>();
-            var ingredientAmountGroups = recipe.IngredientAmounts.GroupBy(t => $"{t.Ingredient.Id}-{t.Unit}");
-
-            foreach (var ingredientAmountGroup in ingredientAmountGroups)
+    public Guid? Update(TDetailModel detailModel)
+    {
+        /*
+         
+        var recipeEntity = mapper.Map<RecipeEntity>(recipeModel);
+        recipeEntity.IngredientAmounts = recipeModel.IngredientAmounts.Select(t =>
+            new IngredientAmountEntity
             {
-                var ingredientAmountFirst = ingredientAmountGroup.First();
-                var totalAmount = ingredientAmountGroup.Sum(t => t.Amount);
-                var ingredientAmount = ingredientAmountFirst with { Amount = totalAmount };
-
-                result.Add(ingredientAmount);
-            }
-
-            recipe.IngredientAmounts = result;
-        }
-
-        public void Delete(Guid id)
-        {
-            recipeRepository.Remove(id);
-        }
-
-        public Guid Create(FormDetailModel detailModeel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Guid CreateOrUpdate(FormDetailModel detailModeel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<FormListModel> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public FormDetailModel? GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Guid? Update(FormDetailModel detailModeel)
-        {
-            throw new NotImplementedException();
-        }
+                Id = t.Id,
+                Amount = t.Amount,
+                Unit = t.Unit,
+                RecipeId = recipeEntity.Id,
+                IngredientId = t.Ingredient.Id
+            }).ToList();
+        var result = recipeRepository.Update(recipeEntity);
+        return result;
+         
+         */
+        throw new NotImplementedException();
     }
 }

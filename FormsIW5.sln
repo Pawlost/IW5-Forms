@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsIW5.Common.BL", "Forms
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{7C2556B8-90EB-4846-A73C-E576E052F158}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsIW5.Common.DAL", "FormsIW5.Common.DAL\FormsIW5.Common.DAL.csproj", "{6A96D9A8-2966-4835-AF5A-3C3BB96B9370}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsIW5.Common", "FormsIW5.Common.DAL\FormsIW5.Common.csproj", "{6A96D9A8-2966-4835-AF5A-3C3BB96B9370}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

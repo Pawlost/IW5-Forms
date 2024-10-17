@@ -7,12 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\User\" />
-    <Folder Include="Models\Question\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\FormsIW5.Common.DAL\FormsIW5.Common.DAL.csproj" />
+    <ProjectReference Include="..\FormsIW5.Common.DAL\FormsIW5.Common.csproj" />
   </ItemGroup>
 
 </Project>
