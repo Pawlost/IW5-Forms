@@ -1,6 +1,4 @@
 using FormsIW5.Api.App;
-using FormsIW5.DAL;
-using FormsIW5.DAL.Installers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 namespace FormsIW5.Api.App;

@@ -1,4 +1,4 @@
-﻿namespace FormsIW5.Api.BL.UnitTests
+namespace FormsIW5.Api.BL.UnitTests
 {
     public class UnitTest1
     {

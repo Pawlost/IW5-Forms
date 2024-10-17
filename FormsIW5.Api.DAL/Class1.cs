@@ -1,4 +1,4 @@
-﻿namespace FormsIW5.BL
+﻿namespace FormsIW5.Api.DAL
 {
     public class Class1
     {
