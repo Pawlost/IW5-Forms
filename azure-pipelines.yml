@@ -13,8 +13,8 @@ pool:
 variables:
   solution: '**/*.sln'
   buildConfiguration: 'Release'
-  dotNetFramework: 'net9.0'
-  dotNetVersion: '9.0.x'
+  dotNetFramework: 'net8.0'
+  dotNetVersion: '8.0.x'
   targetRuntime: 'win-x64'
   targetAPIProject: '**/FormsIW5.Api.App.csproj'
 
