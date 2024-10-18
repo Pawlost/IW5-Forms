@@ -1,17 +1,9 @@
 using FormsIW5.Api.DAL.Installers;
-using FormsIW5.Common.BL.Models.Question;
 using FormsIW5.Api.BL.Installers;
 using FormsIW5.Api.DAL.Entities;
 using FormsIW5.Api.BL.Facades;
 using Microsoft.AspNetCore.Mvc;
 using FormsIW5.Common.Installer;
-using Microsoft.Extensions.DependencyInjection;
-using FormsIW5.Api.BL.Facades.Interfaces;
-using FormsIW5.Api.DAL.Repositories.Interfaces;
-using FormsIW5.Api.DAL.Entities.Interfaces;
-using Microsoft.AspNetCore.SignalR;
-using System.Threading;
-using FormsIW5.Api.DAL;
 using Microsoft.EntityFrameworkCore;
 using FormsIW5.Common.BL.Models.User;
 
@@ -36,13 +28,16 @@ public class Program
         builder.Services.Install<ApiBLInstaller>();
         var app = builder.Build();
 
+        app.UseDeveloperExceptionPage();
+
+
         /* if (_dbOptions.RecreateDatabaseEachTime)
          {
              await dbContext.Database.EnsureDeletedAsync(cancellationToken);
          }*/
 
 
-     //   await dbContext.Database.MigrateAsync(cancellationToken);
+        //   await dbContext.Database.MigrateAsync(cancellationToken);
 
         app.UseCors();
         app.UseHttpsRedirection();
