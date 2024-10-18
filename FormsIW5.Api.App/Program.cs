@@ -1,6 +1,20 @@
-using FormsIW5.Api.App;
-using Microsoft.AspNetCore.Builder;
+using FormsIW5.Api.DAL.Installers;
+using FormsIW5.Common.BL.Models.Question;
+using FormsIW5.Api.BL.Installers;
+using FormsIW5.Api.DAL.Entities;
+using FormsIW5.Api.BL.Facades;
+using Microsoft.AspNetCore.Mvc;
+using FormsIW5.Common.Installer;
 using Microsoft.Extensions.DependencyInjection;
+using FormsIW5.Api.BL.Facades.Interfaces;
+using FormsIW5.Api.DAL.Repositories.Interfaces;
+using FormsIW5.Api.DAL.Entities.Interfaces;
+using Microsoft.AspNetCore.SignalR;
+using System.Threading;
+using FormsIW5.Api.DAL;
+using Microsoft.EntityFrameworkCore;
+using FormsIW5.Common.BL.Models.User;
+
 namespace FormsIW5.Api.App;
 
 public class Program
@@ -16,32 +30,27 @@ public class Program
             options.AddDefaultPolicy(o => o.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
         });
 
-        // builder.Services.InstallDAL("");
+        builder.Services.AddAutoMapper(typeof(EntityBase), typeof(ApiBLInstaller));
 
+        builder.Services.Install<ApiDALInstaller>(builder.Configuration.GetConnectionString("DefaultConnectionString")!);
+        builder.Services.Install<ApiBLInstaller>();
         var app = builder.Build();
+
+        /* if (_dbOptions.RecreateDatabaseEachTime)
+         {
+             await dbContext.Database.EnsureDeletedAsync(cancellationToken);
+         }*/
+
+
+     //   await dbContext.Database.MigrateAsync(cancellationToken);
 
         app.UseCors();
         app.UseHttpsRedirection();
 
         app.UseRouting();
 
-        var summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        app.MapGet("/", (HttpContext httpContext) =>
-        {
-            var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                {
-                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    TemperatureC = Random.Shared.Next(-20, 55),
-                    Summary = summaries[Random.Shared.Next(summaries.Length)]
-                })
-                .ToArray();
-            return forecast;
-        }).WithOpenApi();
+        app.MapGet("", ([FromServices] UserFacade userFacade) => userFacade.GetAll());
+        app.MapPost("", ([FromBody] UserDetailModel newUser, [FromServices] UserFacade userFacade) => userFacade.Create(newUser));
 
         app.UseOpenApi();
         app.UseSwaggerUi();
