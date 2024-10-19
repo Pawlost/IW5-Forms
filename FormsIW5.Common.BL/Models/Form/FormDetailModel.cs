@@ -1,6 +1,8 @@
-﻿namespace FormsIW5.Common.BL.Models.Form;
+﻿using FormsIW5.Common.BL.Models.Interfaces;
 
-public record FormDetailModel : DetailModelBase
+namespace FormsIW5.Common.BL.Models.Form;
+
+public record FormDetailModel : IModel
 {
-
+    public Guid Id { get; init; }
 }

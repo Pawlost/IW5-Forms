@@ -1,6 +1,9 @@
-﻿namespace FormsIW5.Common.BL.Models.Form;
+﻿using FormsIW5.Common.BL.Models.Interfaces;
 
-public record QuestionListModel : ListModelBase
+namespace FormsIW5.Common.BL.Models.Form;
+
+public record QuestionListModel : IModel
 {
+    public Guid Id { get; init; }
     public string? TextAnswer { get; set; }
 }
