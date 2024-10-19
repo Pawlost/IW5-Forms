@@ -8,6 +8,6 @@ namespace FormsIW5.Api.BL.Facades.Interfaces
     {
         ICollection<TListModelBase> GetAll();
 
-        TListModelBase GetList(Guid id);
+        TListModelBase GetSingleListModelById(Guid id);
     }
 }

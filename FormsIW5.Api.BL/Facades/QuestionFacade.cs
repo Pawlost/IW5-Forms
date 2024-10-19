@@ -5,6 +5,7 @@ using FormsIW5.Common.BL.Models.Form;
 using FormsIW5.Common.BL.Models.Question;
 
 namespace FormsIW5.Api.BL.Facades;
+/*
 
 public class QuestionFacade : FacadeBase<QuestionEntity, QuestionListModel, QuestionDetailModel>
 {
@@ -12,3 +13,4 @@ public class QuestionFacade : FacadeBase<QuestionEntity, QuestionListModel, Ques
     {
     }
 }
+*/

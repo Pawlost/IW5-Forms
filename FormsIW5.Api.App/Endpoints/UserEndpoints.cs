@@ -13,22 +13,23 @@ public static class UserEndpoints
         //Get all
         group.MapGet("", ([FromServices] IListFacade<UserListModel> userFacade) => userFacade.GetAll());
 
-
         //Get list model By Id
-        group.MapGet("list/{id:guid}", (Guid id, [FromServices] IListFacade<UserListModel> userFacade) => userFacade.GetList(id));
+        group.MapGet("list/{id:guid}", (Guid id, [FromServices] IListFacade<UserListModel> userFacade) => userFacade.GetSingleListModelById(id));
 
         //Get detail By Id
+        group.MapGet("{id:guid}", (Guid id, [FromServices] IDetailFacade<UserDetailModel> userFacade) => userFacade.GetById(id));
 
         // Search by user name
+        group.MapGet("search", ([FromQuery] string username, [FromServices] IUserFacade userFacade) => userFacade.SearchByName(username));
 
         //Create
         group.MapPost("", (UserDetailModel newUser, [FromServices] IDetailFacade<UserDetailModel> userFacade) => userFacade.Create(newUser));
 
         // Update
+        group.MapPut("", (UserDetailModel user, [FromServices] IDetailFacade<UserDetailModel> userFacade) => userFacade.Update(user));
 
         // Delete
         group.MapDelete("{id:guid}", (Guid id, [FromServices] IDetailFacade<UserDetailModel> userFacade) => userFacade.Delete(id));
-
 
         return endpointRoute;
     }

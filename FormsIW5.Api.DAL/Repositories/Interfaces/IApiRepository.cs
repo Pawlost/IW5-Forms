@@ -1,7 +1,6 @@
 ﻿using FormsIW5.Api.DAL.Entities.Interfaces;
 
 namespace FormsIW5.Api.DAL.Repositories.Interfaces;
-
 public interface IApiRepository<TEntity>
     where TEntity : IEntity
 {

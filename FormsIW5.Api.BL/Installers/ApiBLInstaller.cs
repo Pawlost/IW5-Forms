@@ -9,7 +9,6 @@ public class ApiBLInstaller : IInstaller
 {
     public void Install(IServiceCollection serviceCollection)
     {
-        serviceCollection.AddScoped<QuestionFacade>();
         serviceCollection.Scan(selector =>
             selector.FromAssemblyOf<ApiBLInstaller>()
             .AddClasses(classes => classes.AssignableTo<IAppFacadeBase>())

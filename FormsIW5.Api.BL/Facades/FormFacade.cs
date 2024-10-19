@@ -1,13 +1,16 @@
 ﻿using AutoMapper;
 using FormsIW5.Api.DAL.Entities;
 using FormsIW5.Api.DAL.Repositories.Interfaces;
-using FormsIW5.Common.BL.Models.User;
+using FormsIW5.Common.BL.Models.Form;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class UserFacade : FacadeBase<UserEntity, UserListModel, UserDetailModel>
+/*
+public class FormFacade : FacadeBase<FormEntity, FormListModel, FormDetailModel>
 {
-    public UserFacade(IApiRepository<UserEntity> recipeRepository, IMapper mapper) : base(recipeRepository, mapper)
+    public FormFacade(IApiRepository<FormEntity> recipeRepository, IMapper mapper) : base(recipeRepository, mapper)
     {
     }
 }
+
+*/

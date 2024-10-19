@@ -6,76 +6,62 @@ using FormsIW5.Common.BL.Models.Interfaces;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class FacadeBase<TEntity, TListModel, TDetailModel> : IListFacade<TListModel>, IDetailFacade<TDetailModel>
+public class FacadeBase<TEntity, TListModel, TDetailModel, TRepository> : IListFacade<TListModel>, IDetailFacade<TDetailModel>
     where TEntity : IEntity
     where TListModel : IModel
     where TDetailModel : IModel
+    where TRepository : IApiRepository<TEntity>
 {
-    private readonly IApiRepository<TEntity> recipeRepository;
-    private readonly IMapper mapper;
+    protected readonly TRepository repository;
+    protected readonly IMapper mapper;
 
     public FacadeBase(
-        IApiRepository<TEntity> recipeRepository,
+        TRepository repository,
         IMapper mapper)
     {
-        this.recipeRepository = recipeRepository;
+        this.repository = repository;
         this.mapper = mapper;
     }
 
     public Guid Create(TDetailModel detailModel)
     {
-        var recipeEntity = mapper.Map<TEntity>(detailModel);
-        return recipeRepository.Insert(recipeEntity);
+        var entity = mapper.Map<TEntity>(detailModel);
+        return repository.Insert(entity);
     }
 
     public Guid CreateOrUpdate(TDetailModel detailModel)
     {
-        return recipeRepository.Exists(detailModel.Id)
+        return repository.Exists(detailModel.Id)
             ? Update(detailModel)!.Value
             : Create(detailModel);
     }
 
     public void Delete(Guid id)
     {
-        recipeRepository.Remove(id);
+        repository.Remove(id);
     }
 
-    public TListModel GetList(Guid id)
+    public TListModel GetSingleListModelById(Guid id)
     {
-        var recipeEntity = recipeRepository.GetById(id);
-        return mapper.Map<TListModel>(recipeEntity);
+        var entity = repository.GetById(id);
+        return mapper.Map<TListModel>(entity);
     }
 
     public ICollection<TListModel> GetAll()
     {
-        var recipeEntities = recipeRepository.GetAll();
-        return mapper.Map<List<TListModel>>(recipeEntities);
+        var entities = repository.GetAll();
+        return mapper.Map<List<TListModel>>(entities);
     }
 
     public TDetailModel? GetById(Guid id)
     {
-        var recipeEntity = recipeRepository.GetById(id);
-        return mapper.Map<TDetailModel>(recipeEntity);
+        var entity = repository.GetById(id);
+        return mapper.Map<TDetailModel>(entity);
     }
 
     public Guid? Update(TDetailModel detailModel)
     {
-        /*
-         
-        var recipeEntity = mapper.Map<RecipeEntity>(recipeModel);
-        recipeEntity.IngredientAmounts = recipeModel.IngredientAmounts.Select(t =>
-            new IngredientAmountEntity
-            {
-                Id = t.Id,
-                Amount = t.Amount,
-                Unit = t.Unit,
-                RecipeId = recipeEntity.Id,
-                IngredientId = t.Ingredient.Id
-            }).ToList();
-        var result = recipeRepository.Update(recipeEntity);
-        return result;
-         
-         */
-        throw new NotImplementedException();
+        var entity = mapper.Map<TEntity>(detailModel);
+        return repository.Update(entity);
     }
 }
