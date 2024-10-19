@@ -11,7 +11,7 @@ public class RepositoryBase<TEntity> : IApiRepository<TEntity>, IDisposable
 
     protected RepositoryBase(FormsIW5DbContext dbContext)
     {
-        dbContext.Database.Migrate();
+     //   dbContext.Database.Migrate();
         this.dbContext = dbContext;
     }
 

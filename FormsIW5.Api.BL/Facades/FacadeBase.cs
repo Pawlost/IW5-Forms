@@ -2,14 +2,14 @@
 using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Api.DAL.Entities.Interfaces;
 using FormsIW5.Api.DAL.Repositories.Interfaces;
-using FormsIW5.Common.BL.Models;
+using FormsIW5.Common.BL.Models.Interfaces;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class FacadeBase<TEntity, TListModel, TDetailModel> : IAppFacade<TListModel, TDetailModel>
+public class FacadeBase<TEntity, TListModel, TDetailModel> : IListFacade<TListModel>, IDetailFacade<TDetailModel>
     where TEntity : IEntity
-    where TListModel : ListModelBase
-    where TDetailModel : DetailModelBase
+    where TListModel : IModel
+    where TDetailModel : IModel
 {
     private readonly IApiRepository<TEntity> recipeRepository;
     private readonly IMapper mapper;
@@ -40,7 +40,13 @@ public class FacadeBase<TEntity, TListModel, TDetailModel> : IAppFacade<TListMod
         recipeRepository.Remove(id);
     }
 
-    public List<TListModel> GetAll()
+    public TListModel GetList(Guid id)
+    {
+        var recipeEntity = recipeRepository.GetById(id);
+        return mapper.Map<TListModel>(recipeEntity);
+    }
+
+    public ICollection<TListModel> GetAll()
     {
         var recipeEntities = recipeRepository.GetAll();
         return mapper.Map<List<TListModel>>(recipeEntities);

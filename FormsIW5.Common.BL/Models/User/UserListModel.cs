@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FormsIW5.Common.BL.Models.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace FormsIW5.Common.BL.Models.User;
 
-public record UserListModel : ListModelBase
+public record UserListModel : IModel
 {
+    public Guid Id { get; init; }
+
     [Required]
     public required string UserName { get; set; }
 }
