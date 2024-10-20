@@ -4,5 +4,5 @@ namespace FormsIW5.Api.BL.Facades.Interfaces;
 
 public interface IUserFacade : IDetailFacade<UserDetailModel>, IListFacade<UserListModel>
 {
-    ICollection<UserListModel> SearchByName(string userNameQuery);
+    Task<ICollection<UserListModel>> SearchByNameAsync(string userNameQuery);
 }

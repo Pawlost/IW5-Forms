@@ -23,45 +23,45 @@ public class FacadeBase<TEntity, TListModel, TDetailModel, TRepository> : IListF
         this.mapper = mapper;
     }
 
-    public Guid Create(TDetailModel detailModel)
+    public async Task<Guid> CreateAsync(TDetailModel detailModel)
     {
         var entity = mapper.Map<TEntity>(detailModel);
-        return repository.Insert(entity);
+        return await repository.InsertAsync(entity);
     }
 
-    public Guid CreateOrUpdate(TDetailModel detailModel)
+    public async Task<Guid> CreateOrUpdateAsync(TDetailModel detailModel)
     {
-        return repository.Exists(detailModel.Id)
-            ? Update(detailModel)!.Value
-            : Create(detailModel);
+        return await repository.ExistsAsync(detailModel.Id)
+            ? (await UpdateAsync(detailModel))!.Value
+            : await CreateAsync(detailModel);
     }
 
-    public void Delete(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        repository.Remove(id);
+        await repository.RemoveAsync(id);
     }
 
-    public TListModel GetSingleListModelById(Guid id)
+    public async Task<TListModel> GetSingleListModelByIdAsync(Guid id)
     {
-        var entity = repository.GetById(id);
+        var entity = await repository.GetByIdAsync(id);
         return mapper.Map<TListModel>(entity);
     }
 
-    public ICollection<TListModel> GetAll()
+    public async Task<ICollection<TListModel>> GetAllAsync()
     {
-        var entities = repository.GetAll();
+        var entities = await repository.GetAllAsync();
         return mapper.Map<List<TListModel>>(entities);
     }
 
-    public TDetailModel? GetById(Guid id)
+    public async Task<TDetailModel?> GetByIdAsync(Guid id)
     {
-        var entity = repository.GetById(id);
+        var entity = await repository.GetByIdAsync(id);
         return mapper.Map<TDetailModel>(entity);
     }
 
-    public Guid? Update(TDetailModel detailModel)
+    public async Task<Guid?> UpdateAsync(TDetailModel detailModel)
     {
         var entity = mapper.Map<TEntity>(detailModel);
-        return repository.Update(entity);
+        return await repository.UpdateAsync(entity);
     }
 }

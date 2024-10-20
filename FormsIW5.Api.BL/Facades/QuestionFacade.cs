@@ -12,18 +12,18 @@ public class QuestionFacade : FacadeBase<QuestionEntity, QuestionListModel, Ques
     {
     }
 
-    public ICollection<QuestionListModel> SearchByTextOrByDescription(string? textQuery, string? descriptionQuery)
+    public async Task<ICollection<QuestionListModel>> SearchByTextOrByDescriptionAsync(string? textQuery, string? descriptionQuery)
     {
         List<QuestionEntity> entities = [];
 
         if (textQuery != null)
         {
-            entities.AddRange(repository.SearchByText(textQuery) ?? []);
+            entities.AddRange(await repository.SearchByTextAsync(textQuery) ?? []);
         }
 
         if (descriptionQuery != null)
         {
-            entities.AddRange(repository.SearchByDescription(descriptionQuery) ?? []);
+            entities.AddRange(await repository.SearchByDescriptionAsync(descriptionQuery) ?? []);
         }
 
         return mapper.Map<List<QuestionListModel>>(entities);

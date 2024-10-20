@@ -1,5 +1,6 @@
 ﻿using FormsIW5.Api.DAL.Entities;
 using FormsIW5.Api.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace FormsIW5.Api.DAL.Repositories;
 
@@ -11,14 +12,14 @@ public class QuestionRepository : RepositoryBase<QuestionEntity>, IQuestionRepos
     {
     }
 
-    public ICollection<QuestionEntity>? SearchByDescription(string descriptionQuery)
+    public async Task<ICollection<QuestionEntity>?> SearchByDescriptionAsync(string descriptionQuery)
     {
-        return dbContext.Set<QuestionEntity>().Where(x => x.Description != null && x.Description.Contains(descriptionQuery)).ToList();
+        return await dbContext.Set<QuestionEntity>().Where(x => x.Description != null && x.Description.Contains(descriptionQuery)).ToListAsync();
     }
 
-    public ICollection<QuestionEntity>? SearchByText(string textQuery)
+    public async Task<ICollection<QuestionEntity>?> SearchByTextAsync(string textQuery)
     {
-        return dbContext.Set<QuestionEntity>().Where(x => x.TextAnswer != null && x.TextAnswer.Contains(textQuery)).ToList();
+        return await dbContext.Set<QuestionEntity>().Where(x => x.TextAnswer != null && x.TextAnswer.Contains(textQuery)).ToListAsync();
     }
 
 }

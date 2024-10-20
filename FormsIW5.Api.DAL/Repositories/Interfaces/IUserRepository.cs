@@ -4,5 +4,5 @@ namespace FormsIW5.Api.DAL.Repositories.Interfaces;
 
 public interface IUserRepository : IApiRepository<UserEntity>
 {
-    public ICollection<UserEntity>? SearchByName(string userNameQuery);
+    public Task<ICollection<UserEntity>?> SearchByNameAsync(string userNameQuery);
 }

@@ -12,9 +12,9 @@ public class UserFacade : FacadeBase<UserEntity, UserListModel, UserDetailModel,
     {
     }
 
-    public ICollection<UserListModel> SearchByName(string userNameQuery)
+    public async Task<ICollection<UserListModel>> SearchByNameAsync(string userNameQuery)
     {
-        var entities = repository.SearchByName(userNameQuery);
+        var entities = await repository.SearchByNameAsync(userNameQuery);
         return mapper.Map<List<UserListModel>>(entities);
     }
 }

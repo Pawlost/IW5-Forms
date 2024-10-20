@@ -11,22 +11,22 @@ public static class FormEndpoints
         var group = endpointRoute.MapGroup("form");
 
         //Get all
-        group.MapGet("", ([FromServices] IListFacade<FormListModel> facade) => facade.GetAll());
+        group.MapGet("", async ([FromServices] IListFacade<FormListModel> facade) => await facade.GetAllAsync());
 
         //Get list model By Id
-        group.MapGet("list/{id:guid}", (Guid id, [FromServices] IListFacade<FormListModel> facade) => facade.GetSingleListModelById(id));
+        group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<FormListModel> facade) => await facade.GetSingleListModelByIdAsync(id));
 
         //Get detail By Id
-        group.MapGet("{id:guid}", (Guid id, [FromServices] IDetailFacade<FormDetailModel> facade) => facade.GetById(id));
+        group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<FormDetailModel> facade) => await facade.GetByIdAsync(id));
 
         //Create
-        group.MapPost("", (FormDetailModel newForm, [FromServices] IDetailFacade<FormDetailModel> facade) => facade.Create(newForm));
+        group.MapPost("", async (FormDetailModel newForm, [FromServices] IDetailFacade<FormDetailModel> facade) => await facade.CreateAsync(newForm));
 
         // Update
-        group.MapPut("", (FormDetailModel form, [FromServices] IDetailFacade<FormDetailModel> facade) => facade.Update(form));
+        group.MapPut("", async (FormDetailModel form, [FromServices] IDetailFacade<FormDetailModel> facade) => await facade.UpdateAsync(form));
 
         // Delete
-        group.MapDelete("{id:guid}", (Guid id, [FromServices] IDetailFacade<FormDetailModel> facade) => facade.Delete(id));
+        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IDetailFacade<FormDetailModel> facade) => await facade.DeleteAsync(id));
 
         return endpointRoute;
     }

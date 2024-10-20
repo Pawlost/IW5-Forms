@@ -5,7 +5,7 @@ namespace FormsIW5.Api.BL.Facades.Interfaces;
 public interface IListFacade<TListModelBase> : IAppFacadeBase
     where TListModelBase : IModel
 {
-    ICollection<TListModelBase> GetAll();
+    Task<ICollection<TListModelBase>> GetAllAsync();
 
-    TListModelBase GetSingleListModelById(Guid id);
+    Task<TListModelBase> GetSingleListModelByIdAsync(Guid id);
 }

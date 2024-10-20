@@ -3,5 +3,5 @@
 // This interface allows simple use of scrutor
 public interface IAppFacadeBase
 {
-    void Delete(Guid id);
+    Task DeleteAsync(Guid id);
 }

@@ -11,25 +11,25 @@ public static class QuestionEndpoints
         var group = endpointRoute.MapGroup("question");
 
         //Get all
-        group.MapGet("", ([FromServices] IListFacade<QuestionListModel> facade) => facade.GetAll());
+        group.MapGet("", async ([FromServices] IListFacade<QuestionListModel> facade) => await facade.GetAllAsync());
 
         //Get list model By Id
-        group.MapGet("list/{id:guid}", (Guid id, [FromServices] IListFacade<QuestionListModel> facade) => facade.GetSingleListModelById(id));
+        group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<QuestionListModel> facade) => await facade.GetSingleListModelByIdAsync(id));
 
         //Get detail By Id
-        group.MapGet("{id:guid}", (Guid id, [FromServices] IDetailFacade<QuestionDetailModel> facade) => facade.GetById(id));
+        group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<QuestionDetailModel> facade) => await facade.GetByIdAsync(id));
 
         // Search by text
-        group.MapGet("search", ([FromQuery] string? textAnswer, [FromQuery] string? description, [FromServices] IQuestionFacade facade) => facade.SearchByTextOrByDescription(textAnswer, description));
+        group.MapGet("search", async ([FromQuery] string? textAnswer, [FromQuery] string? description, [FromServices] IQuestionFacade facade) => await facade.SearchByTextOrByDescriptionAsync(textAnswer, description));
 
         //Create
-        group.MapPost("", (QuestionDetailModel newForm, [FromServices] IDetailFacade<QuestionDetailModel> facade) => facade.Create(newForm));
+        group.MapPost("", async (QuestionDetailModel newForm, [FromServices] IDetailFacade<QuestionDetailModel> facade) => await facade.CreateAsync(newForm));
 
         // Update
-        group.MapPut("", (QuestionDetailModel form, [FromServices] IDetailFacade<QuestionDetailModel> facade) => facade.Update(form));
+        group.MapPut("", async (QuestionDetailModel form, [FromServices] IDetailFacade<QuestionDetailModel> facade) => await facade.UpdateAsync(form));
 
         // Delete
-        group.MapDelete("{id:guid}", (Guid id, [FromServices] IDetailFacade<QuestionDetailModel> facade) => facade.Delete(id));
+        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IDetailFacade<QuestionDetailModel> facade) => await facade.DeleteAsync(id));
 
         return endpointRoute;
     }

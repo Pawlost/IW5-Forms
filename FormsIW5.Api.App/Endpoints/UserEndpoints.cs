@@ -11,25 +11,25 @@ public static class UserEndpoints
         var group = endpointRoute.MapGroup("user");
 
         //Get all
-        group.MapGet("", ([FromServices] IListFacade<UserListModel> facade) => facade.GetAll());
+        group.MapGet("", async ([FromServices] IListFacade<UserListModel> facade) => await facade.GetAllAsync());
 
         //Get list model By Id
-        group.MapGet("list/{id:guid}", (Guid id, [FromServices] IListFacade<UserListModel> facade) => facade.GetSingleListModelById(id));
+        group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<UserListModel> facade) => await facade.GetSingleListModelByIdAsync(id));
 
         //Get detail By Id
-        group.MapGet("{id:guid}", (Guid id, [FromServices] IDetailFacade<UserDetailModel> facade) => facade.GetById(id));
+        group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<UserDetailModel> facade) => await facade.GetByIdAsync(id));
 
         // Search by user name
-        group.MapGet("search", ([FromQuery] string username, [FromServices] IUserFacade facade) => facade.SearchByName(username));
+        group.MapGet("search", async ([FromQuery] string username, [FromServices] IUserFacade facade) => await facade.SearchByNameAsync(username));
 
         //Create
-        group.MapPost("", (UserDetailModel newUser, [FromServices] IDetailFacade<UserDetailModel> facade) => facade.Create(newUser));
+        group.MapPost("", async (UserDetailModel newUser, [FromServices] IDetailFacade<UserDetailModel> facade) => await facade.CreateAsync(newUser));
 
         // Update
-        group.MapPut("", (UserDetailModel user, [FromServices] IDetailFacade<UserDetailModel> facade) => facade.Update(user));
+        group.MapPut("", async (UserDetailModel user, [FromServices] IDetailFacade<UserDetailModel> facade) => await facade.UpdateAsync(user));
 
         // Delete
-        group.MapDelete("{id:guid}", (Guid id, [FromServices] IDetailFacade<UserDetailModel> facade) => facade.Delete(id));
+        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IDetailFacade<UserDetailModel> facade) => await facade.DeleteAsync(id));
 
         return endpointRoute;
     }

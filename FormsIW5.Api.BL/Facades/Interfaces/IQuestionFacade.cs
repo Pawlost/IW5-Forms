@@ -4,5 +4,5 @@ namespace FormsIW5.Api.BL.Facades.Interfaces;
 
 public interface IQuestionFacade : IDetailFacade<QuestionDetailModel>, IListFacade<QuestionListModel>
 {
-    ICollection<QuestionListModel> SearchByTextOrByDescription(string? textQuery, string? descriptionQuery);
+    Task<ICollection<QuestionListModel>> SearchByTextOrByDescriptionAsync(string? textQuery, string? descriptionQuery);
 }
