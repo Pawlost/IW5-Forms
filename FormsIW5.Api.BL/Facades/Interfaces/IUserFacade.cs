@@ -1,5 +1,4 @@
-﻿using FormsIW5.Api.DAL.Entities;
-using FormsIW5.Common.BL.Models.User;
+﻿using FormsIW5.Common.BL.Models.User;
 
 namespace FormsIW5.Api.BL.Facades.Interfaces
 {
