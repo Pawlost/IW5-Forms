@@ -1,16 +1,32 @@
 ﻿using AutoMapper;
+using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Api.DAL.Entities;
 using FormsIW5.Api.DAL.Repositories.Interfaces;
 using FormsIW5.Common.BL.Models.Form;
 using FormsIW5.Common.BL.Models.Question;
-
+using FormsIW5.Common.BL.Models.User;
 namespace FormsIW5.Api.BL.Facades;
-/*
 
-public class QuestionFacade : FacadeBase<QuestionEntity, QuestionListModel, QuestionDetailModel>
+public class QuestionFacade : FacadeBase<QuestionEntity, QuestionListModel, QuestionDetailModel, IQuestionRepository>, IQuestionFacade
 {
-    public QuestionFacade(IApiRepository<QuestionEntity> recipeRepository, IMapper mapper) : base(recipeRepository, mapper)
+    public QuestionFacade(IQuestionRepository repository, IMapper mapper) : base(repository, mapper)
     {
     }
+
+    public ICollection<QuestionListModel> SearchByTextOrByDescription(string? textQuery, string? descriptionQuery)
+    {
+        List<QuestionEntity> entities = [];
+
+        if (textQuery != null)
+        {
+            entities.AddRange(repository.SearchByText(textQuery) ?? []);
+        }
+
+        if (descriptionQuery != null)
+        {
+            entities.AddRange(repository.SearchByDescription(descriptionQuery) ?? []);
+        }
+
+        return mapper.Map<List<QuestionListModel>>(entities);
+    }
 }
-*/
