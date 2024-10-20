@@ -2,9 +2,8 @@
 using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Api.DAL.Entities;
 using FormsIW5.Api.DAL.Repositories.Interfaces;
-using FormsIW5.Common.BL.Models.Form;
 using FormsIW5.Common.BL.Models.Question;
-using FormsIW5.Common.BL.Models.User;
+
 namespace FormsIW5.Api.BL.Facades;
 
 public class QuestionFacade : FacadeBase<QuestionEntity, QuestionListModel, QuestionDetailModel, IQuestionRepository>, IQuestionFacade

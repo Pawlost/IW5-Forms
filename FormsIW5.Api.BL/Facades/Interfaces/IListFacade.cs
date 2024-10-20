@@ -1,13 +1,11 @@
-﻿using FormsIW5.Common.BL.Models;
-using FormsIW5.Common.BL.Models.Interfaces;
+﻿using FormsIW5.Common.BL.Models.Interfaces;
 
-namespace FormsIW5.Api.BL.Facades.Interfaces
+namespace FormsIW5.Api.BL.Facades.Interfaces;
+
+public interface IListFacade<TListModelBase> : IAppFacadeBase
+    where TListModelBase : IModel
 {
-    public interface IListFacade<TListModelBase> : IAppFacadeBase
-        where TListModelBase : IModel
-    {
-        ICollection<TListModelBase> GetAll();
+    ICollection<TListModelBase> GetAll();
 
-        TListModelBase GetSingleListModelById(Guid id);
-    }
+    TListModelBase GetSingleListModelById(Guid id);
 }

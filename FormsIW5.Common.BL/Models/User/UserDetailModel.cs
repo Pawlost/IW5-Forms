@@ -1,6 +1,6 @@
 ﻿using FormsIW5.Common.BL.Models.Form;
 using FormsIW5.Common.BL.Models.Interfaces;
-using FormsIW5.Common.DAL.Enums;
+using FormsIW5.Common.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace FormsIW5.Common.BL.Models.User;

@@ -1,11 +1,8 @@
-﻿using FormsIW5.Common.BL.Models.Form;
-using FormsIW5.Common.BL.Models.Question;
-using FormsIW5.Common.BL.Models.User;
+﻿using FormsIW5.Common.BL.Models.Question;
 
-namespace FormsIW5.Api.BL.Facades.Interfaces
+namespace FormsIW5.Api.BL.Facades.Interfaces;
+
+public interface IQuestionFacade : IDetailFacade<QuestionDetailModel>, IListFacade<QuestionListModel>
 {
-    public interface IQuestionFacade : IDetailFacade<QuestionDetailModel>, IListFacade<QuestionListModel>
-    {
-        ICollection<QuestionListModel> SearchByTextOrByDescription(string? textQuery, string? descriptionQuery);
-    }
+    ICollection<QuestionListModel> SearchByTextOrByDescription(string? textQuery, string? descriptionQuery);
 }

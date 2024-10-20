@@ -1,4 +1,4 @@
-﻿namespace FormsIW5.Common.DAL.Enums;
+﻿namespace FormsIW5.Common.Enums;
 
 public enum UserRole
 {
