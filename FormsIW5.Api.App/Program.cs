@@ -4,6 +4,7 @@ using FormsIW5.Api.DAL.Entities;
 using FormsIW5.Common.Installer;
 using Microsoft.EntityFrameworkCore;
 using FormsIW5.Api.App.Endpoints;
+using FormsIW5.Api.DAL;
 
 namespace FormsIW5.Api.App;
 
@@ -24,7 +25,11 @@ public class Program
 
         builder.Services.Install<ApiDALInstaller>(builder.Configuration.GetConnectionString("DefaultConnectionString")!);
         builder.Services.Install<ApiBLInstaller>();
+
         var app = builder.Build();
+
+        var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
+        dbContext.Database.Migrate();
 
         var environment = app.Services.GetRequiredService<IWebHostEnvironment>();
 

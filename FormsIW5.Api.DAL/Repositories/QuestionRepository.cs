@@ -1,6 +1,9 @@
-﻿using FormsIW5.Api.DAL.Entities;
-using FormsIW5.Api.DAL.Repositories.Interfaces;
+﻿using FormsIW5.Api.DAL.Common.Interfaces;
+using FormsIW5.Api.DAL.Common.Queries;
+using FormsIW5.Api.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Linq;
 
 namespace FormsIW5.Api.DAL.Repositories;
 
@@ -12,14 +15,13 @@ public class QuestionRepository : RepositoryBase<QuestionEntity>, IQuestionRepos
     {
     }
 
-    public async Task<ICollection<QuestionEntity>?> SearchByDescriptionAsync(string descriptionQuery)
+    public async Task<ICollection<QuestionEntity>?> Search(QuestionQueryObject questionQuery)
     {
-        return await dbContext.Set<QuestionEntity>().Where(x => x.Description != null && x.Description.Contains(descriptionQuery)).ToListAsync();
-    }
 
-    public async Task<ICollection<QuestionEntity>?> SearchByTextAsync(string textQuery)
-    {
-        return await dbContext.Set<QuestionEntity>().Where(x => x.TextAnswer != null && x.TextAnswer.Contains(textQuery)).ToListAsync();
+        return await dbContext.Set<QuestionEntity>().Where(x => !String.IsNullOrEmpty(questionQuery.Text) &&
+        !String.IsNullOrEmpty(questionQuery.Description) &&
+        !String.IsNullOrEmpty(x.Text) &&
+         !String.IsNullOrEmpty(x.Description) &&
+        x.Text.Contains(questionQuery.Text) && x.Description.Contains(questionQuery.Description)).ToListAsync();
     }
-
 }

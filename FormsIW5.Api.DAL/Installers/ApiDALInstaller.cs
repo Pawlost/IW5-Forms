@@ -1,5 +1,5 @@
-﻿using FormsIW5.Api.DAL.Entities.Interfaces;
-using FormsIW5.Api.DAL.Repositories.Interfaces;
+﻿using FormsIW5.Api.DAL.Common.Interfaces;
+using FormsIW5.Api.DAL.Entities.Interfaces;
 using FormsIW5.Common.Installer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

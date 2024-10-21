@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FormsIW5.Api.BL.Facades.Interfaces;
+using FormsIW5.Api.DAL.Common.Interfaces;
 using FormsIW5.Api.DAL.Entities.Interfaces;
-using FormsIW5.Api.DAL.Repositories.Interfaces;
 using FormsIW5.Common.BL.Models.Interfaces;
 
 namespace FormsIW5.Api.BL.Facades;

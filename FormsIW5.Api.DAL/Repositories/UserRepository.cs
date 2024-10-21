@@ -1,6 +1,5 @@
-﻿using AutoMapper;
+﻿using FormsIW5.Api.DAL.Common.Interfaces;
 using FormsIW5.Api.DAL.Entities;
-using FormsIW5.Api.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 namespace FormsIW5.Api.DAL.Repositories;
 
