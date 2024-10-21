@@ -11,55 +11,55 @@ public class RepositoryBase<TEntity> : IApiRepository<TEntity>, IDisposable
 
     protected RepositoryBase(FormsIW5DbContext dbContext)
     {
-        dbContext.Database.Migrate();
+     //   dbContext.Database.Migrate();
         this.dbContext = dbContext;
     }
 
-    public virtual IList<TEntity> GetAll()
+    public virtual async Task<IList<TEntity>> GetAllAsync()
     {
-        return dbContext.Set<TEntity>().ToList();
+        return await dbContext.Set<TEntity>().ToListAsync();
     }
 
-    public virtual TEntity? GetById(Guid id)
+    public virtual async Task<TEntity?> GetByIdAsync(Guid id)
     {
-        return dbContext.Set<TEntity>().SingleOrDefault(entity => entity.Id == id);
+        return await dbContext.Set<TEntity>().SingleOrDefaultAsync(entity => entity.Id == id);
     }
 
-    public virtual Guid Insert(TEntity entity)
+    public virtual async Task<Guid> InsertAsync(TEntity entity)
     {
-        var createdEntity = dbContext.Set<TEntity>().Add(entity);
-        dbContext.SaveChanges();
+        var createdEntity = await dbContext.Set<TEntity>().AddAsync(entity);
+        await dbContext.SaveChangesAsync();
 
         return createdEntity.Entity.Id;
     }
 
-    public virtual Guid? Update(TEntity entity)
+    public virtual async Task<Guid?> UpdateAsync(TEntity entity)
     {
-        if (!Exists(entity.Id))
+        if (!await ExistsAsync(entity.Id))
         {
             return null;
         }
 
         dbContext.Set<TEntity>().Attach(entity);
         var updatedEntity = dbContext.Set<TEntity>().Update(entity);
-        dbContext.SaveChanges();
+        await dbContext.SaveChangesAsync();
 
         return updatedEntity.Entity.Id;
     }
 
-    public virtual void Remove(Guid id)
+    public virtual async Task RemoveAsync(Guid id)
     {
-        var entity = GetById(id);
+        var entity =  await GetByIdAsync(id);
         if (entity is not null)
         {
             dbContext.Set<TEntity>().Remove(entity);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
         }
     }
 
-    public virtual bool Exists(Guid id)
+    public virtual async Task<bool> ExistsAsync(Guid id)
     {
-        return dbContext.Set<TEntity>().Any(entity => entity.Id == id);
+        return await dbContext.Set<TEntity>().AnyAsync(entity => entity.Id == id);
     }
 
     public void Dispose()

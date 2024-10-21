@@ -2,74 +2,66 @@
 using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Api.DAL.Entities.Interfaces;
 using FormsIW5.Api.DAL.Repositories.Interfaces;
-using FormsIW5.Common.BL.Models;
+using FormsIW5.Common.BL.Models.Interfaces;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class FacadeBase<TEntity, TListModel, TDetailModel> : IAppFacade<TListModel, TDetailModel>
+public class FacadeBase<TEntity, TListModel, TDetailModel, TRepository> : IListFacade<TListModel>, IDetailFacade<TDetailModel>
     where TEntity : IEntity
-    where TListModel : ListModelBase
-    where TDetailModel : DetailModelBase
+    where TListModel : IModel
+    where TDetailModel : IModel
+    where TRepository : IApiRepository<TEntity>
 {
-    private readonly IApiRepository<TEntity> recipeRepository;
-    private readonly IMapper mapper;
+    protected readonly TRepository repository;
+    protected readonly IMapper mapper;
 
     public FacadeBase(
-        IApiRepository<TEntity> recipeRepository,
+        TRepository repository,
         IMapper mapper)
     {
-        this.recipeRepository = recipeRepository;
+        this.repository = repository;
         this.mapper = mapper;
     }
 
-    public Guid Create(TDetailModel detailModel)
+    public async Task<Guid> CreateAsync(TDetailModel detailModel)
     {
-        var recipeEntity = mapper.Map<TEntity>(detailModel);
-        return recipeRepository.Insert(recipeEntity);
+        var entity = mapper.Map<TEntity>(detailModel);
+        return await repository.InsertAsync(entity);
     }
 
-    public Guid CreateOrUpdate(TDetailModel detailModel)
+    public async Task<Guid> CreateOrUpdateAsync(TDetailModel detailModel)
     {
-        return recipeRepository.Exists(detailModel.Id)
-            ? Update(detailModel)!.Value
-            : Create(detailModel);
+        return await repository.ExistsAsync(detailModel.Id)
+            ? (await UpdateAsync(detailModel))!.Value
+            : await CreateAsync(detailModel);
     }
 
-    public void Delete(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        recipeRepository.Remove(id);
+        await repository.RemoveAsync(id);
     }
 
-    public List<TListModel> GetAll()
+    public async Task<TListModel> GetSingleListModelByIdAsync(Guid id)
     {
-        var recipeEntities = recipeRepository.GetAll();
-        return mapper.Map<List<TListModel>>(recipeEntities);
+        var entity = await repository.GetByIdAsync(id);
+        return mapper.Map<TListModel>(entity);
     }
 
-    public TDetailModel? GetById(Guid id)
+    public async Task<ICollection<TListModel>> GetAllAsync()
     {
-        var recipeEntity = recipeRepository.GetById(id);
-        return mapper.Map<TDetailModel>(recipeEntity);
+        var entities = await repository.GetAllAsync();
+        return mapper.Map<List<TListModel>>(entities);
     }
 
-    public Guid? Update(TDetailModel detailModel)
+    public async Task<TDetailModel?> GetByIdAsync(Guid id)
     {
-        /*
-         
-        var recipeEntity = mapper.Map<RecipeEntity>(recipeModel);
-        recipeEntity.IngredientAmounts = recipeModel.IngredientAmounts.Select(t =>
-            new IngredientAmountEntity
-            {
-                Id = t.Id,
-                Amount = t.Amount,
-                Unit = t.Unit,
-                RecipeId = recipeEntity.Id,
-                IngredientId = t.Ingredient.Id
-            }).ToList();
-        var result = recipeRepository.Update(recipeEntity);
-        return result;
-         
-         */
-        throw new NotImplementedException();
+        var entity = await repository.GetByIdAsync(id);
+        return mapper.Map<TDetailModel>(entity);
+    }
+
+    public async Task<Guid?> UpdateAsync(TDetailModel detailModel)
+    {
+        var entity = mapper.Map<TEntity>(detailModel);
+        return await repository.UpdateAsync(entity);
     }
 }

@@ -1,6 +1,12 @@
-﻿namespace FormsIW5.Common.BL.Models.Form;
+﻿using FormsIW5.Common.BL.Models.Interfaces;
+using FormsIW5.Common.BL.Models.Question;
 
-public record FormDetailModel : DetailModelBase
+namespace FormsIW5.Common.BL.Models.Form;
+
+public record FormDetailModel : IModel
 {
-
+    public Guid Id { get; init; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
+    public ICollection<QuestionListModel> Questions { get; set; } = [];
 }

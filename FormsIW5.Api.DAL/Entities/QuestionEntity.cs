@@ -1,4 +1,4 @@
-﻿using FormsIW5.Common.DAL.Enums;
+﻿using FormsIW5.Common.Enums;
 
 namespace FormsIW5.Api.DAL.Entities;
 

@@ -1,14 +1,13 @@
 ﻿using FormsIW5.Api.DAL.Entities.Interfaces;
 
 namespace FormsIW5.Api.DAL.Repositories.Interfaces;
-
 public interface IApiRepository<TEntity>
     where TEntity : IEntity
 {
-    IList<TEntity> GetAll();
-    TEntity? GetById(Guid id);
-    Guid Insert(TEntity entity);
-    Guid? Update(TEntity entity);
-    void Remove(Guid id);
-    bool Exists(Guid id);
+    Task<IList<TEntity>> GetAllAsync();
+    Task<TEntity?> GetByIdAsync(Guid id);
+    Task<Guid> InsertAsync(TEntity entity);
+    Task<Guid?> UpdateAsync(TEntity entity);
+    Task RemoveAsync(Guid id);
+    Task<bool> ExistsAsync(Guid id);
 }

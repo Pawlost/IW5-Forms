@@ -1,5 +1,4 @@
-﻿using FormsIW5.Api.BL.Facades;
-using FormsIW5.Api.BL.Facades.Interfaces;
+﻿using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Common.Installer;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,7 +8,6 @@ public class ApiBLInstaller : IInstaller
 {
     public void Install(IServiceCollection serviceCollection)
     {
-        serviceCollection.AddScoped<QuestionFacade>();
         serviceCollection.Scan(selector =>
             selector.FromAssemblyOf<ApiBLInstaller>()
             .AddClasses(classes => classes.AssignableTo<IAppFacadeBase>())

@@ -1,5 +1,10 @@
-﻿namespace FormsIW5.Common.BL.Models.Form;
+﻿using FormsIW5.Common.BL.Models.Interfaces;
 
-public record FormListModel : ListModelBase
+namespace FormsIW5.Common.BL.Models.Form;
+
+public record FormListModel : IModel
 {
+    public Guid Id { get; init; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
 }
