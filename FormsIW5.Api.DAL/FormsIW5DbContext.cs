@@ -27,7 +27,7 @@ public class FormsIW5DbContext(DbContextOptions<FormsIW5DbContext> options) : Db
 
         modelBuilder.Entity<QuestionEntity>()
             .HasMany(questionEntity => questionEntity.Answers)
-            .WithOne(answerEntity => answerEntity.Answer)
+            .WithOne(answerEntity => answerEntity.Question)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
