@@ -28,8 +28,8 @@ public class Program
 
         var app = builder.Build();
 
-        var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
-        dbContext.Database.Migrate();
+    /*    var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
+        dbContext.Database.Migrate();*/
 
         var environment = app.Services.GetRequiredService<IWebHostEnvironment>();
 

@@ -16,7 +16,10 @@ public class EndControllerTests : IAsyncDisposable
     [Fact]
     public void Test1()
     {
-        Assert.True(true);
+        var test = Environment.GetEnvironmentVariable("MY_ENV_VAR");
+
+        Assert.NotNull(test);
+        Assert.Equal("printOverhere", test);
     }
 
     public async ValueTask DisposeAsync()
