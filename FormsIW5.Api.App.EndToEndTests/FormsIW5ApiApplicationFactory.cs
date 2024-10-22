@@ -16,7 +16,7 @@ public class FormsIW5ApiApplicationFactory : WebApplicationFactory<Program>
 
             var test = Environment.GetEnvironmentVariable("LMAO");
 
-            Console.WriteLine(test);
+            Console.WriteLine(test ?? "empty");
           /*  collection.AddDbContext<FormsIW5DbContext>(options =>
             options.UseSqlServer(connectionString));*/
         });
