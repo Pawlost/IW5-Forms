@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FormsIW5.Common.BL.Models.Interfaces;
 
-namespace FormsIW5.Common.BL.Models.Answer
+namespace FormsIW5.Common.BL.Models.Answer;
+
+public record AnswerListModel : IModel
 {
-    internal class AnswerListModel
-    {
-    }
+    public string? TextAnswer { get; set; }
+    public int? IntegerAnswer { get; set; }
+    public Guid Id { get; init; }
 }

@@ -56,6 +56,7 @@ public class Program
         endpointRoute.MapGroup("api").WithOpenApi()
             .AddUserEndpoints()
             .AddFormEndpoints()
-            .AddQuestionEndpoints();
+            .AddQuestionEndpoints()
+            .AddAnswerEndpoints();
     }
 }
