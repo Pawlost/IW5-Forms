@@ -7,7 +7,6 @@ trigger:
 - main
 
 pool:
-  name: 'my-pc'
   vmImage: 'windows-latest'
 
 variables:
@@ -25,20 +24,21 @@ steps:
       version: $(dotNetVersion)
       includePreviewVersions: true
 
+  - script: |
+      echo {"Logging": {"LogLevel": {"Default": "Information","Microsoft.AspNetCore": "Warning"}}, "AllowedHosts": "*","ConnectionStrings": {"DefaultConnection": "$(ConnectionString)"}} > ./FormsIW5.Api.App/appsettings.json
+
   - task: DotNetCoreCLI@2
     name: "Build_API"
     inputs:
       command: 'build'
       projects: $(targetAPIProject)
-  - script: |
-      echo "<TestRunParameters><Parameter name=\"MY_ENV_VAR\" value=\"$(MY_ENV_VAR)\"></TestRunParameters>" > appsettings.runsettings
 
   - task: DotNetCoreCLI@2
     name: "Test_All"
     inputs:
       command: 'test'
       projects: '**/*Tests*.csproj'
-      arguments: '--settings appsettings.runsettings'
+      otherConsoleOptions: '/logger:console;verbosity=detailed'
 
   - task: DotNetCoreCLI@2
     name: "Publish_API"

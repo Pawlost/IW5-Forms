@@ -23,7 +23,7 @@ public class Program
 
         builder.Services.AddAutoMapper(typeof(EntityBase), typeof(ApiBLInstaller));
 
-        builder.Services.Install<ApiDALInstaller>(builder.Configuration.GetConnectionString("DefaultConnectionString")!);
+        builder.Services.Install<ApiDALInstaller>(builder.Configuration.GetConnectionString("DefaultConnection")!);
         builder.Services.Install<ApiBLInstaller>();
 
         var app = builder.Build();

@@ -13,9 +13,6 @@ public class FormsIW5ApiApplicationFactory : WebApplicationFactory<Program>
         {
             var controllerAssemblyName = typeof(Program).Assembly.FullName;
             collection.AddMvc().AddApplicationPart(Assembly.Load(controllerAssemblyName));
-
-          /*  collection.AddDbContext<FormsIW5DbContext>(options =>
-            options.UseSqlServer(connectionString));*/
         });
 
         return base.CreateHost(builder);
