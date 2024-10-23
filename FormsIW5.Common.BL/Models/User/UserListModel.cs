@@ -13,5 +13,4 @@ public record UserListModel : IModel
 
     public Uri? ProfilePicture { get; set; }
     public UserRole Role { get; set; } = UserRole.User;
-
 }

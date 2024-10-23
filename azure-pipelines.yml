@@ -25,7 +25,7 @@ steps:
       includePreviewVersions: true
 
   - script: |
-      echo {"Logging": {"LogLevel": {"Default": "Information","Microsoft.AspNetCore": "Warning"}}, "AllowedHosts": "*","ConnectionStrings": {"DefaultConnection": "$(ConnectionString)"}} > ./FormsIW5.Api.App/appsettings.json
+      echo { "ConnectionStrings": {"EndToEndTestConnection": "$(ConnectionString)"}} > ./FormsIW5.Api.App/appsettings.QA.json
 
   - task: DotNetCoreCLI@2
     name: "Build_API"
