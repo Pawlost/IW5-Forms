@@ -1,5 +1,5 @@
-﻿using FormsIW5.Api.DAL.Entities.Interfaces;
-using FormsIW5.Api.DAL.Repositories.Interfaces;
+﻿using FormsIW5.Api.DAL.Common.Interfaces;
+using FormsIW5.Api.DAL.Entities.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace FormsIW5.Api.DAL.Repositories;
@@ -11,7 +11,6 @@ public class RepositoryBase<TEntity> : IApiRepository<TEntity>, IDisposable
 
     protected RepositoryBase(FormsIW5DbContext dbContext)
     {
-     //   dbContext.Database.Migrate();
         this.dbContext = dbContext;
     }
 
