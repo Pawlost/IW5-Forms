@@ -5,6 +5,8 @@ using FormsIW5.Common.Installer;
 using Microsoft.EntityFrameworkCore;
 using FormsIW5.Api.App.Endpoints;
 using FormsIW5.Api.DAL;
+using FormsIW5.Api.App.Configurations;
+using Microsoft.Extensions.Options;
 
 namespace FormsIW5.Api.App;
 
@@ -17,21 +19,42 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddOpenApiDocument();
 
-        builder.Services.AddCors(options => {
+        builder.Services.AddCors(options =>
+        {
             options.AddDefaultPolicy(o => o.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
         });
 
         builder.Services.AddAutoMapper(typeof(EntityBase), typeof(ApiBLInstaller));
 
-        builder.Services.Install<ApiDALInstaller>(builder.Configuration.GetConnectionString("DefaultConnection")!);
+
+        if (builder.Environment.EnvironmentName != "QA")
+        {
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new InvalidOperationException($"Connection string not found.");
+            }
+
+            builder.Services.Install<ApiDALInstaller>(connectionString!);
+        }
+
         builder.Services.Install<ApiBLInstaller>();
+
+        builder.Services.AddOptions<MigrationConfiguration>()
+            .BindConfiguration("MigrationOptions")
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
         var app = builder.Build();
 
-    /*    var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
-        dbContext.Database.Migrate();*/
 
         var environment = app.Services.GetRequiredService<IWebHostEnvironment>();
+
+        if (environment.EnvironmentName != "QA")
+        {
+            MigrateDB(app.Services);
+        }
 
         if (environment.IsDevelopment())
         {
@@ -49,6 +72,19 @@ public class Program
         app.UseSwaggerUi();
 
         app.Run();
+    }
+
+    public static void MigrateDB(IServiceProvider services) {
+
+        var configuration = services.GetRequiredService<IOptions<MigrationConfiguration>>();
+
+
+        if (configuration.Value.ApplyMigration)
+        {
+            using var dbContext = services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
+
+            dbContext.Database.Migrate();
+        }
     }
 
     public static void AddEndpoints(IEndpointRouteBuilder endpointRoute)
