@@ -1,6 +1,6 @@
 ﻿using FormsIW5.Api.DAL.Common.Entities;
 using FormsIW5.Api.DAL.Common.Interfaces;
-using FormsIW5.Api.DAL.Entities.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace FormsIW5.Api.DAL.Repositories;
 
@@ -13,7 +13,11 @@ public class FormRepository : RepositoryBase<FormEntity>, IFormRepository
 
     public override async Task<Guid> InsertAsync(FormEntity entity)
     {
-        return Guid.NewGuid();
+        var user = await dbContext.Set<UserEntity>().Include(u => u.Forms).SingleOrDefaultAsync(u => u.Id == entity.UserId);
+        user?.Forms.Add(entity);
+        await dbContext.SaveChangesAsync();
+
+        return entity.Id;
     }
 }
 
