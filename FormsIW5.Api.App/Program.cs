@@ -78,7 +78,6 @@ public class Program
 
         var configuration = services.GetRequiredService<IOptions<MigrationConfiguration>>();
 
-
         if (configuration.Value.ApplyMigration)
         {
             using var dbContext = services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();

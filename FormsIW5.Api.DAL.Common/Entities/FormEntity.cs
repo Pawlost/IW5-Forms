@@ -2,6 +2,7 @@
 
 public record FormEntity : EntityBase
 {
+    public string FormName { get; set; } = "";
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
 
