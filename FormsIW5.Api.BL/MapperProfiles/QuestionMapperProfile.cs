@@ -9,6 +9,6 @@ public class QuestionMapperProfile : Profile
     public QuestionMapperProfile()
     {
         CreateMap<QuestionEntity, QuestionListModel>().ReverseMap();
-        CreateMap<QuestionEntity, QuestionDetailModel>().ReverseMap().ForMember(dst => dst.Id, opt => opt.Ignore());
+        CreateMap<QuestionEntity, QuestionDetailModel>().ReverseMap();
     }
 }

@@ -4,11 +4,11 @@ namespace FormsIW5.Api.DAL.Common.Entities;
 
 public record QuestionEntity : EntityBase
 {
+    public string? QuestionText { get; set; }
+    public string? Description { get; set; }
     public int FromValue { get; set; }
     public int ToValue { get; set; }
     public QuestionType QuestionType { get; set; }
-    public string? Text { get; set; }
-    public string? Description { get; set; }
     public Guid FormId { get; set; }
     public FormEntity? Form { get; set; }
 
