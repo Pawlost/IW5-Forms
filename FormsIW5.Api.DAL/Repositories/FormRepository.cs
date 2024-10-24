@@ -1,13 +1,19 @@
 ﻿using FormsIW5.Api.DAL.Common.Entities;
 using FormsIW5.Api.DAL.Common.Interfaces;
+using FormsIW5.Api.DAL.Entities.Interfaces;
 
 namespace FormsIW5.Api.DAL.Repositories;
 
-public class AnswerRepository : RepositoryBase<AnswerEntity>, IAnswerRepository
+public class FormRepository : RepositoryBase<FormEntity>, IFormRepository
 {
-    public AnswerRepository(
-        FormsIW5DbContext dbContext)
-        : base(dbContext)
+    public FormRepository(FormsIW5DbContext dbContext)
+    : base(dbContext)
     {
     }
+
+    public override async Task<Guid> InsertAsync(FormEntity entity)
+    {
+        return Guid.NewGuid();
+    }
 }
+

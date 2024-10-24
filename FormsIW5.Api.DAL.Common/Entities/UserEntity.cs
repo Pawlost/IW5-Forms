@@ -1,7 +1,7 @@
 ﻿using FormsIW5.Common.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace FormsIW5.Api.DAL.Entities;
+namespace FormsIW5.Api.DAL.Common.Entities;
 
 public record UserEntity : EntityBase
 {

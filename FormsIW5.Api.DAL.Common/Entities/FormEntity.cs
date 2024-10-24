@@ -1,4 +1,4 @@
-﻿namespace FormsIW5.Api.DAL.Entities;
+﻿namespace FormsIW5.Api.DAL.Common.Entities;
 
 public record FormEntity : EntityBase
 {

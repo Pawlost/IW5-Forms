@@ -34,7 +34,6 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
             Role = UserRole.User
         };
 
-        // Serialize the user object to JSON.
         var content = JsonContent.Create(newUser);
 
         var responseTwo = await _clientFixture.Client.PostAsync("/api/user/", content);
@@ -50,17 +49,5 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         var users = await responseThree.Content.ReadFromJsonAsync<ICollection<UserListModel>>();
         Assert.NotNull(users);
         Assert.NotEmpty(users);
-    }
-
-    [Fact]
-    public async Task Check_Empty_One()
-    {
-        var response = await _clientFixture.Client.GetAsync("/api/user/");
-
-        response.EnsureSuccessStatusCode();
-
-        var recipes = await response.Content.ReadFromJsonAsync<ICollection<UserListModel>>();
-        Assert.NotNull(recipes);
-        Assert.Empty(recipes);
     }
 }

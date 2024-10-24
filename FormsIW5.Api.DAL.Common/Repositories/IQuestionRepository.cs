@@ -1,5 +1,5 @@
-﻿using FormsIW5.Api.DAL.Common.Queries;
-using FormsIW5.Api.DAL.Entities;
+﻿using FormsIW5.Api.DAL.Common.Entities;
+using FormsIW5.Api.DAL.Common.Queries;
 
 namespace FormsIW5.Api.DAL.Common.Interfaces;
 

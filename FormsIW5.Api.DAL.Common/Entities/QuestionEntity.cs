@@ -1,7 +1,6 @@
-﻿using FormsIW5.Api.DAL.Common.Entities;
-using FormsIW5.Common.Enums;
+﻿using FormsIW5.Common.Enums;
 
-namespace FormsIW5.Api.DAL.Entities;
+namespace FormsIW5.Api.DAL.Common.Entities;
 
 public record QuestionEntity : EntityBase
 {
