@@ -1,5 +1,5 @@
 ﻿using FormsIW5.Api.DAL.Common.Entities;
-using FormsIW5.Api.DAL.Common.Interfaces;
+using FormsIW5.Api.DAL.Common.Repositories;
 
 namespace FormsIW5.Api.DAL.Repositories;
 

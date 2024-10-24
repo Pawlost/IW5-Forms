@@ -4,4 +4,6 @@
 public interface IAppFacadeBase
 {
     Task DeleteAsync(Guid id);
+    Task<bool> ExistsAsync(Guid id);
+
 }

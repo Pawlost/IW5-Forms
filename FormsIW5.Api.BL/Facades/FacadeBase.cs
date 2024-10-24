@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FormsIW5.Api.BL.Facades.Interfaces;
-using FormsIW5.Api.DAL.Common.Interfaces;
+using FormsIW5.Api.DAL.Common.Repositories;
 using FormsIW5.Api.DAL.Entities.Interfaces;
 using FormsIW5.Common.BL.Models.Interfaces;
 
@@ -63,5 +63,10 @@ public class FacadeBase<TEntity, TListModel, TDetailModel, TRepository> : IListF
     {
         var entity = mapper.Map<TEntity>(detailModel);
         return await repository.UpdateAsync(entity);
+    }
+
+    public async Task<bool> ExistsAsync(Guid id)
+    {
+        return await repository.ExistsAsync(id);
     }
 }
