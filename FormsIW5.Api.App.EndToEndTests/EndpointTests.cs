@@ -17,7 +17,6 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         _clientFixture = clientFixture;
     }
 
-    /*
 
     // Users
     [Fact]
@@ -43,7 +42,6 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
     {
 
     }
-    */
 
     [Fact]
     public async Task User_Create_One_DetailUser_And_GetAllUsers_ReturnsAtleastOne()
@@ -63,7 +61,7 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         postResponse.EnsureSuccessStatusCode();
         var postResult = await postResponse.Content.ReadFromJsonAsync<Guid>();
 
-        Assert.NotEqual(newUser.Id, postResult);
+        Assert.Equal(newUser.Id, postResult);
 
         // Act
         var getResponse = await _clientFixture.Client.GetAsync($"/api/user/");
@@ -92,14 +90,18 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         postResponse.EnsureSuccessStatusCode();
         var postResult = await postResponse.Content.ReadFromJsonAsync<Guid>();
 
-        Assert.NotEqual(newUser.Id, postResult);
+        Assert.Equal(newUser.Id, postResult);
 
         // Act
         var getResponse = await _clientFixture.Client.GetAsync($"/api/user/{postResult}");
         var getResult = await getResponse.Content.ReadFromJsonAsync<UserDetailModel>();
 
         //Assert
-        Assert.Equal(newUser, getResult);
+        Assert.NotNull(getResult);
+        Assert.Equal(newUser.Id, getResult.Id);
+        Assert.Equal(newUser.UserName, getResult.UserName);
+        Assert.Equal(newUser.ProfilePicture, getResult.ProfilePicture);
+        Assert.Equal(newUser.Role, getResult.Role);
     }
 
 
@@ -217,6 +219,7 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         var result = await response.Content.ReadFromJsonAsync<Guid>();
         Assert.NotEqual(Guid.Empty, result);
     }
+   
 
     [Fact]
     public async Task User_Create_One_DetailUser_WithId_ReturnsUserId()
@@ -237,7 +240,7 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         //Assert
         response.EnsureSuccessStatusCode();
         var result = await response.Content.ReadFromJsonAsync<Guid>();
-        Assert.NotEqual(newUser.Id, result);
+        Assert.Equal(newUser.Id, result);
     }
 
     [Fact]
@@ -257,12 +260,12 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
 
         response.EnsureSuccessStatusCode();
         var result = await response.Content.ReadFromJsonAsync<Guid>();
-        Assert.NotEqual(newUser.Id, result);
+        Assert.Equal(newUser.Id, result);
 
         //Act
-        var responseSecond = await _clientFixture.Client.PostAsync("/api/user/", content);
+        var conflictResponse = await _clientFixture.Client.PostAsync("/api/user/", content);
 
         //Assert
-        Assert.Equal(System.Net.HttpStatusCode.Conflict, response.StatusCode);
+        Assert.Equal(System.Net.HttpStatusCode.Conflict, conflictResponse.StatusCode);
     }
 }
