@@ -1,6 +1,6 @@
-﻿using FormsIW5.Api.DAL.Common.Interfaces;
+﻿using FormsIW5.Api.DAL.Common.Entities;
 using FormsIW5.Api.DAL.Common.Queries;
-using FormsIW5.Api.DAL.Entities;
+using FormsIW5.Api.DAL.Common.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Linq;
@@ -20,8 +20,22 @@ public class QuestionRepository : RepositoryBase<QuestionEntity>, IQuestionRepos
 
         return await dbContext.Set<QuestionEntity>().Where(x => !String.IsNullOrEmpty(questionQuery.Text) &&
         !String.IsNullOrEmpty(questionQuery.Description) &&
-        !String.IsNullOrEmpty(x.Text) &&
+        !String.IsNullOrEmpty(x.QuestionText) &&
          !String.IsNullOrEmpty(x.Description) &&
-        x.Text.Contains(questionQuery.Text) && x.Description.Contains(questionQuery.Description)).ToListAsync();
+        x.QuestionText.Contains(questionQuery.Text) && x.Description.Contains(questionQuery.Description)).ToListAsync();
+    }
+
+    public override async Task<Guid> InsertAsync(QuestionEntity entity)
+    {
+        var form = await dbContext.Set<FormEntity>().Include(f => f.Questions).SingleOrDefaultAsync(f => f.Id == entity.FormId);
+        form?.Questions.Add(entity);
+        await dbContext.SaveChangesAsync();
+
+        return entity.Id;
+    }
+
+    public override async Task<QuestionEntity?> GetByIdAsync(Guid id)
+    {
+        return await dbContext.Set<QuestionEntity>().Include(q => q.Answers).SingleOrDefaultAsync(entity => entity.Id == id);
     }
 }

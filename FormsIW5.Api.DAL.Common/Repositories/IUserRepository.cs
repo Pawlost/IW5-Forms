@@ -1,6 +1,6 @@
-﻿using FormsIW5.Api.DAL.Entities;
+﻿using FormsIW5.Api.DAL.Common.Entities;
 
-namespace FormsIW5.Api.DAL.Common.Interfaces;
+namespace FormsIW5.Api.DAL.Common.Repositories;
 
 public interface IUserRepository : IApiRepository<UserEntity>
 {

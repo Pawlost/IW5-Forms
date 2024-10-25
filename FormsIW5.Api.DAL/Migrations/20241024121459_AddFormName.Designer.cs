@@ -4,6 +4,7 @@ using FormsIW5.Api.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FormsIW5.Api.DAL.Migrations
 {
     [DbContext(typeof(FormsIW5DbContext))]
-    partial class FormsIW5DbContextModelSnapshot : ModelSnapshot
+    [Migration("20241024121459_AddFormName")]
+    partial class AddFormName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,11 +88,11 @@ namespace FormsIW5.Api.DAL.Migrations
                     b.Property<int>("FromValue")
                         .HasColumnType("int");
 
-                    b.Property<string>("QuestionText")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("QuestionType")
                         .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ToValue")
                         .HasColumnType("int");

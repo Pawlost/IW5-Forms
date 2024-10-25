@@ -1,4 +1,4 @@
-﻿using FormsIW5.Api.DAL.Common.Interfaces;
+﻿using FormsIW5.Api.DAL.Common.Repositories;
 using FormsIW5.Api.DAL.Entities.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

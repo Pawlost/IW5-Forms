@@ -1,12 +1,12 @@
 using FormsIW5.Api.DAL.Installers;
 using FormsIW5.Api.BL.Installers;
-using FormsIW5.Api.DAL.Entities;
 using FormsIW5.Common.Installer;
 using Microsoft.EntityFrameworkCore;
 using FormsIW5.Api.App.Endpoints;
 using FormsIW5.Api.DAL;
 using FormsIW5.Api.App.Configurations;
 using Microsoft.Extensions.Options;
+using FormsIW5.Api.DAL.Common.Entities;
 
 namespace FormsIW5.Api.App;
 
@@ -77,7 +77,6 @@ public class Program
     public static void MigrateDB(IServiceProvider services) {
 
         var configuration = services.GetRequiredService<IOptions<MigrationConfiguration>>();
-
 
         if (configuration.Value.ApplyMigration)
         {
