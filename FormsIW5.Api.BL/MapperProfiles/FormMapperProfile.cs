@@ -8,7 +8,8 @@ public class FormMapperProfile : Profile
 {
     public FormMapperProfile()
     {
-        CreateMap<FormEntity, FormListModel>().ReverseMap();
+        CreateMap<FormEntity, FormListModel>();
         CreateMap<FormEntity, FormDetailModel>().ReverseMap();
+        CreateMap<FormCreateModel, FormEntity>();
     }
 }

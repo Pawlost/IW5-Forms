@@ -1,7 +1,6 @@
 ﻿using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Api.DAL.Common.Queries;
 using FormsIW5.Common.BL.Models.Question;
-using FormsIW5.Common.BL.Models.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormsIW5.Api.App.Endpoints;
@@ -25,10 +24,10 @@ public static class QuestionEndpoints
         group.MapGet("search", async ([FromQuery] string? text, [FromQuery] string? description, [FromServices] IQuestionFacade facade) => await facade.Search(new QuestionQueryObject { Text = text, Description = description }));
 
         //Create
-        group.MapPost("", async (UserCreateModel newForm, [FromServices] ICreateFacade<UserCreateModel> facade) => await facade.CreateAsync(newForm));
+        group.MapPost("", async (QuestionCreateModel newQuestion, [FromServices] ICreateFacade<QuestionCreateModel> facade) => await facade.CreateAsync(newQuestion));
 
         // Update
-        group.MapPut("", async (QuestionDetailModel form, [FromServices] IDetailFacade<QuestionDetailModel> facade) => await facade.UpdateAsync(form));
+        group.MapPut("", async (QuestionDetailModel question, [FromServices] IDetailFacade<QuestionDetailModel> facade) => await facade.UpdateAsync(question));
 
         // Delete
         group.MapDelete("{id:guid}", async (Guid id, [FromServices] IDetailFacade<QuestionDetailModel> facade) => await facade.DeleteAsync(id));

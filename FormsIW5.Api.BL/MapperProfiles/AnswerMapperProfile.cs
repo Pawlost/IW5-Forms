@@ -8,7 +8,9 @@ public class AnswerMapperProfile : Profile
 {
     public AnswerMapperProfile() 
     {
-        CreateMap<AnswerEntity, AnswerListModel>().ReverseMap();
+        CreateMap<AnswerEntity, AnswerListModel>();
         CreateMap<AnswerEntity, AnswerDetailModel>().ReverseMap();
+        CreateMap<AnswerCreateModel, AnswerEntity>();
+
     }
 }

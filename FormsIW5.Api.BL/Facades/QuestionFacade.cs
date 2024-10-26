@@ -4,11 +4,10 @@ using FormsIW5.Api.DAL.Common.Entities;
 using FormsIW5.Api.DAL.Common.Queries;
 using FormsIW5.Api.DAL.Common.Repositories;
 using FormsIW5.Common.BL.Models.Question;
-using FormsIW5.Common.BL.Models.User;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class QuestionFacade : FacadeBase<QuestionEntity, QuestionListModel, QuestionDetailModel, UserCreateModel, IQuestionRepository>, IQuestionFacade
+public class QuestionFacade : FacadeBase<QuestionEntity, QuestionListModel, QuestionDetailModel, QuestionCreateModel, IQuestionRepository>, IQuestionFacade
 {
     public QuestionFacade(IQuestionRepository repository, IMapper mapper) : base(repository, mapper)
     {

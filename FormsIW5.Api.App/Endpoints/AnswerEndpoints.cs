@@ -1,7 +1,6 @@
 ﻿using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Common.BL.Models.Answer;
-using FormsIW5.Common.BL.Models.Form;
-using FormsIW5.Common.BL.Models.User;
+using FormsIW5.Common.BL.Models.Question;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormsIW5.Api.App.Endpoints;
@@ -22,7 +21,7 @@ public static class AnswerEndpoints
         group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<AnswerDetailModel> facade) => await facade.GetByIdAsync(id));
 
         //Create
-        group.MapPost("", async (UserCreateModel newAnswer, [FromServices] ICreateFacade<UserCreateModel> facade) => await facade.CreateAsync(newAnswer));
+        group.MapPost("", async (AnswerCreateModel newAnswer, [FromServices] ICreateFacade<AnswerCreateModel> facade) => await facade.CreateAsync(newAnswer));
 
         // Update
         group.MapPut("", async (AnswerDetailModel answer, [FromServices] IDetailFacade<AnswerDetailModel> facade) => await facade.UpdateAsync(answer));
