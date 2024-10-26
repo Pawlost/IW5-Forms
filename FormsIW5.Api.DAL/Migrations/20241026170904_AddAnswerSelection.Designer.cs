@@ -4,6 +4,7 @@ using FormsIW5.Api.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FormsIW5.Api.DAL.Migrations
 {
     [DbContext(typeof(FormsIW5DbContext))]
-    partial class FormsIW5DbContextModelSnapshot : ModelSnapshot
+    [Migration("20241026170904_AddAnswerSelection")]
+    partial class AddAnswerSelection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,7 +169,7 @@ namespace FormsIW5.Api.DAL.Migrations
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.AnswerSelectionEntity", b =>
                 {
                     b.HasOne("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", "Question")
-                        .WithMany("AnswerSelections")
+                        .WithMany("AnswersSelections")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -208,9 +211,9 @@ namespace FormsIW5.Api.DAL.Migrations
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", b =>
                 {
-                    b.Navigation("AnswerSelections");
-
                     b.Navigation("Answers");
+
+                    b.Navigation("AnswersSelections");
                 });
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.UserEntity", b =>

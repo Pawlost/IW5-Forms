@@ -6,7 +6,7 @@ using FormsIW5.Common.BL.Models.Answer;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class AnswerFacade : FacadeBase<AnswerEntity, AnswerListModel, AnswerDetailModel, IAnswerRepository>, IAnswerFacade
+public class AnswerFacade : FacadeBase<AnswerEntity, AnswerListModel, AnswerDetailModel, AnswerCreateModel, IAnswerRepository>, IAnswerFacade
 {
     public AnswerFacade(IAnswerRepository repository, IMapper mapper) : base(repository, mapper)
     {

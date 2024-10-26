@@ -3,5 +3,6 @@
 public enum QuestionType
 {
     TextType,
-    RangeType
+    RangeType,
+    DropDown
 }

@@ -7,7 +7,7 @@ using FormsIW5.Common.BL.Models.Question;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class QuestionFacade : FacadeBase<QuestionEntity, QuestionListModel, QuestionDetailModel, IQuestionRepository>, IQuestionFacade
+public class QuestionFacade : FacadeBase<QuestionEntity, QuestionListModel, QuestionDetailModel, QuestionCreateModel, IQuestionRepository>, IQuestionFacade
 {
     public QuestionFacade(IQuestionRepository repository, IMapper mapper) : base(repository, mapper)
     {

@@ -2,11 +2,12 @@
 using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Api.DAL.Common.Entities;
 using FormsIW5.Api.DAL.Common.Repositories;
+using FormsIW5.Common.BL.Models.Question;
 using FormsIW5.Common.BL.Models.User;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class UserFacade : FacadeBase<UserEntity, UserListModel, UserDetailModel, IUserRepository>, IUserFacade
+public class UserFacade : FacadeBase<UserEntity, UserListModel, UserDetailModel, UserCreateModel, IUserRepository>, IUserFacade
 {
     public UserFacade(IUserRepository repository, IMapper mapper) : base(repository, mapper)
     {
@@ -16,5 +17,10 @@ public class UserFacade : FacadeBase<UserEntity, UserListModel, UserDetailModel,
     {
         var entities = await repository.SearchByNameAsync(userNameQuery);
         return mapper.Map<List<UserListModel>>(entities);
+    }
+
+    public async Task<bool> UserNameExistsAsync(string userName)
+    {
+        return await repository.UserNameExistsAsync(userName); ;
     }
 }

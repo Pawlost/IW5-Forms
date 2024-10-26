@@ -12,12 +12,8 @@ public class AnswerRepository : RepositoryBase<AnswerEntity>, IAnswerRepository
     {
     }
 
-    public override async Task<Guid> InsertAsync(AnswerEntity entity)
+    public override async Task<AnswerEntity?> GetByIdAsync(Guid id)
     {
-        var question = await dbContext.Set<QuestionEntity>().Include(q => q.Answers).SingleOrDefaultAsync(q => q.Id == entity.QuestionId);
-        question?.Answers.Add(entity);
-        await dbContext.SaveChangesAsync();
-
-        return entity.Id;
+        return await dbContext.Set<AnswerEntity>().Include(a => a.SelectedAnswer).SingleOrDefaultAsync(entity => entity.Id == id);
     }
 }

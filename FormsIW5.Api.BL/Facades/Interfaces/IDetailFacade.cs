@@ -6,7 +6,5 @@ public interface IDetailFacade<TDetailModelBase> : IAppFacadeBase
     where TDetailModelBase : IModel
 {
     Task<TDetailModelBase?> GetByIdAsync(Guid id);
-    Task<Guid> CreateOrUpdateAsync(TDetailModelBase detailModel);
-    Task<Guid> CreateAsync(TDetailModelBase detailModel);
     Task<Guid?> UpdateAsync(TDetailModelBase detailModel);
 }

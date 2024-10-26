@@ -4,7 +4,8 @@ public record AnswerEntity : EntityBase
 {
     public string? TextAnswer { get; set; }
     public int? IntegerAnswer { get; set; }
-
     public Guid QuestionId { get; set; }
     public QuestionEntity? Question { get; set; }
+    public Guid? SelectedAnswerId { get; set; }
+    public AnswerSelectionEntity? SelectedAnswer { get; set; }
 }

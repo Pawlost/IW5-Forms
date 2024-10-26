@@ -9,6 +9,8 @@ public class FormsIW5DbContext(DbContextOptions<FormsIW5DbContext> options) : Db
     public DbSet<QuestionEntity> Questions { get; set; }
     public DbSet<FormEntity> Forms { get; set; }
     public DbSet<AnswerEntity> Answers { get; set; }
+    public DbSet<AnswerSelectionEntity> AnswersSelection { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -26,7 +28,15 @@ public class FormsIW5DbContext(DbContextOptions<FormsIW5DbContext> options) : Db
 
         modelBuilder.Entity<QuestionEntity>()
             .HasMany(questionEntity => questionEntity.Answers)
-            .WithOne(answerEntity => answerEntity.Question)
-            .OnDelete(DeleteBehavior.Cascade);
+            .WithOne(answerEntity => answerEntity.Question);
+        
+        modelBuilder.Entity<QuestionEntity>()
+            .HasMany(questionEntity => questionEntity.AnswerSelections)
+            .WithOne(answerEntity => answerEntity.Question);
+
+        modelBuilder.Entity<AnswerSelectionEntity>()
+            .HasMany(answerSelection => answerSelection.Answers)
+            .WithOne(answerEntity => answerEntity.SelectedAnswer)
+            .HasForeignKey(answerEntity => answerEntity.SelectedAnswerId);
     }
 }

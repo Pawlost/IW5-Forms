@@ -1,14 +1,12 @@
-﻿using FormsIW5.Common.BL.Models.Answer;
-using FormsIW5.Common.BL.Models.AnswerSelection;
+﻿using FormsIW5.Common.BL.Models.AnswerSelection;
 using FormsIW5.Common.BL.Models.Interfaces;
 using FormsIW5.Common.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace FormsIW5.Common.BL.Models.Question;
 
-public record QuestionDetailModel : IModel
+public record QuestionCreateModel : ICreateModel
 {
-    public Guid Id { get; init; }
     public string? QuestionText { get; set; }
     public int FromValue { get; set; }
     public int ToValue { get; set; }
@@ -18,6 +16,5 @@ public record QuestionDetailModel : IModel
     [Required]
     public Guid FormId { get; set; }
 
-    public ICollection<AnswerListModel> Answers { get; set; } = [];
-    public ICollection<AnswerSelectionListModel> AnswerSelections { get; set; } = [];
+    public ICollection<AnswerSelectionCreateModel> AnswerSelections { get; set; } = [];
 }
