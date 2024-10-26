@@ -23,15 +23,6 @@ public class QuestionRepository : RepositoryBase<QuestionEntity>, IQuestionRepos
         x.QuestionText.Contains(questionQuery.Text) && x.Description.Contains(questionQuery.Description)).ToListAsync();
     }
 
-    public override async Task<Guid> InsertAsync(QuestionEntity entity)
-    {
-        var form = await dbContext.Set<FormEntity>().Include(f => f.Questions).ThenInclude(q => q.AnswerSelections).SingleOrDefaultAsync(f => f.Id == entity.FormId);
-        form?.Questions.Add(entity);
-        await dbContext.SaveChangesAsync();
-
-        return entity.Id;
-    }
-
     public override async Task<QuestionEntity?> GetByIdAsync(Guid id)
     {
         return await dbContext.Set<QuestionEntity>().Include(q => q.Answers).Include(q => q.AnswerSelections).SingleOrDefaultAsync(entity => entity.Id == id);
