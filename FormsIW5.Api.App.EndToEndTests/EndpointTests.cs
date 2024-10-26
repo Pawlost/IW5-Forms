@@ -113,9 +113,8 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
     public async Task User_Create_One_DetailUser_And_GetAllUsers_ReturnsAtleastOne()
     {
         //Arrange
-        var newUser = new UserDetailModel
+        var newUser = new UserCreateModel
         {
-            Id = Guid.Parse("b30bb8dd-b1a9-4a4b-ba50-ec0c66e490f6"),
             UserName = "Test User2",
             ProfilePicture = new Uri("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Onions.jpg/387px-Onions.jpg"),
             Role = UserRole.User
@@ -126,8 +125,6 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         var postResponse = await _clientFixture.Client.PostAsync("/api/user/", content);
         postResponse.EnsureSuccessStatusCode();
         var postResult = await postResponse.Content.ReadFromJsonAsync<Guid>();
-
-        Assert.Equal(newUser.Id, postResult);
 
         // Act
         var getResponse = await _clientFixture.Client.GetAsync($"/api/user/");
@@ -168,9 +165,8 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
     public async Task User_Create_One_DetailUser_And_GetUserDetail_ById_ReturnsSameUser()
     {
         //Arrange
-        var newUser = new UserDetailModel
+        var newUser = new UserCreateModel
         {
-            Id = Guid.Parse("1cf4ba1e-4c70-4d14-89db-073b9985ad92"),
             UserName = "Test User3",
             ProfilePicture = new Uri("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Onions.jpg/387px-Onions.jpg"),
             Role = UserRole.User
@@ -182,15 +178,13 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         postResponse.EnsureSuccessStatusCode();
         var postResult = await postResponse.Content.ReadFromJsonAsync<Guid>();
 
-        Assert.Equal(newUser.Id, postResult);
-
         // Act
         var getResponse = await _clientFixture.Client.GetAsync($"/api/user/{postResult}");
         var getResult = await getResponse.Content.ReadFromJsonAsync<UserDetailModel>();
 
         //Assert
         Assert.NotNull(getResult);
-        Assert.Equal(newUser.Id, getResult.Id);
+        Assert.NotEqual(Guid.Empty, getResult.Id);
         Assert.Equal(newUser.UserName, getResult.UserName);
         Assert.Equal(newUser.ProfilePicture, getResult.ProfilePicture);
         Assert.Equal(newUser.Role, getResult.Role);
@@ -315,9 +309,8 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
     public async Task User_Create_One_DetailUser_WithId_ReturnsUserId()
     {
         //Arrange
-        var newUser = new UserDetailModel
+        var newUser = new UserCreateModel
         {
-            Id = Guid.Parse("99bab31d-7ac1-4373-1d7d-08dcf4292b9e"),
             UserName = "Test User",
             ProfilePicture = new Uri("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Onions.jpg/387px-Onions.jpg"),
             Role = UserRole.User
@@ -330,16 +323,15 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         //Assert
         response.EnsureSuccessStatusCode();
         var result = await response.Content.ReadFromJsonAsync<Guid>();
-        Assert.Equal(newUser.Id, result);
+        Assert.NotEqual(Guid.Empty, result);
     }
 
     [Fact]
     public async Task User_Create_Two_DetailUser_WithSameId_ReturnsConflict()
     {
         //Arrange
-        var newUser = new UserDetailModel
+        var newUser = new UserCreateModel
         {
-            Id = Guid.Parse("eccce5e3-d6cd-4854-65ec-08dcf42a042e"),
             UserName = "Test User7",
             ProfilePicture = new Uri("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Onions.jpg/387px-Onions.jpg"),
             Role = UserRole.User
@@ -350,7 +342,6 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
 
         response.EnsureSuccessStatusCode();
         var result = await response.Content.ReadFromJsonAsync<Guid>();
-        Assert.Equal(newUser.Id, result);
 
         //Act
         var conflictResponse = await _clientFixture.Client.PostAsync("/api/user/", content);
