@@ -8,9 +8,9 @@ namespace FormsIW5.Api.DAL.Installers;
 
 public class ApiDALInstaller : IDbInstaller
 {
-    public void Install(IServiceCollection serviceCollection, string connectionString)
+    public void Install(IServiceCollection serviceCollection, string connectionString, int timeoutSeconds = 3)
     {
-        serviceCollection.AddDbContext<FormsIW5DbContext>(options => options.UseSqlServer(connectionString));
+        serviceCollection.AddDbContext<FormsIW5DbContext>(options => options.UseSqlServer(connectionString, options => options.CommandTimeout(timeoutSeconds)));
 
         serviceCollection.Scan(selector =>
             selector.FromAssemblyOf<ApiDALInstaller>()

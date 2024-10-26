@@ -9,9 +9,9 @@ public static class InstallerExtension
     {
         new TInstaller().Install(serviceCollection);
     }
-    public static void Install<TInstaller>(this IServiceCollection serviceCollection, string connectionString)
+    public static void Install<TInstaller>(this IServiceCollection serviceCollection, string connectionString, int timeoutSeconds = 3)
     where TInstaller : IDbInstaller, new()
     {
-        new TInstaller().Install(serviceCollection, connectionString);
+        new TInstaller().Install(serviceCollection, connectionString, timeoutSeconds);
     }
 }

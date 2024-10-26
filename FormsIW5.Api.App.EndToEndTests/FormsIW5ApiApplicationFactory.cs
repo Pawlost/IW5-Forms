@@ -24,7 +24,7 @@ public class FormsIW5ApiApplicationFactory : WebApplicationFactory<Program>
             var controllerAssemblyName = typeof(Program).Assembly.FullName;
             collection.AddMvc().AddApplicationPart(Assembly.Load(controllerAssemblyName));
 
-            collection.Install<ApiDALInstaller>(connectionString!);
+            collection.Install<ApiDALInstaller>(connectionString!, 120);
         });
 
         host = base.CreateHost(builder);

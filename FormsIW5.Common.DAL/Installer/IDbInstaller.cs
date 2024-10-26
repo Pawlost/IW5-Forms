@@ -4,5 +4,5 @@ namespace FormsIW5.Common.Installer;
 
 public interface IDbInstaller
 {
-    void Install(IServiceCollection serviceCollection, string connectionString);
+    void Install(IServiceCollection serviceCollection, string connectionString, int timeoutSeconds);
 }

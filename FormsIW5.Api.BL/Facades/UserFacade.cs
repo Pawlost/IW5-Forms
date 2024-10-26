@@ -17,4 +17,9 @@ public class UserFacade : FacadeBase<UserEntity, UserListModel, UserDetailModel,
         var entities = await repository.SearchByNameAsync(userNameQuery);
         return mapper.Map<List<UserListModel>>(entities);
     }
+
+    public async Task<bool> UserNameExistsAsync(string userName)
+    {
+        return await repository.UserNameExistsAsync(userName); ;
+    }
 }
