@@ -6,7 +6,7 @@ using FormsIW5.Common.BL.Models.User;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class UserFacade : FacadeBase<UserEntity, UserListModel, UserDetailModel, IUserRepository>, IUserFacade
+public class UserFacade : FacadeBase<UserEntity, UserListModel, UserDetailModel, UserCreateModel, IUserRepository>, IUserFacade
 {
     public UserFacade(IUserRepository repository, IMapper mapper) : base(repository, mapper)
     {

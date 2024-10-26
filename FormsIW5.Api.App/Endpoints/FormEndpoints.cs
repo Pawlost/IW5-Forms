@@ -1,5 +1,6 @@
 ﻿using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Common.BL.Models.Form;
+using FormsIW5.Common.BL.Models.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormsIW5.Api.App.Endpoints;
@@ -20,7 +21,7 @@ public static class FormEndpoints
         group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<FormDetailModel> facade) => await facade.GetByIdAsync(id));
 
         //Create
-        group.MapPost("", async (FormDetailModel newForm, [FromServices] IDetailFacade<FormDetailModel> facade) => await facade.CreateAsync(newForm));
+        group.MapPost("", async (UserCreateModel newForm, [FromServices] ICreateFacade<UserCreateModel> facade) => await facade.CreateAsync(newForm));
 
         // Update
         group.MapPut("", async (FormDetailModel form, [FromServices] IDetailFacade<FormDetailModel> facade) => await facade.UpdateAsync(form));

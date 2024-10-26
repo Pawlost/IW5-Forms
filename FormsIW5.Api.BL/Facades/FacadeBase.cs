@@ -6,10 +6,12 @@ using FormsIW5.Common.BL.Models.Interfaces;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class FacadeBase<TEntity, TListModel, TDetailModel, TRepository> : IListFacade<TListModel>, IDetailFacade<TDetailModel>
+public class FacadeBase<TEntity, TListModel, TDetailModel, TCreateModel, TRepository> : IListFacade<TListModel>, IDetailFacade<TDetailModel>,
+    ICreateFacade<TCreateModel>
     where TEntity : IEntity
     where TListModel : IModel
     where TDetailModel : IModel
+    where TCreateModel : ICreateModel
     where TRepository : IApiRepository<TEntity>
 {
     protected readonly TRepository repository;
@@ -22,18 +24,10 @@ public class FacadeBase<TEntity, TListModel, TDetailModel, TRepository> : IListF
         this.repository = repository;
         this.mapper = mapper;
     }
-
-    public async Task<Guid> CreateAsync(TDetailModel detailModel)
+    public async Task<Guid> CreateAsync(TCreateModel detailModel)
     {
         var entity = mapper.Map<TEntity>(detailModel);
         return await repository.InsertAsync(entity);
-    }
-
-    public async Task<Guid> CreateOrUpdateAsync(TDetailModel detailModel)
-    {
-        return await repository.ExistsAsync(detailModel.Id)
-            ? (await UpdateAsync(detailModel))!.Value
-            : await CreateAsync(detailModel);
     }
 
     public async Task DeleteAsync(Guid id)

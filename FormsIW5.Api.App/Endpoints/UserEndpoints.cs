@@ -37,9 +37,9 @@ public static class UserEndpoints
         group.MapGet("search", async ([FromQuery] string username, [FromServices] IUserFacade facade) => await facade.SearchByNameAsync(username));
 
         //Create
-        group.MapPost("", async Task<Results<Ok<Guid>, Conflict<string>>> (UserDetailModel newUser, [FromServices] IUserFacade facade) =>
+        group.MapPost("", async Task<Results<Ok<Guid>, Conflict<string>>> (UserCreateModel newUser, [FromServices] IUserFacade facade) =>
         {
-            if (Guid.Empty != newUser.Id && await facade.ExistsAsync(newUser.Id) || await facade.UserNameExistsAsync(newUser.UserName))
+            if (await facade.UserNameExistsAsync(newUser.UserName))
             {
                 return TypedResults.Conflict("User already exists");
             }
