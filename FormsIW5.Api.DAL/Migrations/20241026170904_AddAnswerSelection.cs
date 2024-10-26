@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FormsIW5.Api.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class AddAnswerSelectionEntity : Migration
+    public partial class AddAnswerSelection : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,8 +15,7 @@ namespace FormsIW5.Api.DAL.Migrations
                 name: "SelectedAnswerId",
                 table: "Answers",
                 type: "uniqueidentifier",
-                nullable: false,
-                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
+                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "AnswersSelection",
@@ -52,8 +51,7 @@ namespace FormsIW5.Api.DAL.Migrations
                 table: "Answers",
                 column: "SelectedAnswerId",
                 principalTable: "AnswersSelection",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />

@@ -2,8 +2,6 @@
 using FormsIW5.Api.DAL.Common.Queries;
 using FormsIW5.Api.DAL.Common.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Linq;
 
 namespace FormsIW5.Api.DAL.Repositories;
 
@@ -27,7 +25,7 @@ public class QuestionRepository : RepositoryBase<QuestionEntity>, IQuestionRepos
 
     public override async Task<Guid> InsertAsync(QuestionEntity entity)
     {
-        var form = await dbContext.Set<FormEntity>().Include(f => f.Questions).SingleOrDefaultAsync(f => f.Id == entity.FormId);
+        var form = await dbContext.Set<FormEntity>().Include(f => f.Questions).ThenInclude(q => q.AnswerSelections).SingleOrDefaultAsync(f => f.Id == entity.FormId);
         form?.Questions.Add(entity);
         await dbContext.SaveChangesAsync();
 
@@ -36,6 +34,6 @@ public class QuestionRepository : RepositoryBase<QuestionEntity>, IQuestionRepos
 
     public override async Task<QuestionEntity?> GetByIdAsync(Guid id)
     {
-        return await dbContext.Set<QuestionEntity>().Include(q => q.Answers).SingleOrDefaultAsync(entity => entity.Id == id);
+        return await dbContext.Set<QuestionEntity>().Include(q => q.Answers).Include(q => q.AnswerSelections).SingleOrDefaultAsync(entity => entity.Id == id);
     }
 }

@@ -81,7 +81,6 @@ public class Program
         if (configuration.Value.ApplyMigration)
         {
             using var dbContext = services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
-
             dbContext.Database.Migrate();
         }
     }

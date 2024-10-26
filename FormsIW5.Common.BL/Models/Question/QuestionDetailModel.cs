@@ -1,4 +1,5 @@
 ﻿using FormsIW5.Common.BL.Models.Answer;
+using FormsIW5.Common.BL.Models.AnswerSelection;
 using FormsIW5.Common.BL.Models.Interfaces;
 using FormsIW5.Common.Enums;
 using System.ComponentModel.DataAnnotations;
@@ -18,5 +19,5 @@ public record QuestionDetailModel : IModel
     public Guid FormId { get; set; }
 
     public ICollection<AnswerListModel> Answers { get; set; } = [];
-
+    public ICollection<AnswerSelectionListModel> AnswerSelections { get; set; } = [];
 }

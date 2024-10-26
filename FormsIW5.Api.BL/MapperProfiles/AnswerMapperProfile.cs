@@ -11,6 +11,5 @@ public class AnswerMapperProfile : Profile
         CreateMap<AnswerEntity, AnswerListModel>();
         CreateMap<AnswerEntity, AnswerDetailModel>().ReverseMap();
         CreateMap<AnswerCreateModel, AnswerEntity>();
-
     }
 }

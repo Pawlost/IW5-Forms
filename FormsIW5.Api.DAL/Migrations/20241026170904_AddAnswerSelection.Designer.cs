@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FormsIW5.Api.DAL.Migrations
 {
     [DbContext(typeof(FormsIW5DbContext))]
-    [Migration("20241026154540_AddAnswerSelectionEntity")]
-    partial class AddAnswerSelectionEntity
+    [Migration("20241026170904_AddAnswerSelection")]
+    partial class AddAnswerSelection
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,7 @@ namespace FormsIW5.Api.DAL.Migrations
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SelectedAnswerId")
+                    b.Property<Guid?>("SelectedAnswerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("TextAnswer")
@@ -159,9 +159,7 @@ namespace FormsIW5.Api.DAL.Migrations
 
                     b.HasOne("FormsIW5.Api.DAL.Common.Entities.AnswerSelectionEntity", "SelectedAnswer")
                         .WithMany("Answers")
-                        .HasForeignKey("SelectedAnswerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SelectedAnswerId");
 
                     b.Navigation("Question");
 

@@ -28,17 +28,15 @@ public class FormsIW5DbContext(DbContextOptions<FormsIW5DbContext> options) : Db
 
         modelBuilder.Entity<QuestionEntity>()
             .HasMany(questionEntity => questionEntity.Answers)
-            .WithOne(answerEntity => answerEntity.Question)
-            .OnDelete(DeleteBehavior.Cascade);
-
+            .WithOne(answerEntity => answerEntity.Question);
+        
         modelBuilder.Entity<QuestionEntity>()
-            .HasMany(questionEntity => questionEntity.AnswersSelections)
-            .WithOne(answerSelectionEntity => answerSelectionEntity.Question)
-            .OnDelete(DeleteBehavior.Cascade);
+            .HasMany(questionEntity => questionEntity.AnswerSelections)
+            .WithOne(answerEntity => answerEntity.Question);
 
         modelBuilder.Entity<AnswerSelectionEntity>()
             .HasMany(answerSelection => answerSelection.Answers)
             .WithOne(answerEntity => answerEntity.SelectedAnswer)
-            .OnDelete(DeleteBehavior.Cascade);
+            .HasForeignKey(answerEntity => answerEntity.SelectedAnswerId);
     }
 }
