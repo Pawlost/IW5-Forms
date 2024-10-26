@@ -38,7 +38,7 @@ public class FormsIW5DbContext(DbContextOptions<FormsIW5DbContext> options) : Db
 
         modelBuilder.Entity<AnswerSelectionEntity>()
             .HasMany(answerSelection => answerSelection.Answers)
-            .WithOne(answerEntity => answerEntity.AnswerSelection)
+            .WithOne(answerEntity => answerEntity.SelectedAnswer)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
