@@ -38,8 +38,13 @@ public static class UserEndpoints
         group.MapGet("search", async ([FromQuery] string username, [FromServices] IUserFacade facade) => await facade.SearchByNameAsync(username));
 
         //Create
-        group.MapPost("", async Task<Results<Ok<Guid>, Conflict<string>>> (UserCreateModel newUser, [FromServices] IUserFacade facade) =>
+        group.MapPost("", async Task<Results<Ok<Guid>, BadRequest<string>, Conflict<string>>> (UserCreateModel newUser, [FromServices] IUserFacade facade) =>
         {
+            if (newUser.ProfilePicture is not null && !Uri.IsWellFormedUriString(newUser.ProfilePicture.ToString(), UriKind.Absolute))
+            {
+                return TypedResults.BadRequest("Profile picture Uri must be absolute");
+            }
+
             if (await facade.UserNameExistsAsync(newUser.UserName))
             {
                 return TypedResults.Conflict("User already exists");

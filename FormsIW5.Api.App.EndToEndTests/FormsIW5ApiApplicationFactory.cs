@@ -32,7 +32,8 @@ public class FormsIW5ApiApplicationFactory : WebApplicationFactory<Program>
         return host;
     }
 
-    public async Task MigrateAsync() {
+    public async Task MigrateAsync()
+    {
         using var dbContext = host.Services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
         await dbContext.Database.EnsureCreatedAsync();
     }
