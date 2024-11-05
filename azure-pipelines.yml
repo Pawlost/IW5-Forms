@@ -1,0 +1,57 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildConfiguration: 'Release'
+  dotNetFramework: 'net8.0'
+  dotNetVersion: '8.0.x'
+  targetRuntime: 'win-x64'
+  targetAPIProject: '**/FormsIW5.Api.App.csproj'
+
+steps:
+  - task: UseDotNet@2
+    name: "Install_Environment"
+    inputs:
+      version: $(dotNetVersion)
+      includePreviewVersions: true
+
+  - script: |
+      echo { "ConnectionStrings": {"EndToEndTestConnection": "$(ConnectionString)"}} > ./FormsIW5.Api.App/appsettings.QA.json
+
+  - task: DotNetCoreCLI@2
+    name: "Build_API"
+    inputs:
+      command: 'build'
+      projects: $(targetAPIProject)
+
+  - task: DotNetCoreCLI@2
+    name: "Test_All"
+    inputs:
+      command: 'test'
+      projects: '**/*Tests*.csproj'
+      otherConsoleOptions: '/logger:console;verbosity=detailed'
+
+  - task: DotNetCoreCLI@2
+    name: "Publish_API"
+    inputs:
+      command: 'publish'
+      publishWebProjects: false
+      projects: $(targetAPIProject)
+      arguments: '--configuration $(BuildConfiguration) --framework $(dotNetFramework) --output $(Build.ArtifactStagingDirectory)/api'
+      modifyOutputPath: false
+    
+  - task: PublishBuildArtifacts@1
+    name: "Save_API_artifact"
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/api'
+      ArtifactName: 'API'
+      publishLocation: 'Container'

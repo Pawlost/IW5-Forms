@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "FormsIW5.Api.App.EndToEndTests": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "QA"
+      },
+      "applicationUrl": "https://localhost:60267;http://localhost:60268"
+    }
+  }
+}

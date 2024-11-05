@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FormsIW5.Api.DAL\FormsIW5.Api.DAL.csproj" />
+    <ProjectReference Include="..\FormsIW5.Common.BL\FormsIW5.Common.BL.csproj" />
+  </ItemGroup>
+
+</Project>
