@@ -28,6 +28,12 @@ steps:
       echo { "ConnectionStrings": {"EndToEndTestConnection": "$(ConnectionString)"}} > ./FormsIW5.Api.App/appsettings.QA.json
 
   - task: DotNetCoreCLI@2
+    name: "Build_Web"
+    inputs:
+      command: 'build'
+      projects: '**/*Tests*.csproj'
+
+  - task: DotNetCoreCLI@2
     name: "Test_All"
     inputs:
       command: 'test'
