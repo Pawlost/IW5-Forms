@@ -36,7 +36,7 @@ public class Program
                 throw new InvalidOperationException($"Connection string not found.");
             }
 
-            builder.Services.Install<ApiDALInstaller>(connectionString!);
+            builder.Services.Install<ApiDALInstaller>(connectionString!, 10);
         }
 
         builder.Services.Install<ApiBLInstaller>();
