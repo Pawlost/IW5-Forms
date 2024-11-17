@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FormsIW5.Api.DAL.Common", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsIW5.Api.App.EndToEndTests", "FormsIW5.Api.App.EndToEndTests\FormsIW5.Api.App.EndToEndTests.csproj", "{05CFBB51-E41E-43D9-AB7E-566E0F415763}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsIW5.Web.App", "FormsIW5.Web.App\FormsIW5.Web.App.csproj", "{BF2D37EA-C4A9-4580-8E6A-38DF3582EFD5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{05CFBB51-E41E-43D9-AB7E-566E0F415763}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05CFBB51-E41E-43D9-AB7E-566E0F415763}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05CFBB51-E41E-43D9-AB7E-566E0F415763}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF2D37EA-C4A9-4580-8E6A-38DF3582EFD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF2D37EA-C4A9-4580-8E6A-38DF3582EFD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF2D37EA-C4A9-4580-8E6A-38DF3582EFD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF2D37EA-C4A9-4580-8E6A-38DF3582EFD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{6A96D9A8-2966-4835-AF5A-3C3BB96B9370} = {7C2556B8-90EB-4846-A73C-E576E052F158}
 		{C908FFE3-33AB-4E3E-AA5F-59BED9C6D30D} = {D0992117-3CC8-4874-BDE8-F674A25236A7}
 		{05CFBB51-E41E-43D9-AB7E-566E0F415763} = {D0992117-3CC8-4874-BDE8-F674A25236A7}
+		{BF2D37EA-C4A9-4580-8E6A-38DF3582EFD5} = {9D89FF20-70FD-428B-85C9-1DCE086FB34F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8BDD925-9667-4147-B3D9-6FDB82A44E9E}
