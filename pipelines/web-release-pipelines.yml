@@ -1,0 +1,48 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- main
+
+pool:
+  name: 'my-pc'
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildConfiguration: 'Release'
+  dotNetFramework: 'net8.0'
+  dotNetVersion: '8.0.x'
+  targetRuntime: 'win-x64'
+  targetWebProject: '**/FormsIW5.Web.App.csproj'
+
+steps:
+  - task: UseDotNet@2
+    name: "Install_Environment"
+    inputs:
+      version: $(dotNetVersion)
+      includePreviewVersions: true
+
+  - task: DotNetCoreCLI@2
+    name: "Build_Web"
+    inputs:
+      command: 'build'
+      projects: $(targetWebProject)
+
+  - task: DotNetCoreCLI@2
+    name: "Publish_Web"
+    inputs:
+      command: 'publish'
+      publishWebProjects: false
+      projects: $(targetWebProject)
+      arguments: '--configuration $(BuildConfiguration) --framework $(dotNetFramework) --output $(Build.ArtifactStagingDirectory)/web'
+      modifyOutputPath: false
+    
+  - task: PublishBuildArtifacts@1
+    name: "Save_Web_artifact"
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/web'
+      ArtifactName: 'Web'
+      publishLocation: 'Container'
