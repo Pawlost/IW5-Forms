@@ -1,6 +1,6 @@
 ﻿using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Api.DAL.Common.Queries;
-using FormsIW5.Common.BL.Models.Question;
+using FormsIW5.BL.Models.Common.Question;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormsIW5.Api.App.Endpoints;
@@ -9,7 +9,7 @@ public static class QuestionEndpoints
 {
     public static IEndpointRouteBuilder AddQuestionEndpoints(this IEndpointRouteBuilder endpointRoute)
     {
-        var group = endpointRoute.MapGroup("question");
+        var group = endpointRoute.MapGroup("question").WithTags("question");
 
         //Get all
         group.MapGet("", async ([FromServices] IListFacade<QuestionListModel> facade) => await facade.GetAllAsync());

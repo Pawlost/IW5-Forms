@@ -1,5 +1,4 @@
-﻿using FormsIW5.Common.BL.Models.Answer;
-using FormsIW5.Common.BL.Models.Question;
+﻿using FormsIW5.BL.Models.Common.Answer;
 
 namespace FormsIW5.Api.BL.Facades.Interfaces;
 

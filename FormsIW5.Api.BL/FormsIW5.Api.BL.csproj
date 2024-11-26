@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FormsIW5.Api.DAL\FormsIW5.Api.DAL.csproj" />
-    <ProjectReference Include="..\FormsIW5.Common.BL\FormsIW5.Common.BL.csproj" />
+    <ProjectReference Include="..\FormsIW5.BL.Models.Common\FormsIW5.BL.Models.Common.csproj" />
   </ItemGroup>
 
 </Project>

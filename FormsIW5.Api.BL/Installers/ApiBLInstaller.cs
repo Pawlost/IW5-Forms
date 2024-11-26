@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FormsIW5.Api.BL.Installers;
 
-public class ApiBLInstaller : IInstaller
+public class ApiBLInstaller : IInstallers
 {
     public void Install(IServiceCollection serviceCollection)
     {

@@ -1,6 +1,5 @@
 ﻿using FormsIW5.Api.BL.Facades.Interfaces;
-using FormsIW5.Common.BL.Models.Answer;
-using FormsIW5.Common.BL.Models.Question;
+using FormsIW5.BL.Models.Common.Answer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormsIW5.Api.App.Endpoints;
@@ -9,7 +8,7 @@ public static class AnswerEndpoints
 {
     public static IEndpointRouteBuilder AddAnswerEndpoints(this IEndpointRouteBuilder endpointRoute)
     {
-        var group = endpointRoute.MapGroup("answer");
+        var group = endpointRoute.MapGroup("answer").WithTags("answer");
 
         //Get all
         group.MapGet("", async ([FromServices] IListFacade<AnswerListModel> facade) => await facade.GetAllAsync());

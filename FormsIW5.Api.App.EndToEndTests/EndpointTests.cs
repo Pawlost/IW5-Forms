@@ -1,11 +1,11 @@
 ﻿using Azure;
-using FormsIW5.Common.BL.Models.User;
+using FormsIW5.BL.Models.Common.User;
 using FormsIW5.Common.Enums;
 using System.Net;
 
 namespace FormsIW5.Api.App.EndToEndTests;
 
-public class EndpointTests : IClassFixture<HttpClientFixture>
+public class EndpointTests
 {
 
     // ** NOTICE: **
@@ -13,11 +13,12 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
     // Realized too late that creating a new SQL Server database incurs charges, reducing available credits.
     // Consequently, I could not afford to finish all end-to-end tests.
 
-    private readonly HttpClientFixture _clientFixture;
+    private readonly Lazy<HttpClient> _client;
 
-    public EndpointTests(HttpClientFixture clientFixture)
+    public EndpointTests()
     {
-        _clientFixture = clientFixture;
+        var application = new FormsIW5ApiApplicationFactory();
+        _client = new Lazy<HttpClient>(application.CreateClient());
     }
 
     //DummyClass
@@ -43,7 +44,7 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         var content = JsonContent.Create(newUser);
 
         //Act
-        var response = await _clientFixture.Client.PostAsync("/api/user/", content);
+        var response = await _client.Value.PostAsync("/api/user/", content);
 
         //Assert
         response.EnsureSuccessStatusCode();
@@ -64,10 +65,10 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         var content = JsonContent.Create(newUser);
 
         //Act
-        var response = await _clientFixture.Client.PostAsync("/api/user/", content);
+        var response = await _client.Value.PostAsync("/api/user/", content);
         response.EnsureSuccessStatusCode();
 
-        var badRequestResponse = await _clientFixture.Client.PostAsync("/api/user/", content);
+        var badRequestResponse = await _client.Value.PostAsync("/api/user/", content);
 
         //Assert
         Assert.Equal(HttpStatusCode.Conflict, badRequestResponse.StatusCode);
@@ -86,12 +87,12 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
 
         var content = JsonContent.Create(newUser);
 
-        var postResponse = await _clientFixture.Client.PostAsync("/api/user/", content);
+        var postResponse = await _client.Value.PostAsync("/api/user/", content);
         postResponse.EnsureSuccessStatusCode();
         var postResult = await postResponse.Content.ReadFromJsonAsync<Guid>();
 
         // Act
-        var getResponse = await _clientFixture.Client.GetAsync($"/api/user/");
+        var getResponse = await _client.Value.GetAsync($"/api/user/");
         var getResult = await getResponse.Content.ReadFromJsonAsync<ICollection<UserListModel>>();
 
         //Assert
@@ -112,12 +113,12 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
 
         var content = JsonContent.Create(newUser);
 
-        var postResponse = await _clientFixture.Client.PostAsync("/api/user/", content);
+        var postResponse = await _client.Value.PostAsync("/api/user/", content);
         postResponse.EnsureSuccessStatusCode();
         var postResult = await postResponse.Content.ReadFromJsonAsync<Guid>();
 
         // Act
-        var getResponse = await _clientFixture.Client.GetAsync($"/api/user/list/{postResult}");
+        var getResponse = await _client.Value.GetAsync($"/api/user/list/{postResult}");
         var getResult = await getResponse.Content.ReadFromJsonAsync<UserListModel>();
 
         //Assert
@@ -141,12 +142,12 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
 
         var content = JsonContent.Create(newUser);
 
-        var postResponse = await _clientFixture.Client.PostAsync("/api/user/", content);
+        var postResponse = await _client.Value.PostAsync("/api/user/", content);
         postResponse.EnsureSuccessStatusCode();
         var postResult = await postResponse.Content.ReadFromJsonAsync<Guid>();
 
         // Act
-        var getResponse = await _clientFixture.Client.GetAsync($"/api/user/{postResult}");
+        var getResponse = await _client.Value.GetAsync($"/api/user/{postResult}");
         var getResult = await getResponse.Content.ReadFromJsonAsync<UserDetailModel>();
 
         //Assert
@@ -170,12 +171,12 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
 
         var content = JsonContent.Create(newUser);
 
-        var postResponse = await _clientFixture.Client.PostAsync("/api/user/", content);
+        var postResponse = await _client.Value.PostAsync("/api/user/", content);
         postResponse.EnsureSuccessStatusCode();
         var postResult = await postResponse.Content.ReadFromJsonAsync<Guid>();
 
         // Act
-        var getResponse = await _clientFixture.Client.GetAsync($"/api/user/{postResult}");
+        var getResponse = await _client.Value.GetAsync($"/api/user/{postResult}");
         var getResult = await getResponse.Content.ReadFromJsonAsync<UserDetailModel>();
 
         //Assert
@@ -199,12 +200,12 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
 
         var content = JsonContent.Create(newUser);
 
-        var postResponse = await _clientFixture.Client.PostAsync("/api/user/", content);
+        var postResponse = await _client.Value.PostAsync("/api/user/", content);
         postResponse.EnsureSuccessStatusCode();
         var postResult = await postResponse.Content.ReadFromJsonAsync<Guid>();
 
         // Act
-        var getResponse = await _clientFixture.Client.GetAsync($"/api/user/{postResult}");
+        var getResponse = await _client.Value.GetAsync($"/api/user/{postResult}");
         var getResult = await getResponse.Content.ReadFromJsonAsync<UserDetailModel>();
 
         //Assert
@@ -227,12 +228,12 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
 
         var content = JsonContent.Create(newUser);
 
-        var postResponse = await _clientFixture.Client.PostAsync("/api/user/", content);
+        var postResponse = await _client.Value.PostAsync("/api/user/", content);
         postResponse.EnsureSuccessStatusCode();
         var postResult = await postResponse.Content.ReadFromJsonAsync<Guid>();
 
         // Act
-        var getResponse = await _clientFixture.Client.GetAsync($"/api/user/{postResult}");
+        var getResponse = await _client.Value.GetAsync($"/api/user/{postResult}");
         var getResult = await getResponse.Content.ReadFromJsonAsync<UserDetailModel>();
 
         //Assert
@@ -259,7 +260,7 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         var content = JsonContent.Create(newUser);
 
         // Act
-        var postResponse = await _clientFixture.Client.PostAsync("/api/user/", content);
+        var postResponse = await _client.Value.PostAsync("/api/user/", content);
 
         //Assert
         Assert.Equal(HttpStatusCode.BadRequest, postResponse.StatusCode);
@@ -272,7 +273,7 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         Guid uniqueId = Guid.Empty;
 
         // Act
-        var getResponse = await _clientFixture.Client.GetAsync($"/api/user/{uniqueId}");
+        var getResponse = await _client.Value.GetAsync($"/api/user/{uniqueId}");
 
         //Assert
         Assert.Equal(HttpStatusCode.BadRequest, getResponse.StatusCode);
@@ -285,7 +286,7 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         Guid uniqueId = Guid.Parse("7e29b62c-77ad-4cb3-9ef5-c56e231876a7");
 
         // Act
-        var getResponse = await _clientFixture.Client.GetAsync($"/api/user/{uniqueId}");
+        var getResponse = await _client.Value.GetAsync($"/api/user/{uniqueId}");
 
         //Assert
         Assert.Equal(HttpStatusCode.NotFound, getResponse.StatusCode);
@@ -304,11 +305,11 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
 
         var content = JsonContent.Create(newUser);
 
-        var postResponse = await _clientFixture.Client.PostAsync("/api/user/", content);
+        var postResponse = await _client.Value.PostAsync("/api/user/", content);
         postResponse.EnsureSuccessStatusCode();
 
         // Act
-        var getResponse = await _clientFixture.Client.GetAsync($"/api/user/search/?username={newUser.UserName}");
+        var getResponse = await _client.Value.GetAsync($"/api/user/search/?username={newUser.UserName}");
         getResponse.EnsureSuccessStatusCode();
 
         var getResult = await getResponse.Content.ReadFromJsonAsync<ICollection<UserListModel>>();
@@ -325,7 +326,7 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
         var username = "Test13";
 
         // Act
-        var getResponse = await _clientFixture.Client.GetAsync($"/api/user/search/?username={username}");
+        var getResponse = await _client.Value.GetAsync($"/api/user/search/?username={username}");
         getResponse.EnsureSuccessStatusCode();
 
         var getResult = await getResponse.Content.ReadFromJsonAsync<ICollection<UserListModel>>();
@@ -349,15 +350,15 @@ public class EndpointTests : IClassFixture<HttpClientFixture>
 
         var content = JsonContent.Create(newUser);
 
-        var postResponse = await _clientFixture.Client.PostAsync("/api/user/", content);
+        var postResponse = await _client.Value.PostAsync("/api/user/", content);
         postResponse.EnsureSuccessStatusCode();
         var postResult = await postResponse.Content.ReadFromJsonAsync<Guid>();
 
-        var getResponse = await _clientFixture.Client.GetAsync($"/api/user/{postResult}");
+        var getResponse = await _client.Value.GetAsync($"/api/user/{postResult}");
         var getResult = await getResponse.Content.ReadFromJsonAsync<UserDetailModel>();
 
         // Act
-        var deleteResponse = await _clientFixture.Client.DeleteAsync($"/api/user/{newUser.Id}");
+        var deleteResponse = await _client.Value.DeleteAsync($"/api/user/{newUser.Id}");
 
         //Assert
         deleteResponse.EnsureSuccessStatusCode();
