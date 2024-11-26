@@ -12,4 +12,13 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.11" PrivateAssets="all" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FormsIW5.Common.BL\FormsIW5.Common.BL.csproj" />
+    <ProjectReference Include="..\FormsIW5.Web.BL\FormsIW5.Web.BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\" />
+  </ItemGroup>
+
 </Project>
