@@ -24,6 +24,11 @@ steps:
     inputs:
       version: $(dotNetVersion)
       includePreviewVersions: true
+  
+  - task: FileTransform@2
+    inputs:
+      folderPath: '$(System.DefaultWorkingDirectory)'
+      jsonTargetFiles: '**/wwwroot/appsettings.json'
 
   - task: DotNetCoreCLI@2
     name: "Build_Web"
