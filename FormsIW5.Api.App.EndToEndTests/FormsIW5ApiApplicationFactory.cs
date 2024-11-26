@@ -28,19 +28,13 @@ public class FormsIW5ApiApplicationFactory : WebApplicationFactory<Program>
         });
 
         host = base.CreateHost(builder);
-       
-        return host;
-    }
 
-    public async Task MigrateAsync()
-    {
-        using var dbContext = host.Services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
-        await dbContext.Database.EnsureCreatedAsync();
-    }
-
-    public override async ValueTask DisposeAsync() {
         using var deleteContext = host.Services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
-        await deleteContext.Database.EnsureDeletedAsync();
-        await base.DisposeAsync();
+        deleteContext.Database.EnsureDeleted();
+
+        using var dbContext = host.Services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
+        dbContext.Database.EnsureCreated();
+
+        return host;
     }
 }
