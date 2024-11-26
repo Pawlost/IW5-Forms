@@ -1,6 +1,6 @@
-﻿using FormsIW5.Common.BL.Models.Interfaces;
+﻿using FormsIW5.BL.Models.Common.Interfaces;
 
-namespace FormsIW5.Common.BL.Models.Form;
+namespace FormsIW5.BL.Models.Common.Form;
 
 public record FormListModel : IModel
 {

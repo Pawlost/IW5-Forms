@@ -1,4 +1,4 @@
-﻿namespace FormsIW5.Common.BL.Models.Interfaces;
+﻿namespace FormsIW5.BL.Models.Common.Interfaces;
 
 public interface IModel
 {

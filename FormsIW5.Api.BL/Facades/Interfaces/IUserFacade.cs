@@ -1,4 +1,4 @@
-﻿using FormsIW5.Common.BL.Models.User;
+﻿using FormsIW5.BL.Models.Common.User;
 
 namespace FormsIW5.Api.BL.Facades.Interfaces;
 

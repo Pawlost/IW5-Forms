@@ -1,4 +1,4 @@
-﻿using FormsIW5.Common.BL.Models.Form;
+﻿using FormsIW5.BL.Models.Common.Form;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 

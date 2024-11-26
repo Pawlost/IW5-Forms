@@ -48,10 +48,10 @@
       "className": "{controller}ApiClient",
       "operationGenerationMode": "MultipleClientsFromFirstTagAndPathSegments",
       "additionalNamespaceUsages": [
-        "FormsIW5.Common.BL.Models.User",
-        "FormsIW5.Common.BL.Models.Form",
-        "FormsIW5.Common.BL.Models.Question",
-        "FormsIW5.Common.BL.Models.Answer"
+        "FormsIW5.BL.Models.Common.Answer",
+        "FormsIW5.BL.Models.Common.Form",
+        "FormsIW5.BL.Models.Common.Question",
+        "FormsIW5.BL.Models.Common.User"
       ],
       "additionalContractNamespaceUsages": [],
       "generateOptionalParameters": false,

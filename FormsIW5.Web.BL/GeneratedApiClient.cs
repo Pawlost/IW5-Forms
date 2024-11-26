@@ -4,10 +4,10 @@
 // </auto-generated>
 //----------------------
 
-using FormsIW5.Common.BL.Models.User;
-using FormsIW5.Common.BL.Models.Form;
-using FormsIW5.Common.BL.Models.Question;
-using FormsIW5.Common.BL.Models.Answer;
+using FormsIW5.BL.Models.Common.Answer;
+using FormsIW5.BL.Models.Common.Form;
+using FormsIW5.BL.Models.Common.Question;
+using FormsIW5.BL.Models.Common.User;
 
 #pragma warning disable 108 // Disable "CS0108 '{derivedDto}.ToJson()' hides inherited member '{dtoBase}.ToJson()'. Use the new keyword if hiding was intended."
 #pragma warning disable 114 // Disable "CS0114 '{derivedDto}.RaisePropertyChanged(String)' hides inherited member 'dtoBase.RaisePropertyChanged(String)'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword."

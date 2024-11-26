@@ -1,7 +1,7 @@
-﻿using FormsIW5.Common.BL.Models.AnswerSelection;
-using FormsIW5.Common.BL.Models.Interfaces;
+﻿using FormsIW5.BL.Models.Common.AnswerSelection;
+using FormsIW5.BL.Models.Common.Interfaces;
 
-namespace FormsIW5.Common.BL.Models.Answer;
+namespace FormsIW5.BL.Models.Common.Answer;
 
 public record AnswerListModel : IModel
 {

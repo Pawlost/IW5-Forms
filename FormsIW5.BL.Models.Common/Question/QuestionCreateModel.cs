@@ -1,9 +1,9 @@
-﻿using FormsIW5.Common.BL.Models.AnswerSelection;
-using FormsIW5.Common.BL.Models.Interfaces;
+﻿using FormsIW5.BL.Models.Common.AnswerSelection;
+using FormsIW5.BL.Models.Common.Interfaces;
 using FormsIW5.Common.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace FormsIW5.Common.BL.Models.Question;
+namespace FormsIW5.BL.Models.Common.Question;
 
 public record QuestionCreateModel : ICreateModel
 {

@@ -1,8 +1,8 @@
-﻿using FormsIW5.Common.BL.Models.Interfaces;
-using FormsIW5.Common.BL.Models.Question;
+﻿using FormsIW5.BL.Models.Common.Interfaces;
+using FormsIW5.BL.Models.Common.Question;
 using System.ComponentModel.DataAnnotations;
 
-namespace FormsIW5.Common.BL.Models.Form;
+namespace FormsIW5.BL.Models.Common.Form;
 
 public record FormDetailModel : IModel
 {

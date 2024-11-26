@@ -1,5 +1,5 @@
 ﻿using FormsIW5.Api.DAL.Common.Queries;
-using FormsIW5.Common.BL.Models.Question;
+using FormsIW5.BL.Models.Common.Question;
 
 namespace FormsIW5.Api.BL.Facades.Interfaces;
 

@@ -11,7 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FormsIW5.Common.BL\FormsIW5.Common.BL.csproj" />
+    <ProjectReference Include="..\FormsIW5.BL.Models.Common\FormsIW5.BL.Models.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Facades\" />
   </ItemGroup>
 
 </Project>

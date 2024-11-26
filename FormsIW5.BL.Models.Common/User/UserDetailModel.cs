@@ -1,9 +1,9 @@
-﻿using FormsIW5.Common.BL.Models.Form;
-using FormsIW5.Common.BL.Models.Interfaces;
+﻿using FormsIW5.BL.Models.Common.Form;
+using FormsIW5.BL.Models.Common.Interfaces;
 using FormsIW5.Common.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace FormsIW5.Common.BL.Models.User;
+namespace FormsIW5.BL.Models.Common.User;
 
 public record UserDetailModel : IModel
 {
