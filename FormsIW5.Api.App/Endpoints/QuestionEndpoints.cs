@@ -9,7 +9,7 @@ public static class QuestionEndpoints
 {
     public static IEndpointRouteBuilder AddQuestionEndpoints(this IEndpointRouteBuilder endpointRoute)
     {
-        var group = endpointRoute.MapGroup("question");
+        var group = endpointRoute.MapGroup("question").WithTags("question");
 
         //Get all
         group.MapGet("", async ([FromServices] IListFacade<QuestionListModel> facade) => await facade.GetAllAsync());

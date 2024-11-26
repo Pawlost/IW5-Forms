@@ -9,7 +9,7 @@ public static class FormEndpoints
 {
     public static IEndpointRouteBuilder AddFormEndpoints(this IEndpointRouteBuilder endpointRoute)
     {
-        var group = endpointRoute.MapGroup("form");
+        var group = endpointRoute.MapGroup("form").WithTags("form");
 
         //Get all
         group.MapGet("", async ([FromServices] IListFacade<FormListModel> facade) => await facade.GetAllAsync());

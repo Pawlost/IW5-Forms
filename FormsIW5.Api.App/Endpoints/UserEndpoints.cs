@@ -1,5 +1,4 @@
 ﻿using FormsIW5.Api.BL.Facades.Interfaces;
-using FormsIW5.Common.BL.Models.Question;
 using FormsIW5.Common.BL.Models.User;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +9,7 @@ public static class UserEndpoints
 {
     public static IEndpointRouteBuilder AddUserEndpoints(this IEndpointRouteBuilder endpointRoute)
     {
-        var group = endpointRoute.MapGroup("user");
+        var group = endpointRoute.MapGroup("user").WithTags("user");
 
         //Get all
         group.MapGet("", async ([FromServices] IListFacade<UserListModel> facade) => await facade.GetAllAsync());
