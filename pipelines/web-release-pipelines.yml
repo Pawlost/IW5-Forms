@@ -28,7 +28,7 @@ steps:
   - task: FileTransform@2
     inputs:
       folderPath: '$(System.DefaultWorkingDirectory)'
-      jsonTargetFiles: '**/wwwroot/appsettings.Release.json'
+      jsonTargetFiles: '**/wwwroot/appsettings.json'
 
   - task: DotNetCoreCLI@2
     name: "Build_Web"
@@ -40,7 +40,7 @@ steps:
     name: "Publish_Web"
     inputs:
       command: 'publish'
-      publishWebProjects: false
+      publishWebProjects: true
       projects: $(targetWebProject)
       arguments: '--configuration $(BuildConfiguration) --framework $(dotNetFramework) --output $(Build.ArtifactStagingDirectory)/web'
       modifyOutputPath: false
