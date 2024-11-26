@@ -11,12 +11,10 @@ namespace FormsIW5.Web.App
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
-
-            builder.Configuration.AddJsonFile("appsettings.json");
+            var apiBaseUrl = builder.Configuration.GetValue<Uri>("ApiBaseUrl");
 
             builder.Services.AddHttpClient<FormApiClient>(client =>
             {
-                var apiBaseUrl = builder.Configuration.GetValue<Uri>("ApiBaseUrl");
                 client.BaseAddress = apiBaseUrl;
             });
 
