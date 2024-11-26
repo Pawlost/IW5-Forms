@@ -1,7 +1,7 @@
-﻿using FormsIW5.Common.BL.Models.Interfaces;
+﻿using FormsIW5.BL.Models.Common.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
-namespace FormsIW5.BL.Models.Common.Models.Answer;
+namespace FormsIW5.BL.Models.Common.Answer;
 
 public record AnswerCreateModel : ICreateModel
 {

@@ -1,5 +1,5 @@
 ﻿using Azure;
-using FormsIW5.Common.BL.Models.User;
+using FormsIW5.BL.Models.Common.User;
 using FormsIW5.Common.Enums;
 using System.Net;
 

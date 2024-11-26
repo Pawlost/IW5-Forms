@@ -1,3 +1,4 @@
+using FormsIW5.Web.BL;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -11,7 +12,13 @@ namespace FormsIW5.Web.App
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Configuration.AddJsonFile("appsettings.json");
+
+            builder.Services.AddHttpClient<FormApiClient>(client =>
+            {
+                var apiBaseUrl = builder.Configuration.GetValue<Uri>("ApiBaseUrl");
+                client.BaseAddress = apiBaseUrl;
+            });
 
             await builder.Build().RunAsync();
         }

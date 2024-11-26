@@ -1,6 +1,5 @@
 ﻿using FormsIW5.Api.BL.Facades.Interfaces;
-using FormsIW5.Common.BL.Models.Form;
-using FormsIW5.Common.BL.Models.Question;
+using FormsIW5.BL.Models.Common.Form;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormsIW5.Api.App.Endpoints;

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using FormsIW5.Api.DAL.Common.Entities;
-using FormsIW5.BL.Models.Common.Models.Answer;
-using FormsIW5.Common.BL.Models.Answer;
+using FormsIW5.BL.Models.Common.Answer;
 
 namespace FormsIW5.Api.BL.MapperProfiles;
 

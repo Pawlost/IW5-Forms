@@ -1,5 +1,5 @@
 ﻿using FormsIW5.Api.BL.Facades.Interfaces;
-using FormsIW5.Common.BL.Models.User;
+using FormsIW5.BL.Models.Common.User;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
