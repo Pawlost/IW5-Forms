@@ -29,6 +29,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsIW5.Web.BL", "FormsIW5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsIW5.BL.Models.Common", "FormsIW5.BL.Models.Common\FormsIW5.BL.Models.Common.csproj", "{77FCDE6C-5A79-4C5F-B8EF-3CCC0B184995}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsIW5.IdentityProvider.App", "FormsIW5.IdentityProvider.App\FormsIW5.IdentityProvider.App.csproj", "{BAE97589-4ABB-44EF-9C12-4200A5802EE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +79,10 @@ Global
 		{77FCDE6C-5A79-4C5F-B8EF-3CCC0B184995}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77FCDE6C-5A79-4C5F-B8EF-3CCC0B184995}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77FCDE6C-5A79-4C5F-B8EF-3CCC0B184995}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAE97589-4ABB-44EF-9C12-4200A5802EE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAE97589-4ABB-44EF-9C12-4200A5802EE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAE97589-4ABB-44EF-9C12-4200A5802EE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAE97589-4ABB-44EF-9C12-4200A5802EE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +98,7 @@ Global
 		{BF2D37EA-C4A9-4580-8E6A-38DF3582EFD5} = {9D89FF20-70FD-428B-85C9-1DCE086FB34F}
 		{A928C9BD-2D67-D28E-CE96-6D06FD2B8BCF} = {9D89FF20-70FD-428B-85C9-1DCE086FB34F}
 		{77FCDE6C-5A79-4C5F-B8EF-3CCC0B184995} = {7C2556B8-90EB-4846-A73C-E576E052F158}
+		{BAE97589-4ABB-44EF-9C12-4200A5802EE6} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8BDD925-9667-4147-B3D9-6FDB82A44E9E}
