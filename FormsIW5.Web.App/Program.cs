@@ -1,6 +1,8 @@
 using FormsIW5.Web.BL;
+using FormsIW5.Web.BL.Installer;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using FormsIW5.Common.Installer;
 
 namespace FormsIW5.Web.App
 {
@@ -13,10 +15,7 @@ namespace FormsIW5.Web.App
             builder.RootComponents.Add<HeadOutlet>("head::after");
             var apiBaseUrl = builder.Configuration.GetValue<Uri>("ApiBaseUrl");
 
-            builder.Services.AddHttpClient<FormApiClient>(client =>
-            {
-                client.BaseAddress = apiBaseUrl;
-            });
+            builder.Services.Install<WebBLInstaller>(apiBaseUrl);
 
             await builder.Build().RunAsync();
         }

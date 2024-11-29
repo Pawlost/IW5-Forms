@@ -13,5 +13,5 @@ public interface IDbInstaller
 
 public interface IClientInstaller
 {
-    void Install(IServiceCollection serviceCollection, string url);
+    void Install(IServiceCollection serviceCollection, Uri? uri);
 }

@@ -15,9 +15,9 @@ public static class InstallerExtension
         new TInstaller().Install(serviceCollection, connectionString, timeoutSeconds);
     }
 
-    public static void Install<TInstaller>(this IServiceCollection serviceCollection, string url)
+    public static void Install<TInstaller>(this IServiceCollection serviceCollection, Uri? uri)
         where TInstaller : IClientInstaller, new()
     {
-        new TInstaller().Install(serviceCollection, url);
+        new TInstaller().Install(serviceCollection, uri);
     }
 }

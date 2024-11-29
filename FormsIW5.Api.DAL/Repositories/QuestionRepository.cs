@@ -16,11 +16,12 @@ public class QuestionRepository : RepositoryBase<QuestionEntity>, IQuestionRepos
     public async Task<ICollection<QuestionEntity>?> Search(QuestionQueryObject questionQuery)
     {
 
-        return await dbContext.Set<QuestionEntity>().Where(x => !String.IsNullOrEmpty(questionQuery.Text) &&
-        !String.IsNullOrEmpty(questionQuery.Description) &&
-        !String.IsNullOrEmpty(x.QuestionText) &&
-         !String.IsNullOrEmpty(x.Description) &&
-        x.QuestionText.Contains(questionQuery.Text) && x.Description.Contains(questionQuery.Description)).ToListAsync();
+        return await dbContext.Set<QuestionEntity>().Where(x => !(String.IsNullOrEmpty(questionQuery.Text) ||
+        String.IsNullOrEmpty(questionQuery.Description) ||
+        String.IsNullOrEmpty(x.QuestionText) ||
+         String.IsNullOrEmpty(x.Description) ||
+        !x.QuestionText.Contains(questionQuery.Text) ||
+        !x.Description.Contains(questionQuery.Description))).ToListAsync();
     }
 
     public override async Task<QuestionEntity?> GetByIdAsync(Guid id)
