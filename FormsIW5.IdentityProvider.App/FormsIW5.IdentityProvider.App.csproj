@@ -12,4 +12,8 @@
 
 		<PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\FormsIW5.IdentityProvider.BL\FormsIW5.IdentityProvider.BL.csproj" />
+	</ItemGroup>
 </Project>

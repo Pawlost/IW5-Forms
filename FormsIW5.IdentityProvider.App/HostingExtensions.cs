@@ -1,3 +1,4 @@
+using FormsIW5.IdentityProvider.App.Services;
 using Serilog;
 
 namespace FormsIW5.IdentityProvider.App
@@ -17,7 +18,8 @@ namespace FormsIW5.IdentityProvider.App
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
-                .AddTestUsers(TestUsers.Users);
+                .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()
+                .AddProfileService<LocalAppUserProfileService>();
 
             return builder.Build();
         }
