@@ -11,7 +11,7 @@ public static class FormEndpoints
         var group = endpointRoute.MapGroup("form").WithTags("form");
 
         //Get all
-        group.MapGet("", async ([FromServices] IListFacade<FormListModel> facade) => await facade.GetAllAsync());
+        group.MapGet("", async ([FromServices] IListFacade<FormListModel> facade) => await facade.GetAllAsync()).RequireAuthorization();
 
         //Get list model By Id
         group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<FormListModel> facade) => await facade.GetSingleListModelByIdAsync(id));

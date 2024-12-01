@@ -1,10 +1,11 @@
 ﻿using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Common.Installer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FormsIW5.Api.BL.Installers;
 
-public class ApiBLInstaller : IInstallers
+public class ApiBLInstaller : IInstaller
 {
     public void Install(IServiceCollection serviceCollection)
     {
@@ -13,5 +14,10 @@ public class ApiBLInstaller : IInstallers
             .AddClasses(classes => classes.AssignableTo<IAppFacadeBase>())
             .AsSelfWithInterfaces()
             .WithScopedLifetime());
+    }
+
+    public void Install(IServiceCollection serviceCollection, IConfiguration configuration)
+    {
+        throw new NotImplementedException();
     }
 }

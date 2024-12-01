@@ -13,9 +13,8 @@ namespace FormsIW5.Web.App
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
-            var apiBaseUrl = builder.Configuration.GetValue<Uri>("ApiBaseUrl");
 
-            builder.Services.Install<WebBLInstaller>(apiBaseUrl);
+            builder.Services.Install<WebBLInstaller>(builder.Configuration);
 
             await builder.Build().RunAsync();
         }

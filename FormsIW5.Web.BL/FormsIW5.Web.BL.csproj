@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FormsIW5.BL.Models.Common\FormsIW5.BL.Models.Common.csproj" />
+    <ProjectReference Include="..\FormsIW5.Common\FormsIW5.Common.csproj" />
   </ItemGroup>
 
 </Project>

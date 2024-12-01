@@ -1,16 +1,25 @@
 ﻿using FormsIW5.Api.DAL.Common.Repositories;
-using FormsIW5.Api.DAL.Entities.Interfaces;
 using FormsIW5.Common.Installer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FormsIW5.Api.DAL.Installers;
 
-public class ApiDALInstaller : IDbInstaller
+public class ApiDALInstaller : IInstaller
 {
-    public void Install(IServiceCollection serviceCollection, string connectionString, int timeoutSeconds = 3)
+    private const string ConnectionStringName = "DefaultConnection";
+    private const int Timeout = 12;
+    public void Install(IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        serviceCollection.AddDbContext<FormsIW5DbContext>(options => options.UseSqlServer(connectionString, options => options.CommandTimeout(timeoutSeconds)));
+        var connectionString = configuration.GetConnectionString(ConnectionStringName);
+
+        if (string.IsNullOrEmpty(connectionString))
+        {
+            throw new InvalidOperationException($"Connection string not found.");
+        }
+
+        serviceCollection.AddDbContext<FormsIW5DbContext>(options => options.UseSqlServer(connectionString, options => options.CommandTimeout(Timeout)));
 
         serviceCollection.Scan(selector =>
             selector.FromAssemblyOf<ApiDALInstaller>()

@@ -7,6 +7,7 @@ using FormsIW5.Api.DAL;
 using FormsIW5.Api.App.Configurations;
 using Microsoft.Extensions.Options;
 using FormsIW5.Api.DAL.Common.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace FormsIW5.Api.App;
 
@@ -15,6 +16,8 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        ConfigureAuthentication(builder.Services, builder.Configuration.GetSection("IdentityServer")["Url"]);
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddOpenApiDocument();
@@ -29,17 +32,10 @@ public class Program
 
         if (builder.Environment.EnvironmentName != "QA")
         {
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                throw new InvalidOperationException($"Connection string not found.");
-            }
-
-            builder.Services.Install<ApiDALInstaller>(connectionString!, 10);
+            builder.Services.Install<ApiDALInstaller>(builder.Configuration);
         }
 
-        builder.Services.Install<ApiBLInstaller>();
+        builder.Services.Install<ApiBLInstaller>(builder.Configuration);
 
         builder.Services.AddOptions<MigrationConfiguration>()
             .BindConfiguration("MigrationOptions")
@@ -47,7 +43,6 @@ public class Program
             .ValidateOnStart();
 
         var app = builder.Build();
-
 
         var environment = app.Services.GetRequiredService<IWebHostEnvironment>();
 
@@ -65,6 +60,9 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseRouting();
+
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         AddEndpoints(app);
 
@@ -92,5 +90,18 @@ public class Program
             .AddFormEndpoints()
             .AddQuestionEndpoints()
             .AddAnswerEndpoints();
+    }
+
+    public static void ConfigureAuthentication(IServiceCollection serviceCollection, string identityServerUrl)
+    {
+        serviceCollection.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.Authority = identityServerUrl;
+                options.TokenValidationParameters.ValidateAudience = false;
+            });
+
+        serviceCollection.AddAuthorization();
+        serviceCollection.AddHttpContextAccessor();
     }
 }

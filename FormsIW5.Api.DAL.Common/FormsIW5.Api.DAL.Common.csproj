@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FormsIW5.Common.DAL\FormsIW5.Common.csproj" />
+    <ProjectReference Include="..\FormsIW5.Common\FormsIW5.Common.csproj" />
   </ItemGroup>
 
 </Project>
