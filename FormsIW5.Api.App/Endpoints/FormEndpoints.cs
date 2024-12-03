@@ -8,10 +8,10 @@ public static class FormEndpoints
 {
     public static IEndpointRouteBuilder AddFormEndpoints(this IEndpointRouteBuilder endpointRoute)
     {
-        var group = endpointRoute.MapGroup("form").WithTags("form");
+        var group = endpointRoute.MapGroup("form").WithTags("form").RequireAuthorization();
 
         //Get all
-        group.MapGet("", async ([FromServices] IListFacade<FormListModel> facade) => await facade.GetAllAsync()).RequireAuthorization();
+        group.MapGet("", async ([FromServices] IListFacade<FormListModel> facade) => await facade.GetAllAsync());
 
         //Get list model By Id
         group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<FormListModel> facade) => await facade.GetSingleListModelByIdAsync(id));

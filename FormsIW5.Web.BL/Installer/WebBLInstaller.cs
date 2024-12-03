@@ -11,15 +11,10 @@ public class WebBLInstaller : IInstaller
     {
         var apiBaseUrl = configuration.GetValue<Uri>("ApiBaseUrl");
 
-        var addBaseAddress = new Action<HttpClient>(client =>
-        {
-            client.BaseAddress = apiBaseUrl;
-        });
-
-        serviceCollection.AddHttpClient<IUserApiClient, UserApiClient>(addBaseAddress);
-        serviceCollection.AddHttpClient<IFormApiClient, FormApiClient>(addBaseAddress);
-        serviceCollection.AddHttpClient<IQuestionApiClient, QuestionApiClient>(addBaseAddress);
-        serviceCollection.AddHttpClient<IAnswerApiClient, AnswerApiClient>(addBaseAddress);
+        serviceCollection.AddScoped<IUserApiClient, UserApiClient>();
+        serviceCollection.AddScoped<IFormApiClient, FormApiClient>();
+        serviceCollection.AddScoped<IQuestionApiClient, QuestionApiClient>();
+        serviceCollection.AddScoped<IAnswerApiClient, AnswerApiClient>();
 
         serviceCollection.Scan(selector =>
              selector.FromAssemblyOf<WebBLInstaller>()

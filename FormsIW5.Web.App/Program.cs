@@ -17,21 +17,16 @@ var apiBaseUrl = builder.Configuration.GetValue<string>("ApiBaseUrl");
 
 builder.Services.Install<WebBLInstaller>(builder.Configuration);
 
+builder.Services.AddTransient<AuthorizationMessageHandler>();
+
 builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri(apiBaseUrl))
     .AddHttpMessageHandler(serviceProvider
     => serviceProvider?.GetService<AuthorizationMessageHandler>()
         ?.ConfigureHandler(
-            authorizedUrls: new[] { apiBaseUrl },
-            scopes: new[] { "cookbookapi" }));
-builder.Services.AddScoped<HttpClient>(serviceProvider => serviceProvider.GetService<IHttpClientFactory>().CreateClient("api"));
+            authorizedUrls: [apiBaseUrl],
+            scopes: ["cookbookapi"]));
 
-builder.Services.AddAutoMapper(configuration =>
-    {
-        // This is a temporary fix - should be able to remove this when version 11.0.2 comes out
-        // More information here: https://github.com/AutoMapper/AutoMapper/issues/3988
-        configuration.Internal().MethodMappingEnabled = false;
-    }, typeof(WebBLInstaller));
-builder.Services.AddLocalization();
+builder.Services.AddScoped<HttpClient>(serviceProvider => serviceProvider.GetService<IHttpClientFactory>().CreateClient("api"));
 
 builder.Services.AddOidcAuthentication(options =>
 {
@@ -43,15 +38,5 @@ builder.Services.AddOidcAuthentication(options =>
 });
 
 var host = builder.Build();
-
-var jsRuntime = host.Services.GetRequiredService<IJSRuntime>();
-var cultureString = (await jsRuntime.InvokeAsync<string>("blazorCulture.get"))
-                    ?? defaultCultureString;
-
-var culture = new CultureInfo(cultureString);
-await jsRuntime.InvokeVoidAsync("blazorCulture.set", cultureString);
-
-CultureInfo.DefaultThreadCurrentCulture = culture;
-CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 await host.RunAsync();

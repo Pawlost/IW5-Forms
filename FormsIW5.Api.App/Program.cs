@@ -101,7 +101,11 @@ public class Program
                 options.TokenValidationParameters.ValidateAudience = false;
             });
 
-        serviceCollection.AddAuthorization();
+        serviceCollection.AddAuthorization(
+                options =>
+                {
+                    options.AddPolicy("ingredient-admin", policy => policy.RequireRole("admin"));
+                });
         serviceCollection.AddHttpContextAccessor();
     }
 }
