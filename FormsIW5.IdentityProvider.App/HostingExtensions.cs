@@ -1,4 +1,8 @@
+﻿using FormsIW5.IdentityProvider.App.Installers;
 using FormsIW5.IdentityProvider.App.Services;
+using FormsIW5.IdentityProvider.BL.Installers;
+using FormsIW5.IdentityProvider.DAL;
+using FormsIW5.Common.Installer;
 using Serilog;
 
 namespace FormsIW5.IdentityProvider.App
@@ -7,8 +11,11 @@ namespace FormsIW5.IdentityProvider.App
     {
         public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
         {
-            // uncomment if you want to add a UI
-            //builder.Services.AddRazorPages();
+            builder.Services.Install<IdentityProviderDALInstaller>(builder.Configuration);
+            builder.Services.Install<IdentityProviderBLInstaller>(builder.Configuration);
+            builder.Services.Install<IdentityProviderAppInstaller>(builder.Configuration);
+
+            builder.Services.AddRazorPages();
 
             builder.Services.AddIdentityServer(options =>
                 {
@@ -16,6 +23,7 @@ namespace FormsIW5.IdentityProvider.App
                     options.EmitStaticAudienceClaim = true;
                 })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
+                .AddInMemoryApiResources(Config.ApiResources)
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
                 .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()
@@ -28,20 +36,26 @@ namespace FormsIW5.IdentityProvider.App
         {
             app.UseSerilogRequestLogging();
 
+            app.UseCors(policy =>
+            {
+                policy.AllowAnyHeader();
+                policy.AllowAnyMethod();
+                policy.AllowAnyOrigin();
+            });
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            // uncomment if you want to add a UI
-            //app.UseStaticFiles();
-            //app.UseRouting();
+            app.UseStaticFiles();
+            app.UseRouting();
 
             app.UseIdentityServer();
 
-            // uncomment if you want to add a UI
-            //app.UseAuthorization();
-            //app.MapRazorPages().RequireAuthorization();
+            app.UseAuthorization();
+            app.MapRazorPages().RequireAuthorization();
+           // app.UseUserEndpoints();
 
             return app;
         }

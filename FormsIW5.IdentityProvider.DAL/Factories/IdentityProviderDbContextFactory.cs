@@ -14,6 +14,7 @@ public class IdentityProviderDbContextFactory : IDesignTimeDbContextFactory<Iden
             .Build();
 
         var optionsBuilder = new DbContextOptionsBuilder<IdentityProviderDbContext>();
+        optionsBuilder.EnableSensitiveDataLogging();
         optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         return new IdentityProviderDbContext(optionsBuilder.Options);
     }

@@ -96,6 +96,15 @@ namespace FormsIW5.IdentityProvider.DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserClaims", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -1,
+                            ClaimType = "role",
+                            ClaimValue = "admin",
+                            UserId = new Guid("b1f70862-ba5c-45cd-9086-b99347db2ee8")
+                        });
                 });
 
             modelBuilder.Entity("FormsIW5.IdentityProvider.DAL.Entities.AppUserEntity", b =>
@@ -169,6 +178,25 @@ namespace FormsIW5.IdentityProvider.DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b1f70862-ba5c-45cd-9086-b99347db2ee8"),
+                            AccessFailedCount = 0,
+                            Active = false,
+                            ConcurrencyStamp = "60b06ed7-56a0-434c-9c5b-bd493a5e22d0",
+                            Email = "xbalus03@vutbr.cz",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "XBALUS03@VUTBR.CZ",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI14r3DlK6kMbyvIA1cf0/eFzpY8nbdDqwsTXeTEYgQZhG1XeS7hZLHrZWFmNnGCwQ==",
+                            PhoneNumberConfirmed = false,
+                            Subject = "admin",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("FormsIW5.IdentityProvider.DAL.Entities.AppUserLoginEntity", b =>

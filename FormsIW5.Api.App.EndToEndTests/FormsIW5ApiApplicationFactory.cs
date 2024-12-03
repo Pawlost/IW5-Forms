@@ -12,29 +12,30 @@ public class FormsIW5ApiApplicationFactory : WebApplicationFactory<Program>
     private IHost host { get; set; }
     protected override IHost CreateHost(IHostBuilder builder)
     {
-        builder.UseEnvironment("QA");
+        /*  builder.UseEnvironment("QA");
 
-        builder.ConfigureAppConfiguration(config =>
-        {
-            config.AddJsonFile("appsettings.QA.json", optional: false, reloadOnChange: true).AddUserSecrets<Program>();
-        }).ConfigureServices((context, collection) =>
-        {
-            var connectionString = context.Configuration.GetConnectionString("EndToEndTestConnection");
+          builder.ConfigureAppConfiguration(config =>
+          {
+              config.AddJsonFile("appsettings.QA.json", optional: false, reloadOnChange: true).AddUserSecrets<Program>();
+          }).ConfigureServices((context, collection) =>
+          {
+              var connectionString = context.Configuration.GetConnectionString("EndToEndTestConnection");
 
-            var controllerAssemblyName = typeof(Program).Assembly.FullName;
-            collection.AddMvc().AddApplicationPart(Assembly.Load(controllerAssemblyName));
+              var controllerAssemblyName = typeof(Program).Assembly.FullName;
+              collection.AddMvc().AddApplicationPart(Assembly.Load(controllerAssemblyName));
 
-            collection.Install<ApiDALInstaller>(connectionString!, 120);
-        });
+              collection.Install<ApiDALInstaller>(builder.Configuration);
+          });
 
-        host = base.CreateHost(builder);
+          host = base.CreateHost(builder);
 
-        using var deleteContext = host.Services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
-        deleteContext.Database.EnsureDeleted();
+          using var deleteContext = host.Services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
+          deleteContext.Database.EnsureDeleted();
 
-        using var dbContext = host.Services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
-        dbContext.Database.EnsureCreated();
+          using var dbContext = host.Services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
+          dbContext.Database.EnsureCreated();
 
-        return host;
+          return host;*/
+        return null;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FormsIW5.IdentityProvider.DAL.Entities;
+using FormsIW5.IdentityProvider.DAL.Seeds;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,5 +10,13 @@ public class IdentityProviderDbContext : IdentityDbContext<AppUserEntity, AppRol
     public IdentityProviderDbContext(DbContextOptions options)
         : base(options)
     {
+    }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        UserSeeds.Seed(modelBuilder);
+        ClaimSeeds.Seed(modelBuilder);
     }
 }
