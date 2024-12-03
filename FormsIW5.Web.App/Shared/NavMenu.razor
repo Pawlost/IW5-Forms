@@ -1,7 +1,5 @@
-﻿@using CookBook.Web.App.Resources.Texts
-@using Microsoft.Extensions.Localization
+﻿@using Microsoft.Extensions.Localization
 @namespace CookBook.Web.App
-@inject IStringLocalizer<NavMenuResources> NavMenuLocalizer
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -18,17 +16,17 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <NavLink href="" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
-                        @NavMenuLocalizer["Home_Label"]
+                        Home label
                     </NavLink>
                 </li>
                 <li class="nav-item">
                     <NavLink href="/recipes" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
-                        @NavMenuLocalizer["Recipes_Label"]
+                       Recipes label
                     </NavLink>
                 </li>
                 <li class="nav-item">
                     <NavLink href="/ingredients" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
-                        @NavMenuLocalizer["Ingredients_Label"]
+                       Ingredients label  
                     </NavLink>
                 </li>
 

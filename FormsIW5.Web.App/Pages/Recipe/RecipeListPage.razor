@@ -2,20 +2,18 @@
 @namespace CookBook.Web.App.Pages
 @layout ListLayout
 @using CookBook.Web.App.Extensions
-@using CookBook.Web.App.Resources.Texts
 @using Microsoft.Extensions.Localization
 @inherits PageBase
-@inject IStringLocalizer<RecipeListPageResources> RecipeListPageLocalizer
 
 
 <div class="d-flex flex-row justify-content-between align-items-center mb-4" >
-    <h1>@RecipeListPageLocalizer["Page_Title"]</h1>
+    <h1>Page Title</h1>
 
     <div class="text-center">
         <OnlineStatusIndicator>
             <OnlineFragment>
                 <NavLink href="@("/recipe/create")" class="btn btn-success">
-                    @RecipeListPageLocalizer["CreateNewRecipe_Button"]
+                    Create new recipe
                 </NavLink>
             </OnlineFragment>
             <OfflineFragment>
