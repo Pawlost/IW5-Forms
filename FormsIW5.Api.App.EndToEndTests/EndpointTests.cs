@@ -7,7 +7,7 @@ namespace FormsIW5.Api.App.EndToEndTests;
 
 public class EndpointTests
 {
-
+    /*
     // ** NOTICE: **
     // Unable to complete all end-to-end tests due to insufficient Azure credits. 
     // Realized too late that creating a new SQL Server database incurs charges, reducing available credits.
@@ -363,5 +363,5 @@ public class EndpointTests
         //Assert
         deleteResponse.EnsureSuccessStatusCode();
         Assert.Equal(HttpStatusCode.OK, getResponse.StatusCode);
-    }
+    }*/
 }

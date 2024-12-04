@@ -1,14 +1,8 @@
-﻿using System;
-using System.Globalization;
-using AutoMapper.Internal;
-using FormsIW5.Web.App;
+﻿using FormsIW5.Web.App;
 using FormsIW5.Web.BL.Installer;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.JSInterop;
 using FormsIW5.Common.Installer;
-
-const string defaultCultureString = "cs";
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("app");
