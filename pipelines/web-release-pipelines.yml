@@ -35,7 +35,7 @@ steps:
     name: "Publish_Web"
     inputs:
       command: 'publish'
-      publishWebProjects: true
+      publishWebProjects: false
       projects: $(targetWebProject)
       arguments: '--configuration $(BuildConfiguration) --framework $(dotNetFramework) --output $(Build.ArtifactStagingDirectory)/web'
       modifyOutputPath: false
