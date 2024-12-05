@@ -35,7 +35,7 @@ steps:
     name: "Publish_Identity"
     inputs:
       command: 'publish'
-      publishWebProjects: true
+      publishWebProjects: false
       projects: $(targetProject)
       arguments: '--configuration $(BuildConfiguration) --framework $(dotNetFramework) --output $(Build.ArtifactStagingDirectory)/identity'
       modifyOutputPath: false
