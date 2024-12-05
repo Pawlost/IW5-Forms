@@ -47,7 +47,7 @@ namespace FormsIW5.IdentityProvider.App
                 policy.AllowAnyOrigin();
             });
 
-            if (app.Environment.IsDevelopment())
+         //   if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
