@@ -6,28 +6,43 @@ namespace FormsIW5.IdentityProvider.App
 {
     public static class Config
     {
-        public static IEnumerable<IdentityResource> IdentityResources =>
-            new IdentityResource[]
+        public static IEnumerable<IdentityResource> IdentityResources
+        {
+            get
             {
-                new IdentityResources.OpenId()
-            };
+                var profileIdentityResources = new IdentityResources.Profile();
+                profileIdentityResources.UserClaims.Add("username");
+
+                return
+                [
+                    new IdentityResources.OpenId(),
+                    profileIdentityResources
+                ];
+            }
+        }
+
+        public static IEnumerable<ApiResource> ApiResources =>
+        [
+            new ("cookbookclientaudience")
+        ];
 
         public static IEnumerable<ApiScope> ApiScopes =>
-                [
-                    new ("formsiw5", [JwtClaimTypes.Role])
-                ];
+        [
+            new ("cookbookapi", [JwtClaimTypes.Role])
+        ];
 
         public static IEnumerable<Client> Clients =>
-            [
-                 new()
+        [
+            new()
                 {
-                    ClientName = "FormsIW5 Client",
-                    ClientId = "formsiw5client",
+                    ClientName = "CookBook Client",
+                    ClientId = "cookbookclient",
                     AllowOfflineAccess = true,
                     RedirectUris =
                     [
                         "https://oauth.pstmn.io/v1/callback",
                         "https://localhost:44355/authentication/login-callback",
+                        "https://localhost:7151/authentication/login-callback",
                     ],
                     AllowedGrantTypes =
                     [
@@ -40,13 +55,14 @@ namespace FormsIW5.IdentityProvider.App
                     [
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "formsiw5"
+                        "cookbookapi"
                     ],
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())
-                    }
+                    },
+                    RequireClientSecret = false
                 }
-         ];
+        ];
     }
 }

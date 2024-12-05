@@ -16,12 +16,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.0" />
     <PackageReference Include="NSwag.AspNetCore" Version="14.2.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FormsIW5.Api.BL\FormsIW5.Api.BL.csproj" />
+    <ProjectReference Include="..\FormsIW5.Common\FormsIW5.Common.csproj" />
   </ItemGroup>
 
 </Project>

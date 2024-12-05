@@ -1,5 +1,3 @@
-using FormsIW5.Api.DAL.Installers;
-using FormsIW5.Api.BL.Installers;
 using FormsIW5.Common.Installer;
 using Microsoft.EntityFrameworkCore;
 using FormsIW5.Api.App.Endpoints;
@@ -7,6 +5,9 @@ using FormsIW5.Api.DAL;
 using FormsIW5.Api.App.Configurations;
 using Microsoft.Extensions.Options;
 using FormsIW5.Api.DAL.Common.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using FormsIW5.Api.DAL.Installer;
+using FormsIW5.Api.BL.Installer;
 
 namespace FormsIW5.Api.App;
 
@@ -15,6 +16,12 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        var enableIdentity = builder.Configuration?.GetValue<bool>("IdentityProvider:EnableIdentity") is true;
+
+        if (enableIdentity) { 
+            ConfigureAuthentication(builder.Services, builder.Configuration);
+        }
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddOpenApiDocument();
@@ -29,17 +36,10 @@ public class Program
 
         if (builder.Environment.EnvironmentName != "QA")
         {
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                throw new InvalidOperationException($"Connection string not found.");
-            }
-
-            builder.Services.Install<ApiDALInstaller>(connectionString!, 10);
+            builder.Services.Install<ApiDALInstaller>(builder.Configuration);
         }
 
-        builder.Services.Install<ApiBLInstaller>();
+        builder.Services.Install<ApiBLInstaller>(builder.Configuration);
 
         builder.Services.AddOptions<MigrationConfiguration>()
             .BindConfiguration("MigrationOptions")
@@ -47,7 +47,6 @@ public class Program
             .ValidateOnStart();
 
         var app = builder.Build();
-
 
         var environment = app.Services.GetRequiredService<IWebHostEnvironment>();
 
@@ -66,7 +65,12 @@ public class Program
 
         app.UseRouting();
 
-        AddEndpoints(app);
+        if (enableIdentity) {
+            app.UseAuthentication();
+            app.UseAuthorization();
+        }
+
+        AddEndpoints(app, enableIdentity);
 
         app.UseOpenApi();
         app.UseSwaggerUi();
@@ -85,12 +89,35 @@ public class Program
         }
     }
 
-    public static void AddEndpoints(IEndpointRouteBuilder endpointRoute)
+    public static void AddEndpoints(IEndpointRouteBuilder endpointRoute, bool enableIdentity)
     {
         endpointRoute.MapGroup("api").WithOpenApi()
-            .AddUserEndpoints()
-            .AddFormEndpoints()
+            .AddFormEndpoints(enableIdentity)
             .AddQuestionEndpoints()
             .AddAnswerEndpoints();
+    }
+
+    public static void ConfigureAuthentication(IServiceCollection serviceCollection, IConfiguration? configuration)
+    {
+        var apiBaseUrl = configuration?.GetValue<string>("IdentityProvider:Authority");
+
+        if (apiBaseUrl is null) 
+        {
+            throw new NullReferenceException("Identity provider must be set if enabled");
+        }
+
+        serviceCollection.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.Authority = apiBaseUrl;
+                options.TokenValidationParameters.ValidateAudience = false;
+            });
+
+        serviceCollection.AddAuthorization(
+                options =>
+                {
+                    options.AddPolicy("ingredient-admin", policy => policy.RequireRole("admin"));
+                });
+        serviceCollection.AddHttpContextAccessor();
     }
 }

@@ -1,24 +1,34 @@
-using FormsIW5.Web.BL;
-using Microsoft.AspNetCore.Components.Web;
+﻿using FormsIW5.Web.App;
+using FormsIW5.Web.BL.Installer;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using FormsIW5.Common.Installer;
+using Microsoft.Extensions.Configuration;
 
-namespace FormsIW5.Web.App
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add<App>("app");
+
+var apiBaseUrl = builder.Configuration.GetValue<string>("ApiBaseUrl");
+
+builder.Services.Install<WebBLInstaller>(builder.Configuration);
+
+builder.Services.AddTransient<AuthorizationMessageHandler>();
+
+builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri(apiBaseUrl))
+    .AddHttpMessageHandler(serviceProvider
+    => serviceProvider?.GetService<AuthorizationMessageHandler>()
+        ?.ConfigureHandler(
+            authorizedUrls: [apiBaseUrl],
+            scopes: ["cookbookapi"]));
+
+builder.Services.AddScoped<HttpClient>(serviceProvider => serviceProvider.GetService<IHttpClientFactory>().CreateClient("api"));
+
+builder.Services.AddOidcAuthentication(options =>
 {
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("#app");
-            builder.RootComponents.Add<HeadOutlet>("head::after");
-            var apiBaseUrl = builder.Configuration.GetValue<Uri>("ApiBaseUrl");
+    builder.Configuration.Bind("IdentityProvider", options.ProviderOptions);
+    options.ProviderOptions.DefaultScopes.Add("cookbookapi");
+});
 
-            builder.Services.AddHttpClient<FormApiClient>(client =>
-            {
-                client.BaseAddress = apiBaseUrl;
-            });
+var host = builder.Build();
 
-            await builder.Build().RunAsync();
-        }
-    }
-}
+await host.RunAsync();

@@ -1,28 +1,25 @@
 ﻿using FormsIW5.Common.Installer;
+using FormsIW5.Web.BL.Facades;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FormsIW5.Web.BL.Installer;
 
-public class WebBLInstaller : IClientInstaller
+public class WebBLInstaller : IInstaller
 {
-    public void Install(IServiceCollection serviceCollection, string url)
+    public void Install(IServiceCollection serviceCollection, IConfiguration? configuration)
     {
-      /*  serviceCollection.AddTransient<IRecipeApiClient, RecipeApiClient>(provider =>
-        {
-            var client = CreateApiHttpClient(provider, apiBaseUrl);
-            return new RecipeApiClient(client, apiBaseUrl);
-        });
+        var apiBaseUrl = configuration?.GetValue<Uri>("ApiBaseUrl");
 
-        serviceCollection.AddTransient<IIngredientApiClient, IngredientApiClient>(provider =>
-        {
-            var client = CreateApiHttpClient(provider, apiBaseUrl);
-            return new IngredientApiClient(client, apiBaseUrl);
-        });
+        serviceCollection.AddScoped<IUserApiClient, UserApiClient>();
+        serviceCollection.AddScoped<IFormApiClient, FormApiClient>();
+        serviceCollection.AddScoped<IQuestionApiClient, QuestionApiClient>();
+        serviceCollection.AddScoped<IAnswerApiClient, AnswerApiClient>();
 
         serviceCollection.Scan(selector =>
-            selector.FromAssemblyOf<WebBLInstaller>()
-                .AddClasses(classes => classes.AssignableTo<IAppFacade>())
-                .AsSelfWithInterfaces()
-                .WithTransientLifetime());*/
+             selector.FromAssemblyOf<WebBLInstaller>()
+                 .AddClasses(classes => classes.AssignableTo<IWebFacade>())
+                 .AsSelfWithInterfaces()
+                 .WithTransientLifetime());
     }
 }

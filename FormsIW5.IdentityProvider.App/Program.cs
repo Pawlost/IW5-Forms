@@ -16,9 +16,12 @@ try
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(ctx.Configuration));
 
-    var app = builder
-        .ConfigureServices()
-        .ConfigurePipeline();
+    var app = builder.ConfigureServices();
+
+    app.ConfigurePipeline();
+
+    app.MapGroup("api")
+        .AllowAnonymous();
 
     app.Run();
 }

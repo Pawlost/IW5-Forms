@@ -1,0 +1,9 @@
+﻿@page "/ingredients/create"
+@page "/ingredients/{Id:guid}"
+@namespace CookBook.Web.App.Pages
+@using Microsoft.Extensions.Localization
+@inherits PageBase
+
+<h1 class="mb-4">Page title</h1>
+
+<IngredientEditForm Id="@Id" OnModification="NavigateBack" />

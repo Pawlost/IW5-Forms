@@ -6,9 +6,13 @@ namespace FormsIW5.Api.App.Endpoints;
 
 public static class FormEndpoints
 {
-    public static IEndpointRouteBuilder AddFormEndpoints(this IEndpointRouteBuilder endpointRoute)
+    public static IEndpointRouteBuilder AddFormEndpoints(this IEndpointRouteBuilder endpointRoute, bool enableIdentity = true)
     {
         var group = endpointRoute.MapGroup("form").WithTags("form");
+
+        if (enableIdentity) { 
+            group.RequireAuthorization();
+        }
 
         //Get all
         group.MapGet("", async ([FromServices] IListFacade<FormListModel> facade) => await facade.GetAllAsync());

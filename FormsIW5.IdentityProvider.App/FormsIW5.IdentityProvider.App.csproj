@@ -4,11 +4,16 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<UserSecretsId>cbadb233-6f5f-45c2-9680-c5dbb0b65bff</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Duende.IdentityServer" Version="7.0.4" />
-
+		<PackageReference Include="Duende.IdentityServer" Version="7.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.11" />
 		<PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\FormsIW5.IdentityProvider.BL\FormsIW5.IdentityProvider.BL.csproj" />
 	</ItemGroup>
 </Project>

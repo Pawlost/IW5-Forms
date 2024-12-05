@@ -1,0 +1,14 @@
+﻿using System.Net.Http.Headers;
+
+namespace FormsIW5.Web.BL;
+
+public partial class FormApiClient
+{
+    partial void Initialize() {
+        BaseUrl = _httpClient?.BaseAddress?.ToString();
+    }
+    partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url) {
+     //  client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJSUzI1NiIsImtpZCI6IkZFODJGODNDNDc2NDIzQjE0RDFENDZERDMyOTMwNzJFIiwidHlwIjoiYXQrand0In0.eyJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo1MDAxIiwibmJmIjoxNzMzMjY2MTU2LCJpYXQiOjE3MzMyNjYxNTYsImV4cCI6MTczMzI2OTc1NiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMS9yZXNvdXJjZXMiLCJzY29wZSI6WyJjb29rYm9va2FwaSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJwd2QiXSwiY2xpZW50X2lkIjoiY29va2Jvb2tjbGllbnQiLCJzdWIiOiJhZG1pbiIsImF1dGhfdGltZSI6MTczMzI2NjE1MCwiaWRwIjoibG9jYWwiLCJzaWQiOiJGRUE4MEJDMTZCMUQ0Q0YwQUQwOTZDOEMwMEREQjQwRCIsImp0aSI6IjEwREUxNUQzMENCMzAwMkQ0MzUzQUZBN0E4NDczQzEwIn0.InokXtPe_EJkn4UQfyF87HyhibszeF4HFjvGx84ebXBj1WE5O8umdCRAoT7qobDmj69Z-lGtw39jqlj4hcgkUPkhSkk1A_BjQJ_GrZl2VZ-q7cXyGo9gMLJbL3skZiJ6cjh4i5TlRgTGOCNNc1WFRst27uvf19mYnSV8EkUgkRdS0geeHuiptUwNhvFmHto14wmFC5oJN2HUgBaYpKSk_ASew81pWdNRcuhuqUOxDBTbbgOloBw4EqqH0AYks1zgh0eS62zq1WOUoGtmpThg_am08voU_rILjcuVI1m5HHUTX6ttMtgaEdAtPP1akgqkqD1awB0aG81Ht8SjVtCO5Q");
+        Console.WriteLine(client.DefaultRequestHeaders.ToString());
+    }
+}
