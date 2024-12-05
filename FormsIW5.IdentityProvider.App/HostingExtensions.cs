@@ -1,9 +1,9 @@
 ﻿using FormsIW5.IdentityProvider.App.Installers;
 using FormsIW5.IdentityProvider.App.Services;
-using FormsIW5.IdentityProvider.BL.Installers;
+using FormsIW5.IdentityProvider.BL.Installer;
 using FormsIW5.Common.Installer;
 using Serilog;
-using FormsIW5.IdentityProvider.DAL.Installers;
+using FormsIW5.IdentityProvider.DAL.Installer;
 
 namespace FormsIW5.IdentityProvider.App
 {

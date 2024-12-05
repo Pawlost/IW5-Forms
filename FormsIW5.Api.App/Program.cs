@@ -85,7 +85,6 @@ public class Program
         if (configuration.Value.ApplyMigration)
         {
             using var dbContext = services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
-            dbContext.Database.EnsureDeleted();
             dbContext.Database.Migrate();
         }
     }
@@ -100,7 +99,7 @@ public class Program
 
     public static void ConfigureAuthentication(IServiceCollection serviceCollection, IConfiguration? configuration)
     {
-        var apiBaseUrl = configuration?.GetValue<string>("IdentityProvider:ApiBaseUrl");
+        var apiBaseUrl = configuration?.GetValue<string>("IdentityProvider:Authority");
 
         if (apiBaseUrl is null) 
         {

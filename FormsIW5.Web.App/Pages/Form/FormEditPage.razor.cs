@@ -2,6 +2,7 @@
 
 namespace CookBook.Web.App.Pages
 {
+    /*
     public partial class FormEditPage
     {
         /*
@@ -103,6 +104,6 @@ namespace CookBook.Web.App.Pages
                     Id = Guid.Empty,
                     Name = string.Empty
                 }
-            };*/
-    }
+            };
+    }*/
 }

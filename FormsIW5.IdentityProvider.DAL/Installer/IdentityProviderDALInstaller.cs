@@ -10,7 +10,7 @@ namespace FormsIW5.IdentityProvider.DAL.Installer;
 
 public class IdentityProviderDALInstaller : IInstaller
 {
-    private const string ConnectionStringName = "DefaultConnection";
+    private const string ConnectionStringName = "IdentityConnection";
     private const int Timeout = 12;
 
     public void Install(IServiceCollection serviceCollection, IConfiguration? configuration)

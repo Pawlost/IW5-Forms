@@ -3,6 +3,7 @@ using FormsIW5.Web.BL.Installer;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using FormsIW5.Common.Installer;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("app");
@@ -24,10 +25,7 @@ builder.Services.AddScoped<HttpClient>(serviceProvider => serviceProvider.GetSer
 
 builder.Services.AddOidcAuthentication(options =>
 {
-    builder.Configuration.Bind("IdentityServer", options.ProviderOptions);
-    var configurationSection = builder.Configuration.GetSection("IdentityServer");
-    var authority = configurationSection["Authority"];
-
+    builder.Configuration.Bind("IdentityProvider", options.ProviderOptions);
     options.ProviderOptions.DefaultScopes.Add("cookbookapi");
 });
 

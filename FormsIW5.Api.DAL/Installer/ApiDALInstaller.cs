@@ -8,7 +8,7 @@ namespace FormsIW5.Api.DAL.Installer;
 
 public class ApiDALInstaller : IInstaller
 {
-    private const string ConnectionStringName = "DefaultConnection";
+    private const string ConnectionStringName = "ApiConnection";
     private const int Timeout = 12;
     public void Install(IServiceCollection serviceCollection, IConfiguration? configuration)
     {
