@@ -4,6 +4,8 @@ using FormsIW5.IdentityProvider.BL.Installer;
 using FormsIW5.Common.Installer;
 using Serilog;
 using FormsIW5.IdentityProvider.DAL.Installer;
+using FormsIW5.IdentityProvider.DAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace FormsIW5.IdentityProvider.App
 {
@@ -34,6 +36,8 @@ namespace FormsIW5.IdentityProvider.App
 
         public static WebApplication ConfigurePipeline(this WebApplication app)
         {
+            MigrateDB(app.Services);
+
             app.UseSerilogRequestLogging();
 
             app.UseCors(policy =>
@@ -58,6 +62,12 @@ namespace FormsIW5.IdentityProvider.App
            // app.UseUserEndpoints();
 
             return app;
+        }
+
+        public static void MigrateDB(IServiceProvider services)
+        {
+           using var dbContext = services.CreateScope().ServiceProvider.GetRequiredService<IdentityProviderDbContext>();
+           dbContext.Database.Migrate();
         }
     }
 }
