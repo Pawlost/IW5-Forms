@@ -10,9 +10,9 @@ public class ApiDALInstaller : IInstaller
 {
     private const string ConnectionStringName = "DefaultConnection";
     private const int Timeout = 12;
-    public void Install(IServiceCollection serviceCollection, IConfiguration configuration)
+    public void Install(IServiceCollection serviceCollection, IConfiguration? configuration)
     {
-        var connectionString = configuration.GetConnectionString(ConnectionStringName);
+        var connectionString = configuration?.GetConnectionString(ConnectionStringName);
 
         if (string.IsNullOrEmpty(connectionString))
         {

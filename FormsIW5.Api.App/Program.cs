@@ -79,6 +79,7 @@ public class Program
         if (configuration.Value.ApplyMigration)
         {
             using var dbContext = services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
+            dbContext.Database.EnsureDeleted();
             dbContext.Database.Migrate();
         }
     }
@@ -86,7 +87,6 @@ public class Program
     public static void AddEndpoints(IEndpointRouteBuilder endpointRoute)
     {
         endpointRoute.MapGroup("api").WithOpenApi()
-            .AddUserEndpoints()
             .AddFormEndpoints()
             .AddQuestionEndpoints()
             .AddAnswerEndpoints();

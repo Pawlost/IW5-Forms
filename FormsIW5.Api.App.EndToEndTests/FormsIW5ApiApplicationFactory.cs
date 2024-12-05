@@ -9,10 +9,9 @@ namespace FormsIW5.Api.App.EndToEndTests;
 
 public class FormsIW5ApiApplicationFactory : WebApplicationFactory<Program>
 {
-    private IHost host { get; set; }
     protected override IHost CreateHost(IHostBuilder builder)
     {
-        /*  builder.UseEnvironment("QA");
+          builder.UseEnvironment("QA");
 
           builder.ConfigureAppConfiguration(config =>
           {
@@ -24,10 +23,10 @@ public class FormsIW5ApiApplicationFactory : WebApplicationFactory<Program>
               var controllerAssemblyName = typeof(Program).Assembly.FullName;
               collection.AddMvc().AddApplicationPart(Assembly.Load(controllerAssemblyName));
 
-              collection.Install<ApiDALInstaller>(builder.Configuration);
+              collection.Install<ApiDALInstaller>(context.Configuration);
           });
 
-          host = base.CreateHost(builder);
+          var host = base.CreateHost(builder);
 
           using var deleteContext = host.Services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
           deleteContext.Database.EnsureDeleted();
@@ -35,7 +34,6 @@ public class FormsIW5ApiApplicationFactory : WebApplicationFactory<Program>
           using var dbContext = host.Services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
           dbContext.Database.EnsureCreated();
 
-          return host;*/
-        return null;
+          return host;
     }
 }

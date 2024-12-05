@@ -2,9 +2,10 @@
 
 namespace CookBook.Web.App.Pages
 {
+    /*
     public partial class RecipeEditPage
     {
-        /*   [Inject]
+        [Inject]
            private NavigationManager navigationManager { get; set; } = null!;
 
            [Inject]
@@ -102,6 +103,6 @@ namespace CookBook.Web.App.Pages
                        Id = Guid.Empty,
                        Name = string.Empty
                    }
-               };*/
-    }
+               };
+    }*/
 }

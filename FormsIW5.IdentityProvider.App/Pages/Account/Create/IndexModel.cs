@@ -4,20 +4,20 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace CookBook.IdentityProvider.App.Pages.Create;
+namespace FormsIW5.IdentityProvider.App.Pages.Account.Create;
 
 public class InputModel
 {
     [Required]
-    public string Username { get; set; }
+    public required string Username { get; set; }
 
     [Required]
-    public string Password { get; set; }
+    public required string Password { get; set; }
 
-    public string Name { get; set; }
-    public string Email { get; set; }
+    public string? Name { get; set; }
+    public string? Email { get; set; }
 
-    public string ReturnUrl { get; set; }
+    public string? ReturnUrl { get; set; }
 
-    public string Button { get; set; }
+    public string? Button { get; set; }
 }

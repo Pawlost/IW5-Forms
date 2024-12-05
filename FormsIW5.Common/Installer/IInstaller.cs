@@ -5,5 +5,5 @@ namespace FormsIW5.Common.Installer;
 
 public interface IInstaller
 {
-    void Install(IServiceCollection serviceCollection, IConfiguration configuration);
+    void Install(IServiceCollection serviceCollection, IConfiguration? configuration);
 }

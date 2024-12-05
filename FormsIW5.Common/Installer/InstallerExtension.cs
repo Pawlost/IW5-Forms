@@ -5,9 +5,10 @@ namespace FormsIW5.Common.Installer;
 
 public static class InstallerExtension
 {
-    public static void Install<TInstaller>(this IServiceCollection serviceCollection, IConfiguration configuration)
+    public static IServiceCollection Install<TInstaller>(this IServiceCollection serviceCollection, IConfiguration? configuration = null)
         where TInstaller : IInstaller, new()
     {
         new TInstaller().Install(serviceCollection, configuration);
+        return serviceCollection;
     }
 }

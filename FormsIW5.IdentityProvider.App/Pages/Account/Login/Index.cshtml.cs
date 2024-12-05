@@ -22,10 +22,10 @@ public class Index : PageModel
     private readonly IAuthenticationSchemeProvider _schemeProvider;
     private readonly IIdentityProviderStore _identityProviderStore;
 
-    public ViewModel View { get; set; }
+    public ViewModel View { get; set; } = null!;
 
     [BindProperty]
-    public InputModel Input { get; set; }
+    public InputModel Input { get; set; } = null!;
 
     public Index(
         IIdentityServerInteractionService interaction,
@@ -77,13 +77,13 @@ public class Index : PageModel
                     return this.LoadingPage(Input.ReturnUrl);
                 }
 
-                return Redirect(Input.ReturnUrl);
+                if (Input.ReturnUrl is not null) { 
+                    return Redirect(Input.ReturnUrl);
+                }
             }
-            else
-            {
-                // since we don't have a valid context, then we just go back to the home page
-                return Redirect("~/");
-            }
+            
+            // since we don't have a valid context, then we just go back to the home page
+            return Redirect("~/");
         }
 
         if (ModelState.IsValid)

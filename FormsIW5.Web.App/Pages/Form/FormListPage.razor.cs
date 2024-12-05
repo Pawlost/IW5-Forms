@@ -2,7 +2,7 @@
 using FormsIW5.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
 
-namespace FormsIW5.Web.App.Pages;
+namespace FormsIW5.Web.App.Pages.Form;
 
 public partial class FormListPage
 {
