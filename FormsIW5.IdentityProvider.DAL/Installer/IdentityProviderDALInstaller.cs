@@ -6,20 +6,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FormsIW5.IdentityProvider.DAL;
+namespace FormsIW5.IdentityProvider.DAL.Installer;
 
 public class IdentityProviderDALInstaller : IInstaller
 {
     private const string ConnectionStringName = "DefaultConnection";
     private const int Timeout = 12;
 
-    public void Install(IServiceCollection serviceCollection, IConfiguration configuration)
+    public void Install(IServiceCollection serviceCollection, IConfiguration? configuration)
     {
-        var connectionString = configuration.GetConnectionString(ConnectionStringName);
+        var connectionString = configuration?.GetConnectionString(ConnectionStringName);
 
         if (string.IsNullOrEmpty(connectionString))
         {
-            throw new InvalidOperationException($"Connection string not found.");
+            throw new NullReferenceException($"Connection string must be set.");
         }
 
         serviceCollection.AddDbContext<IdentityProviderDbContext>(options => options.UseSqlServer(connectionString, options => options.CommandTimeout(Timeout)));

@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
-using FormsIW5.Api.DAL.Installers;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using FormsIW5.Common.Installer;
 using FormsIW5.Api.DAL;
+using FormsIW5.Api.DAL.Installer;
 
 namespace FormsIW5.Api.App.EndToEndTests;
 

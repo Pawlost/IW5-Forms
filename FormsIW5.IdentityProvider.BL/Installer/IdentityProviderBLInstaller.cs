@@ -4,11 +4,11 @@ using FormsIW5.IdentityProvider.BL.MapperProfiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FormsIW5.IdentityProvider.BL.Installers;
+namespace FormsIW5.IdentityProvider.BL.Installer;
 
 public class IdentityProviderBLInstaller : IInstaller
 {
-    public void Install(IServiceCollection serviceCollection, IConfiguration configuration)
+    public void Install(IServiceCollection serviceCollection, IConfiguration? configuration)
     {
         serviceCollection.AddAutoMapper(typeof(AppUserMapperProfile));
 

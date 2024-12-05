@@ -7,9 +7,9 @@ namespace FormsIW5.Web.BL.Installer;
 
 public class WebBLInstaller : IInstaller
 {
-    public void Install(IServiceCollection serviceCollection, IConfiguration configuration)
+    public void Install(IServiceCollection serviceCollection, IConfiguration? configuration)
     {
-        var apiBaseUrl = configuration.GetValue<Uri>("ApiBaseUrl");
+        var apiBaseUrl = configuration?.GetValue<Uri>("ApiBaseUrl");
 
         serviceCollection.AddScoped<IUserApiClient, UserApiClient>();
         serviceCollection.AddScoped<IFormApiClient, FormApiClient>();

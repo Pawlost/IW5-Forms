@@ -1,5 +1,3 @@
-using FormsIW5.Api.DAL.Installers;
-using FormsIW5.Api.BL.Installers;
 using FormsIW5.Common.Installer;
 using Microsoft.EntityFrameworkCore;
 using FormsIW5.Api.App.Endpoints;
@@ -8,6 +6,8 @@ using FormsIW5.Api.App.Configurations;
 using Microsoft.Extensions.Options;
 using FormsIW5.Api.DAL.Common.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using FormsIW5.Api.DAL.Installer;
+using FormsIW5.Api.BL.Installer;
 
 namespace FormsIW5.Api.App;
 
@@ -17,7 +17,11 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        ConfigureAuthentication(builder.Services, builder.Configuration.GetSection("IdentityServer")["Url"]);
+        var enableIdentity = builder.Configuration?.GetValue<bool>("IdentityProvider:EnableIdentity") is true;
+
+        if (enableIdentity) { 
+            ConfigureAuthentication(builder.Services, builder.Configuration);
+        }
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddOpenApiDocument();
@@ -61,10 +65,12 @@ public class Program
 
         app.UseRouting();
 
-        app.UseAuthentication();
-        app.UseAuthorization();
+        if (enableIdentity) {
+            app.UseAuthentication();
+            app.UseAuthorization();
+        }
 
-        AddEndpoints(app);
+        AddEndpoints(app, enableIdentity);
 
         app.UseOpenApi();
         app.UseSwaggerUi();
@@ -84,20 +90,27 @@ public class Program
         }
     }
 
-    public static void AddEndpoints(IEndpointRouteBuilder endpointRoute)
+    public static void AddEndpoints(IEndpointRouteBuilder endpointRoute, bool enableIdentity)
     {
         endpointRoute.MapGroup("api").WithOpenApi()
-            .AddFormEndpoints()
+            .AddFormEndpoints(enableIdentity)
             .AddQuestionEndpoints()
             .AddAnswerEndpoints();
     }
 
-    public static void ConfigureAuthentication(IServiceCollection serviceCollection, string identityServerUrl)
+    public static void ConfigureAuthentication(IServiceCollection serviceCollection, IConfiguration? configuration)
     {
+        var apiBaseUrl = configuration?.GetValue<string>("IdentityProvider:ApiBaseUrl");
+
+        if (apiBaseUrl is null) 
+        {
+            throw new NullReferenceException("Identity provider must be set if enabled");
+        }
+
         serviceCollection.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
-                options.Authority = identityServerUrl;
+                options.Authority = apiBaseUrl;
                 options.TokenValidationParameters.ValidateAudience = false;
             });
 

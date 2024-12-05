@@ -3,7 +3,7 @@ using FormsIW5.Common.Installer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FormsIW5.Api.BL.Installers;
+namespace FormsIW5.Api.BL.Installer;
 
 public class ApiBLInstaller : IInstaller
 {
