@@ -4,6 +4,7 @@ using IdentityModel;
 
 namespace FormsIW5.IdentityProvider.App
 {
+    // ALl these files should be replaced by a database in real production
     public static class Config
     {
         public static IEnumerable<IdentityResource> IdentityResources
@@ -31,18 +32,15 @@ namespace FormsIW5.IdentityProvider.App
             new ("cookbookapi", [JwtClaimTypes.Role])
         ];
 
-        public static IEnumerable<Client> Clients =>
-        [
-            new()
-                {
+        public static IEnumerable<Client> Clients = new List<Client>()
+        {
+            new Client(){
                     ClientName = "CookBook Client",
                     ClientId = "cookbookclient",
                     AllowOfflineAccess = true,
                     RedirectUris =
                     [
-                        "https://oauth.pstmn.io/v1/callback",
-                        "https://localhost:44355/authentication/login-callback",
-                        "https://localhost:7151/authentication/login-callback",
+                        "https://oauth.pstmn.io/v1/callback"
                     ],
                     AllowedGrantTypes =
                     [
@@ -63,6 +61,6 @@ namespace FormsIW5.IdentityProvider.App
                     },
                     RequireClientSecret = false
                 }
-        ];
+             };
     }
 }

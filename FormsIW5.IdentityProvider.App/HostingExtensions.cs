@@ -6,6 +6,7 @@ using Serilog;
 using FormsIW5.IdentityProvider.DAL.Installer;
 using FormsIW5.IdentityProvider.DAL;
 using Microsoft.EntityFrameworkCore;
+using Duende.IdentityServer.Models;
 
 namespace FormsIW5.IdentityProvider.App
 {
@@ -16,6 +17,14 @@ namespace FormsIW5.IdentityProvider.App
             builder.Services.Install<IdentityProviderDALInstaller>(builder.Configuration);
             builder.Services.Install<IdentityProviderBLInstaller>(builder.Configuration);
             builder.Services.Install<IdentityProviderAppInstaller>(builder.Configuration);
+            var allowedRedirectUri = builder.Configuration.GetValue<string>("IdentityProvider:Authority");
+            if (allowedRedirectUri is not null)
+            {
+                Config.Clients.Where(c => c.ClientId.Equals("cookbookclient")).First().RedirectUris.Add(allowedRedirectUri);
+            }
+            else {
+                throw new NullReferenceException("Redirect uri must be set for client");
+            }
 
             builder.Services.AddRazorPages();
 
