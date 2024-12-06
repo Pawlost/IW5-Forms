@@ -13,19 +13,21 @@ builder.Services.Install<WebBLInstaller>(builder.Configuration);
 
 builder.Services.AddTransient<AuthorizationMessageHandler>();
 
+const string scope = "iw5FormsScope";
+
 builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri(apiBaseUrl))
     .AddHttpMessageHandler(serviceProvider
     => serviceProvider?.GetService<AuthorizationMessageHandler>()
         ?.ConfigureHandler(
-            authorizedUrls: [apiBaseUrl],
-            scopes: ["cookbookapi"]));
+            authorizedUrls: [apiBaseUrl??""],
+            scopes: [scope]));
 
 builder.Services.AddScoped<HttpClient>(serviceProvider => serviceProvider.GetService<IHttpClientFactory>().CreateClient("api"));
 
 builder.Services.AddOidcAuthentication(options =>
 {
     builder.Configuration.Bind("IdentityProvider", options.ProviderOptions);
-    options.ProviderOptions.DefaultScopes.Add("cookbookapi");
+    options.ProviderOptions.DefaultScopes.Add(scope);
 });
 
 var host = builder.Build();
