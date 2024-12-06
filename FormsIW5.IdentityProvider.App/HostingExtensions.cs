@@ -17,7 +17,7 @@ namespace FormsIW5.IdentityProvider.App
             builder.Services.Install<IdentityProviderDALInstaller>(builder.Configuration);
             builder.Services.Install<IdentityProviderBLInstaller>(builder.Configuration);
             builder.Services.Install<IdentityProviderAppInstaller>(builder.Configuration);
-            var allowedRedirectUri = builder.Configuration.GetValue<string>("IdentityProvider:Authority");
+            var allowedRedirectUri = builder.Configuration.GetValue<string>("IdentityProvider:RedirectUri");
             if (allowedRedirectUri is not null)
             {
                 Config.Clients.Where(c => c.ClientId.Equals("cookbookclient")).First().RedirectUris.Add(allowedRedirectUri);
