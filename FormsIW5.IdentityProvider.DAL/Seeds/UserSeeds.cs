@@ -37,6 +37,6 @@ namespace FormsIW5.IdentityProvider.DAL.Seeds
         };
 
          public static void Seed(this ModelBuilder modelBuilder) =>
-                    modelBuilder.Entity<AppUserEntity>().HasData(AdminUser);
+                    modelBuilder.Entity<AppUserEntity>().HasData(AdminUser, TestUser);
     }
 }

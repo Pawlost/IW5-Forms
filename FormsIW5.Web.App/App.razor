@@ -1,6 +1,6 @@
-@using CookBook.Web.App
+@using IW5Forms.Web.App
 <CascadingAuthenticationState>
-    <Router AppAssembly="@typeof(App).Assembly" PreferExactMatches="@true">
+    <Router AppAssembly="@typeof(App).Assembly">
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                 <NotAuthorized>

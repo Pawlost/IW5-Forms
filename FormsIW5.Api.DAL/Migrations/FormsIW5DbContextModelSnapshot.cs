@@ -49,7 +49,7 @@ namespace FormsIW5.Api.DAL.Migrations
 
                     b.HasIndex("SelectedAnswerId");
 
-                    b.ToTable("Answers");
+                    b.ToTable("Answers", (string)null);
                 });
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.AnswerSelectionEntity", b =>
@@ -71,7 +71,7 @@ namespace FormsIW5.Api.DAL.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("AnswersSelection");
+                    b.ToTable("AnswersSelection", (string)null);
                 });
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.FormEntity", b =>
@@ -98,7 +98,7 @@ namespace FormsIW5.Api.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Forms");
+                    b.ToTable("Forms", (string)null);
                 });
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", b =>
@@ -132,7 +132,7 @@ namespace FormsIW5.Api.DAL.Migrations
 
                     b.HasIndex("FormId");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
                 });
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.AnswerEntity", b =>

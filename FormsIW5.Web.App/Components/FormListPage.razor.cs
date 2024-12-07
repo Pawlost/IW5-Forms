@@ -2,19 +2,19 @@
 using FormsIW5.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
 
-namespace FormsIW5.Web.App.Pages.Form;
+namespace FormsIW5.Web.App.Components;
 
 public partial class FormListPage
 {
     [Inject]
     private FormFacade facade { get; set; } = null!;
 
-    ICollection<FormListModel> FormList { get; set; } = [];
+    private ICollection<FormListModel> formList { get; set; } = [];
 
     protected override async Task OnInitializedAsync()
     {
 
-        FormList = await facade.FormGetAsync();
+        formList = await facade.FormGetAsync();
         await base.OnInitializedAsync();
     }
 }

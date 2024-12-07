@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace CookBook.Web.App.Pages
+namespace FormsIW5.Web.App.Pages
 {
     public class PageBase : ComponentBase
     {
