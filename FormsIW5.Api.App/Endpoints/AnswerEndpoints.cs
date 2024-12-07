@@ -6,9 +6,14 @@ namespace FormsIW5.Api.App.Endpoints;
 
 public static class AnswerEndpoints
 {
-    public static IEndpointRouteBuilder AddAnswerEndpoints(this IEndpointRouteBuilder endpointRoute)
+    public static IEndpointRouteBuilder AddAnswerEndpoints(this IEndpointRouteBuilder endpointRoute, bool enableIdentity)
     {
         var group = endpointRoute.MapGroup("answer").WithTags("answer");
+
+        if (enableIdentity)
+        {
+            group.RequireAuthorization();
+        }
 
         //Get all
         group.MapGet("", async ([FromServices] IListFacade<AnswerListModel> facade) => await facade.GetAllAsync());

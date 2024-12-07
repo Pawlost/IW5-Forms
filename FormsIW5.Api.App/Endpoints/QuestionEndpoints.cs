@@ -7,9 +7,14 @@ namespace FormsIW5.Api.App.Endpoints;
 
 public static class QuestionEndpoints
 {
-    public static IEndpointRouteBuilder AddQuestionEndpoints(this IEndpointRouteBuilder endpointRoute)
+    public static IEndpointRouteBuilder AddQuestionEndpoints(this IEndpointRouteBuilder endpointRoute, bool enableIdentity)
     {
         var group = endpointRoute.MapGroup("question").WithTags("question");
+
+        if (enableIdentity)
+        {
+            group.RequireAuthorization();
+        }
 
         //Get all
         group.MapGet("", async ([FromServices] IListFacade<QuestionListModel> facade) => await facade.GetAllAsync());

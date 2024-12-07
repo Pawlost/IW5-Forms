@@ -28,7 +28,7 @@ namespace FormsIW5.Web.BL
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.2.0.0 (NJsonSchema v11.1.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface IUserApiClient
+    public partial interface IUserApiClient : FormsIW5.Web.BL.Clients.Interfaces.IModifiableClient
     {
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserListModel>> UserGetAsync();
@@ -856,7 +856,7 @@ namespace FormsIW5.Web.BL
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.2.0.0 (NJsonSchema v11.1.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface IFormApiClient
+    public partial interface IFormApiClient : FormsIW5.Web.BL.Clients.Interfaces.IModifiableClient
     {
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FormListModel>> FormGetAsync();
@@ -1535,7 +1535,7 @@ namespace FormsIW5.Web.BL
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.2.0.0 (NJsonSchema v11.1.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface IQuestionApiClient
+    public partial interface IQuestionApiClient : FormsIW5.Web.BL.Clients.Interfaces.IModifiableClient
     {
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<QuestionListModel>> QuestionGetAsync();
@@ -2307,7 +2307,7 @@ namespace FormsIW5.Web.BL
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.2.0.0 (NJsonSchema v11.1.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface IAnswerApiClient
+    public partial interface IAnswerApiClient : FormsIW5.Web.BL.Clients.Interfaces.IModifiableClient
     {
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AnswerListModel>> AnswerGetAsync();

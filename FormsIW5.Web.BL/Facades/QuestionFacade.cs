@@ -1,15 +1,16 @@
-﻿using FormsIW5.BL.Models.Common.Answer;
-using FormsIW5.BL.Models.Common.Question;
+﻿using FormsIW5.BL.Models.Common.Question;
 
 namespace FormsIW5.Web.BL.Facades;
 
-public class QuestionFacade : IWebFacade
+public class QuestionFacade : FacadeBase
 {
     private readonly IQuestionApiClient apiClient;
-    public QuestionFacade(IQuestionApiClient apiClient)
+
+    public QuestionFacade(IQuestionApiClient apiClient, IHttpClientFactory clientFactory) : base(clientFactory)
     {
         this.apiClient = apiClient;
     }
+
     public async Task<ICollection<QuestionListModel>> QuestionListGetAsync()
     {
         return await apiClient.QuestionGetAsync();

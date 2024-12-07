@@ -1,12 +1,11 @@
 ﻿using FormsIW5.BL.Models.Common.Answer;
-using FormsIW5.BL.Models.Common.User;
 
 namespace FormsIW5.Web.BL.Facades;
 
-public class AnswerFacade : IWebFacade
+public class AnswerFacade : FacadeBase
 {
     private readonly IAnswerApiClient apiClient;
-    public AnswerFacade(IAnswerApiClient apiClient)
+    public AnswerFacade(IAnswerApiClient apiClient, IHttpClientFactory clientFactory) : base(clientFactory)
     {
         this.apiClient = apiClient;
     }

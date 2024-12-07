@@ -1,19 +1,22 @@
-﻿using FormsIW5.BL.Models.Common.Answer;
-using FormsIW5.BL.Models.Common.Form;
+﻿using FormsIW5.BL.Models.Common.Form;
 
 namespace FormsIW5.Web.BL.Facades;
 
-public class FormFacade : IWebFacade
+public class FormFacade : FacadeBase
 {
     private readonly IFormApiClient apiClient;
-    public FormFacade(IFormApiClient apiClient)
+
+    public FormFacade(IFormApiClient apiClient, IHttpClientFactory clientFactory) : base(clientFactory)
     {
         this.apiClient = apiClient;
     }
+
     public async Task<ICollection<FormListModel>> FormGetAsync()
     {
+        apiClient.HttpClient = clientFactory.CreateClient(AnonymousClientName);
         return await apiClient.FormGetAsync();
     }
+
     public async Task<Guid> AnswerPostAsync(FormCreateModel createModel)
     {
         return await apiClient.FormPostAsync(createModel);

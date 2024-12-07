@@ -25,7 +25,7 @@
       "exceptionClass": "ApiException",
       "wrapDtoExceptions": true,
       "useHttpClientCreationMethod": false,
-      "httpClientType": "System.Net.Http.HttpClient",
+      "httpClientType": "Microsoft.Extensions.DependencyInjection.IHttpClientBuilder",
       "useHttpRequestMessageCreationMethod": false,
       "useBaseUrl": true,
       "generateBaseUrlProperty": true,
