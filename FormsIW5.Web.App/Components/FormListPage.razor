@@ -1,31 +1,35 @@
 ﻿@using FormsIW5.BL.Models.Common.Form
 @inherits FormsIW5.Web.App.Pages.PageBase
 
-<h3>FormListPage</h3>
+<style>
+    .flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    }
 
-<div class="row">
-    <div class="col-md">
-        <div class="bg-sec h-100 rounded">
-            @if (formList.Count != 0)
-            {
-                <table class="table border table-striped">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="row">FormName</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var ingredient in formList)
-                        {
-                            <tr>
-                                <td style="vertical-align: middle;">
-                                    <NavLink href="@($"/ingredients/{ingredient.Id}")">@ingredient.FormName</NavLink>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-        </div>
+    .item {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin: 5px;
+    }
+</style>
+
+<h1>FormListPage</h1>
+
+
+@if (formList.Count != 0)
+{
+    <div class="flex-container">
+        @foreach (var form in formList)
+        {
+            <button onclick="" class="item">
+                <h4>FormName</h4>
+                <h4>@form.FormName</h4>
+            </button>
+        }
     </div>
-</div>
+}
+else
+{
+    <h1>No forms currently available</h1>}

@@ -13,7 +13,14 @@ public partial class FormListPage
 
     protected override async Task OnInitializedAsync()
     {
+        form.Id
+        formList = await facade.FormGetAsync();
+        await base.OnInitializedAsync();
+    }
 
+    public void Redirect(Guid id)
+    {
+        form.Id
         formList = await facade.FormGetAsync();
         await base.OnInitializedAsync();
     }

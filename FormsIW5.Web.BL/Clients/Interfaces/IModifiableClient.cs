@@ -2,6 +2,6 @@
 {
     public interface IModifiableClient
     {
-        HttpClient HttpClient {set;}
+        HttpClient HttpClient { get; set; }
     }
 }
