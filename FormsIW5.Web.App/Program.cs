@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using FormsIW5.Common.Installer;
 using FormsIW5.Web.BL.Facades;
+using FormsIW5.Web.BL;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("app");
@@ -16,7 +17,7 @@ const string scope = "iw5FormsScope";
 
 var apiBaseUrl = builder.Configuration.GetValue<Uri>("ApiBaseUrl");
 
-builder.Services.AddHttpClient(FacadeBase.LogInClientName, client => client.BaseAddress = apiBaseUrl)
+builder.Services.AddHttpClient(ClientNames.LogInClientName, client => client.BaseAddress = apiBaseUrl)
     .AddHttpMessageHandler(serviceProvider
     => serviceProvider?.GetService<AuthorizationMessageHandler>()!
     .ConfigureHandler(
@@ -24,9 +25,9 @@ builder.Services.AddHttpClient(FacadeBase.LogInClientName, client => client.Base
             scopes: [scope])
     );
 
-builder.Services.AddHttpClient(FacadeBase.AnonymousClientName, client => client.BaseAddress = apiBaseUrl);
+builder.Services.AddHttpClient(ClientNames.AnonymousClientName, client => client.BaseAddress = apiBaseUrl);
 
-builder.Services.AddScoped<HttpClient>(serviceProvider => serviceProvider.GetService<IHttpClientFactory>()!.CreateClient(FacadeBase.LogInClientName));
+builder.Services.AddScoped(serviceProvider => serviceProvider.GetService<IHttpClientFactory>()!.CreateClient(ClientNames.LogInClientName));
 
 builder.Services.AddOidcAuthentication(options =>
 {

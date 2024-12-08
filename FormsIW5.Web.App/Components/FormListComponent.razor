@@ -3,15 +3,9 @@
 
 <style>
     .flex-container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    }
-
-    .item {
-    background-color: #f0f0f0;
-    padding: 10px;
-    margin: 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
     }
 </style>
 
@@ -23,10 +17,7 @@
     <div class="flex-container">
         @foreach (var form in formList)
         {
-            <button onclick="" class="item">
-                <h4>FormName</h4>
-                <h4>@form.FormName</h4>
-            </button>
+            <FormCard Form=@form/>
         }
     </div>
 }

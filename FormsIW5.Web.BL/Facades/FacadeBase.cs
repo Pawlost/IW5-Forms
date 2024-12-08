@@ -3,17 +3,14 @@ using FormsIW5.Web.BL.Facades.Interfaces;
 
 namespace FormsIW5.Web.BL.Facades
 {
-    public abstract class FacadeBase : IWebFacade
+    public abstract class FacadeBase<TClient> : IWebFacade
+        where TClient : IModifiableClient
     {
-        public const string AnonymousClientName = "anonymous";
-        public const string LogInClientName = "api";
-
         private readonly IHttpClientFactory clientFactory;
-        private readonly IModifiableClient client;
+        protected readonly TClient client;
         private readonly HttpClient originalClient;
 
-
-        public FacadeBase(IHttpClientFactory clientFactory, IModifiableClient client)
+        public FacadeBase(IHttpClientFactory clientFactory, TClient client)
         {
             this.client = client;
             originalClient = client.HttpClient;

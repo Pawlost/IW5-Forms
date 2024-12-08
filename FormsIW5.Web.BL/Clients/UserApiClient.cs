@@ -2,7 +2,11 @@
 
 public partial class UserApiClient
 {
-    public HttpClient HttpClient { set { _httpClient = value; } }
+    public HttpClient HttpClient
+    {
+        get { return _httpClient; }
+        set { _httpClient = value; }
+    }
 
     partial void Initialize() {
         BaseUrl = _httpClient?.BaseAddress?.ToString();

@@ -18,10 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\FormsIW5.Web.BL\FormsIW5.Web.BL.csproj" />
   </ItemGroup>
 

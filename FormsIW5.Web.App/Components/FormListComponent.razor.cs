@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace FormsIW5.Web.App.Components;
 
-public partial class FormListPage
+public partial class FormListComponent
 {
     [Inject]
     private FormFacade facade { get; set; } = null!;
@@ -13,14 +13,6 @@ public partial class FormListPage
 
     protected override async Task OnInitializedAsync()
     {
-        form.Id
-        formList = await facade.FormGetAsync();
-        await base.OnInitializedAsync();
-    }
-
-    public void Redirect(Guid id)
-    {
-        form.Id
         formList = await facade.FormGetAsync();
         await base.OnInitializedAsync();
     }

@@ -2,45 +2,42 @@
 
 namespace FormsIW5.Web.BL.Facades;
 
-public class FormFacade : FacadeBase
+public class FormFacade : FacadeBase<IFormApiClient>
 {
-    private readonly IFormApiClient apiClient;
-
     public FormFacade(IFormApiClient apiClient, IHttpClientFactory clientFactory) : base(clientFactory, apiClient)
     {
-        this.apiClient = apiClient;
     }
 
     public async Task<ICollection<FormListModel>> FormGetAsync()
     {
-        InitClient(FacadeBase.AnonymousClientName);
-        return await apiClient.FormGetAsync();
+        InitClient(ClientNames.AnonymousClientName);
+        return await client.FormGetAsync();
     }
 
     public async Task<Guid> AnswerPostAsync(FormCreateModel createModel)
     {
         InitClient();
-        return await apiClient.FormPostAsync(createModel);
+        return await client.FormPostAsync(createModel);
     }
 
     public async Task<Guid?> FormPutAsync(FormDetailModel model)
     {
         InitClient();
-        return await apiClient.FormPutAsync(model);
+        return await client.FormPutAsync(model);
     }
     public async Task<FormListModel> ListAsync(Guid id)
     {
         InitClient();
-        return await apiClient.ListAsync(id);
+        return await client.ListAsync(id);
     }
     public async Task<FormDetailModel> FormGetAsync(Guid id)
     {
         InitClient();
-        return await apiClient.FormGetAsync(id);
+        return await client.FormGetAsync(id);
     }
     public async Task AnswerDeleteAsync(Guid id)
     {
         InitClient();
-        await apiClient.FormDeleteAsync(id);
+        await client.FormDeleteAsync(id);
     }
 }
