@@ -20,7 +20,7 @@ namespace FormsIW5.Web.BL.Facades
         protected void InitClient(string? clientName = null) {
             if (clientName is null)
             {
-                client.HttpClient = originalClient;
+                client.HttpClient = clientFactory.CreateClient(ClientNames.LogInClientName);
             } 
             else 
             {

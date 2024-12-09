@@ -3,7 +3,6 @@ using FormsIW5.Web.BL.Installer;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using FormsIW5.Common.Installer;
-using FormsIW5.Web.BL.Facades;
 using FormsIW5.Web.BL;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);

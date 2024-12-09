@@ -79,10 +79,16 @@ public class Program
 
     public static void AddEndpoints(IEndpointRouteBuilder endpointRoute, bool enableIdentity)
     {
-        endpointRoute.MapGroup("api").WithOpenApi()
-            .AddFormEndpoints(enableIdentity)
-            .AddQuestionEndpoints(enableIdentity)
-            .AddAnswerEndpoints(enableIdentity);
+        var endpoints = endpointRoute.MapGroup("api").WithOpenApi();
+
+        if (enableIdentity)
+        {
+            endpoints.RequireAuthorization();
+        }
+
+        endpoints.AddFormEndpoints()
+            .AddQuestionEndpoints()
+            .AddAnswerEndpoints();
     }
 
     public static void ConfigureAuthentication(IServiceCollection serviceCollection, IConfiguration? configuration)

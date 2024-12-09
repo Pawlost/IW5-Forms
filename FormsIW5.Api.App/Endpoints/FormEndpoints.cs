@@ -6,13 +6,9 @@ namespace FormsIW5.Api.App.Endpoints;
 
 public static class FormEndpoints
 {
-    public static IEndpointRouteBuilder AddFormEndpoints(this IEndpointRouteBuilder endpointRoute, bool enableIdentity)
+    public static IEndpointRouteBuilder AddFormEndpoints(this IEndpointRouteBuilder endpointRoute)
     {
         var group = endpointRoute.MapGroup("form").WithTags("form");
-
-        if (enableIdentity) { 
-            group.RequireAuthorization();
-        }
 
         //Get all
         group.MapGet("", async ([FromServices] IListFacade<FormListModel> facade) => await facade.GetAllAsync()).AllowAnonymous();
@@ -21,7 +17,7 @@ public static class FormEndpoints
         group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<FormListModel> facade) => await facade.GetSingleListModelByIdAsync(id));
 
         //Get detail By Id
-        group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<FormDetailModel> facade) => await facade.GetByIdAsync(id));
+        group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<FormDetailModel> facade) => await facade.GetByIdAsync(id)).AllowAnonymous();
 
         //Create
         group.MapPost("", async (FormCreateModel newForm, [FromServices] ICreateFacade<FormCreateModel> facade) => await facade.CreateAsync(newForm));

@@ -1,0 +1,32 @@
+﻿<h3>FormEditComponent</h3>
+
+<EditForm Model="@Data">
+    <button type="submit" class="btn btn-success" @onclick="@SaveAsync">
+        Save
+    </button>
+
+    <div class="form-group">
+        <label class="w-100">
+            Form name:
+            <InputText @bind-Value="@Data.FormName" class="form-control" />
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label class="w-100">
+            Start date:
+            <InputDate @bind-Value="@Data.StartDate" class="form-control" />
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label class="w-100">
+            End date:
+            <InputDate @bind-Value="@Data.EndDate" class="form-control" />
+        </label>
+    </div>
+</EditForm>
+
+
+<button onclick="@AddQuestionAsync">Add question</button>
+<button onclick="">Share Form</button>

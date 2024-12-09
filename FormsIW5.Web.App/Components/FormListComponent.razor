@@ -1,20 +1,11 @@
 ﻿@using FormsIW5.BL.Models.Common.Form
 @inherits FormsIW5.Web.App.Pages.PageBase
 
-<style>
-    .flex-container {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-    }
-</style>
-
-<h1>FormListPage</h1>
-
+<h1 class="headline">Public Forms</h1>
 
 @if (formList.Count != 0)
 {
-    <div class="flex-container">
+    <div class="form-container">
         @foreach (var form in formList)
         {
             <FormCard Form=@form/>
@@ -23,4 +14,5 @@
 }
 else
 {
-    <h1>No forms currently available</h1>}
+    <p>No forms currently available</p>
+}

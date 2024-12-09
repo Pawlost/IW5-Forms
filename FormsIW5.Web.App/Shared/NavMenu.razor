@@ -12,13 +12,22 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <NavLink href="" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
-                        Home label
+                        Public forms
                     </NavLink>
                 </li>
-                <li class="nav-item">
-                    <NavLink href="/questions" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
-                        Questions
+                <li>
+                    <NavLink href="/createForm" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
+                        Create new form
                     </NavLink>
+                </li>
+                <li>
+                    <AuthorizeView>
+                        <Authorized>
+                            <NavLink href="/userForms" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
+                                Your forms
+                            </NavLink>
+                        </Authorized>
+                    </AuthorizeView>
                 </li>
                 <li>
                     <LoginDisplay/>
