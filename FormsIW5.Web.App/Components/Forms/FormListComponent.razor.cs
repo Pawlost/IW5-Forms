@@ -2,7 +2,7 @@
 using FormsIW5.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
 
-namespace FormsIW5.Web.App.Components;
+namespace FormsIW5.Web.App.Components.Forms;
 
 public partial class FormListComponent
 {

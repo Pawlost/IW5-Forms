@@ -3,10 +3,10 @@ using FormsIW5.BL.Models.Common.Question;
 
 namespace FormsIW5.BL.Models.Common.AnswerSelection;
 
-public record AnswerSelectionDetailModel : IModel
+public record QuestionOptionDetailModel : IModel
 {
     public Guid Id { get; init; }
     public string? SelectionName { get; set; }
-    public AnswerSelectionListModel? SelectedAnswer { get; set; }
+    public QuestionOptionListModel? SelectedAnswer { get; set; }
     public required QuestionListModel Question { get; set; }
 }

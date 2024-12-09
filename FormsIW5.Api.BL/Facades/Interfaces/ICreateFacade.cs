@@ -5,5 +5,5 @@ namespace FormsIW5.Api.BL.Facades.Interfaces;
 public interface ICreateFacade<TCreateModelBase> : IAppFacadeBase
     where TCreateModelBase : ICreateModel
 {
-    Task<Guid> CreateAsync(TCreateModelBase detailModel);
+    Task<Guid> CreateAsync(TCreateModelBase createModel, string? userId);
 }

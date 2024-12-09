@@ -17,4 +17,10 @@ public class QuestionFacade : FacadeBase<QuestionEntity, QuestionListModel, Ques
     {
         return mapper.Map<List<QuestionListModel>>(await repository.Search(questionQuery));
     }
+
+    public async Task UpdateListQuestion(QuestionListModel model)
+    {
+        var entity = mapper.Map<QuestionEntity>(model);
+        await repository.UpdateAsync(entity);
+    }
 }

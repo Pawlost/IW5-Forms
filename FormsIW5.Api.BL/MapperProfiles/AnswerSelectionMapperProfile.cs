@@ -8,8 +8,8 @@ public class AnswerSelectionMapperProfile : Profile
 {
     public AnswerSelectionMapperProfile() 
     {
-        CreateMap<AnswerSelectionEntity, AnswerSelectionListModel>();
-        CreateMap<AnswerSelectionEntity, AnswerSelectionDetailModel>().ReverseMap();
-        CreateMap<AnswerSelectionCreateModel, AnswerSelectionEntity>();
+        CreateMap<QuestionOptionEntity, QuestionOptionListModel>();
+        CreateMap<QuestionOptionEntity, QuestionOptionDetailModel>().ReverseMap();
+        CreateMap<QuestionOptionCreateModel, QuestionOptionEntity>();
     }
 }

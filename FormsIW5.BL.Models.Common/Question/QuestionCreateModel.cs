@@ -15,6 +15,4 @@ public record QuestionCreateModel : ICreateModel
 
     [Required]
     public Guid FormId { get; set; }
-
-    public ICollection<AnswerSelectionCreateModel> AnswerSelections { get; set; } = [];
 }

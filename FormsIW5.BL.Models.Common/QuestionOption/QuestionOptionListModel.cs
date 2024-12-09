@@ -2,8 +2,8 @@
 
 namespace FormsIW5.BL.Models.Common.AnswerSelection;
 
-public record AnswerSelectionListModel : IModel
+public record QuestionOptionListModel : IModel
 {
     public Guid Id { get; init; }
-    public string? SelectionName { get; set; }
+    public required string SelectionName { get; set; }
 }

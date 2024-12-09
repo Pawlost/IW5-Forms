@@ -18,9 +18,9 @@ public class QuestionFacade : FacadeBase<IQuestionApiClient>
         return await client.QuestionPostAsync(createModel);
     }
 
-    public async Task<Guid?> QuestionPutAsync(QuestionDetailModel model)
+    public async Task QuestionPutAsync(QuestionListModel model)
     {
-        return await client.QuestionPutAsync(model);
+        await client.UpdateQuestionAsync(model);
     }
     public async Task<QuestionListModel> ListAsync(Guid id)
     {

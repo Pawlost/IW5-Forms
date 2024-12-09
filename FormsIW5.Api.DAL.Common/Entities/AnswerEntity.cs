@@ -7,5 +7,5 @@ public record AnswerEntity : EntityBase
     public Guid QuestionId { get; set; }
     public QuestionEntity? Question { get; set; }
     public Guid? SelectedAnswerId { get; set; }
-    public AnswerSelectionEntity? SelectedAnswer { get; set; }
+    public QuestionOptionEntity? SelectedAnswer { get; set; }
 }

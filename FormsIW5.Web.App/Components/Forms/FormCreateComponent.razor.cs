@@ -2,7 +2,7 @@
 using FormsIW5.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
 
-namespace FormsIW5.Web.App.Components;
+namespace FormsIW5.Web.App.Components.Forms;
 
 public partial class FormCreateComponent
 {
@@ -13,7 +13,7 @@ public partial class FormCreateComponent
     private FormFacade formFacade { get; set; } = null!;
     public async Task CreateDraftAsync()
     {
-        FormCreateModel createModel = new FormCreateModel
+        var createModel = new FormCreateModel
         {
             FormName = "DraftForm",
             StartDate = DateTime.Now,
