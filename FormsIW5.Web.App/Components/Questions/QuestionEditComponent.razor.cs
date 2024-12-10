@@ -34,7 +34,7 @@ public partial class QuestionEditComponent
     }
     public async Task AddQuestionOptionAsync() {
         var count = Data.QuestionOptions.Count;
-        Data.QuestionOptions.Add(new() { SelectionName = $"Option {count}"});
+        Data.QuestionOptions.Add(new() { QuestionOptionName = $"Option {count}"});
         await UpdateAsync();
     }
 }

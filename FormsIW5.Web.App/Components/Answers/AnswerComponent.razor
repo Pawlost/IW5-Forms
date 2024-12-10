@@ -1,12 +1,42 @@
-﻿ <h3>Question</h3>
-<h3>@Question.QuestionText</h3>
- 
-<h3>Answer</h3>
-
-  <div class="form-group">
-        <label class="w-100">
-            TextAnswer Name:
-            <InputText @bind-Value="@Data.TextAnswer" class="form-control" />
-        </label>
-    </div>
-    <button @onclick="@SubmitAnswerAsync">Submit answer</button>
+﻿@using FormsIW5.Common.Enums
+<div class="horizontal-selection-container">
+    <h4>@Question.QuestionText</h4>
+    @if (Question.QuestionType == QuestionType.RangeType)
+    {
+            <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input class="mx-3" type="range" min="@Question.FromValue" max="@Question.ToValue" @bind=@Data.IntegerAnswer @bind:event="oninput" />
+                    <span class="ms-4">@Data.IntegerAnswer</span>
+                </div>
+            </div>
+        </div>
+    }
+    else if (Question.QuestionType == QuestionType.DropDown)
+    {
+        <div class="horizontal-selection-container">
+        @foreach (var option in Question.QuestionOptions)
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="radio" id="@option.QuestionOptionName" name="options" @onchange="HandleChange" value="@option.QuestionOptionName" />
+                        <label for="@option.QuestionOptionName">@option.QuestionOptionName</label>
+                    </div>    
+                </div>
+            </div>
+        }
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <InputText width="100px" placeholder="Your Answer" @bind-Value="@Data.TextAnswer" class="form-control" />
+                </div>
+            </div>
+        </div>
+    }
+    <button class="btn btn-success" @onclick="@SubmitAnswerAsync">Submit answer</button>
+</div>
