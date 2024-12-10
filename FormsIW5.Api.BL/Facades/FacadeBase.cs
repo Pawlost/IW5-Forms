@@ -24,6 +24,16 @@ public class FacadeBase<TEntity, TListModel, TDetailModel, TCreateModel, TReposi
         this.repository = repository;
         this.mapper = mapper;
     }
+
+    protected async Task ThrowIfWrongOwnerAsync(Guid id, string? ownerId)
+    {
+        if (ownerId is not null
+            && (await repository.GetByIdAsync(id))?.OwnerId != ownerId)
+        {
+            throw new UnauthorizedAccessException();
+        }
+    }
+
     public async Task<Guid> CreateAsync(TCreateModel createModel, string? userId)
     {
         var entity = mapper.Map<TEntity>(createModel);
@@ -31,8 +41,9 @@ public class FacadeBase<TEntity, TListModel, TDetailModel, TCreateModel, TReposi
         return await repository.InsertAsync(entity);
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(Guid id, string? ownerId)
     {
+        await ThrowIfWrongOwnerAsync(id, ownerId);
         await repository.RemoveAsync(id);
     }
 
@@ -54,8 +65,9 @@ public class FacadeBase<TEntity, TListModel, TDetailModel, TCreateModel, TReposi
         return mapper.Map<TDetailModel>(entity);
     }
 
-    public async Task<Guid?> UpdateAsync(TDetailModel detailModel)
+    public async Task<Guid?> UpdateAsync(TDetailModel detailModel, string? ownerId)
     {
+        await ThrowIfWrongOwnerAsync(detailModel.Id, ownerId);
         var entity = mapper.Map<TEntity>(detailModel);
         return await repository.UpdateAsync(entity);
     }

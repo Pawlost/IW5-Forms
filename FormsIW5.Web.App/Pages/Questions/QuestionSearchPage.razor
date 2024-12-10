@@ -1,0 +1,26 @@
+﻿@page "/searchQuestions/{Id:guid}"
+
+@using FormsIW5.Web.App.Components;
+@using FormsIW5.Web.App.Components.Questions
+
+<h3>Search question for answers</h3>
+
+<div class="search-bar">
+    <label for="textSearch">Search by text</label>
+    <input id="textSearch" type="text" @bind-value="@SearchText" @bind-value:event="oninput" placeholder="Search question..." />
+    <button class="search-button" @onclick="PerformSearchByTextAsync">Search</button>
+</div>
+
+<div class="search-bar">
+    <label for="descriptionSearch">Search by description</label>
+    <input id="descriptionSearch" type="text" @bind-value="@SearchDescription" @bind-value:event="oninput" placeholder="Search description..." />
+    <button class="search-button" @onclick="PerformSearchByDescriptionAsync">Search</button>
+</div>
+
+
+<div class="horizontal-selection-container">
+    @foreach (var question in Questions)
+    {
+        <QuestionCard QuestionListModel="question"/>
+    }
+</div>

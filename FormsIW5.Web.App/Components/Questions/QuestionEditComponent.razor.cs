@@ -7,10 +7,7 @@ namespace FormsIW5.Web.App.Components.Questions;
 
 public partial class QuestionEditComponent
 {
-    private QuestionListModel Data { get; set; } = new();
-
-    [Inject]
-    private NavigationManager navigationManager { get; set; } = null!;
+    private QuestionEditModel Data { get; set; } = new();
 
     [Inject]
     private QuestionFacade QuestionFacade { get; set; } = null!;
@@ -26,6 +23,7 @@ public partial class QuestionEditComponent
 
     public async Task UpdateAsync() {
         await QuestionFacade.QuestionPutAsync(Data);
+        Data = await QuestionFacade.ListAsync(QuestionId);
     }
 
     private async Task HandleUpdateAsync(FocusEventArgs e)
@@ -34,7 +32,7 @@ public partial class QuestionEditComponent
     }
     public async Task AddQuestionOptionAsync() {
         var count = Data.QuestionOptions.Count;
-        Data.QuestionOptions.Add(new() { SelectionName = $"Option {count}"});
+        Data.QuestionOptions.Add(new() { QuestionOptionName = $"Option {count}"});
         await UpdateAsync();
     }
 }

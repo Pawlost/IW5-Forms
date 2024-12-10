@@ -1,11 +1,12 @@
 ﻿using FormsIW5.BL.Models.Common.Form;
 using FormsIW5.BL.Models.Common.Question;
+using FormsIW5.Web.App.Components.Answers;
 using FormsIW5.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
 
-namespace FormsIW5.Web.App.Pages;
+namespace FormsIW5.Web.App.Pages.Forms;
 
-public partial class FormDetailPage
+public partial class FormAnswerPage
 {
     [Parameter]
     public Guid Id { get; set; }
@@ -21,19 +22,16 @@ public partial class FormDetailPage
 
     private FormDetailModel formDetail { get; set; } = null!;
 
-    private ICollection<QuestionListModel> questionList { get; set; } = [];
-
     [Inject]
     private NavigationManager navigationManager { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
         formDetail = await formFacade.FormGetAsync(Id);
-        questionList = formDetail.Questions;
         await base.OnInitializedAsync();
     }
 
-    public void Edit() 
+    public void Edit()
     {
         navigationManager.NavigateTo($"/createForm/{formDetail.Id}");
     }
@@ -41,10 +39,5 @@ public partial class FormDetailPage
     public void Answer()
     {
         navigationManager.NavigateTo($"/answerForm/{formDetail.Id}");
-    }
-
-    public void ShowAnswers()
-    {
-        navigationManager.NavigateTo($"/showAnswers/{formDetail.Id}");
     }
 }

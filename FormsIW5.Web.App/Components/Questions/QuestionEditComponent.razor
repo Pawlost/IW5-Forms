@@ -1,18 +1,69 @@
-﻿<h3>QuestionEditComponent</h3>
+﻿@using FormsIW5.Common.Enums
+<h3>QuestionEditComponent</h3>
 
 <EditForm Model="@Data">
-    <div class="form-group">
-        <label class="w-100">
-            Question Name:
-            <InputText @bind-Value="@Data.QuestionText" class="form-control" @onfocusout="HandleUpdateAsync" />
-        </label>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="w-100">
+                    Question Name:
+                    <InputText @bind-Value="@Data.QuestionText" class="form-control" @onfocusout="HandleUpdateAsync" />
+                </label>
+            </div>
+        </div>
     </div>
 
-    <div class="horizontal-selection-container">
-        @foreach (var answer in Data.QuestionOptions)
-        {
-            <InputText @bind-Value="@answer.SelectionName" class="form-control" @onfocusout="HandleUpdateAsync" />
-        }
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="w-100">
+                    Question Description:
+                    <InputTextArea @bind-Value="@Data.Description" class="form-control" @onfocusout="HandleUpdateAsync" />
+                </label>
+            </div>
+        </div>
     </div>
-    <button @onclick="@AddQuestionOptionAsync">Add Option</button>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="w-100 font-weight-bold">
+                    <InputSelect @bind-Value="Data.QuestionType" class="form-control" @onfocusout="HandleUpdateAsync">
+                        @foreach (var foodType in Enum.GetValues<QuestionType>())
+                        {
+                            <option value="@foodType">@foodType.GetReadableName()</option>
+                        }
+                    </InputSelect>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    @if (Data.QuestionType == QuestionType.DropDown)
+    {
+        <div class="horizontal-selection-container">
+            @foreach (var answer in Data.QuestionOptions)
+            {
+                <InputText @bind-Value="@answer.QuestionOptionName" class="form-control" @onfocusout="HandleUpdateAsync" />
+            }
+        </div>
+        <button @onclick="@AddQuestionOptionAsync">Add Option</button>
+    }
+    else if (Data.QuestionType == QuestionType.RangeType)
+    {
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="w-100 font-weight-bold mb-0" for="durationInput">
+                    Range
+                </label>
+                <div class="input-group">
+                    <div class="p-2">Min:</div>
+                    <InputNumber min="0" @bind-Value="Data.FromValue" class="form-control" id="durationInput" @onfocusout="HandleUpdateAsync"  />
+                    <div class="p-2">Max:</div>
+                    <InputNumber min="0" @bind-Value="Data.ToValue" class="form-control" @onfocusout="HandleUpdateAsync"  />
+                </div>
+            </div>
+        </div>
+    }
+
 </EditForm>

@@ -15,7 +15,7 @@ public class FormsEndpointTests
 
     //DummyClass
     private class DummyUserDetailModel
-        {
+    {
         public required string UserName { get; set; }
         public string? ProfilePicture { get; set; }
         public int Role { get; set; }

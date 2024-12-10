@@ -7,18 +7,25 @@ using FormsIW5.BL.Models.Common.Question;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class QuestionFacade : FacadeBase<QuestionEntity, QuestionListModel, QuestionDetailModel, QuestionCreateModel, IQuestionRepository>, IQuestionFacade
+public class QuestionFacade : FacadeBase<QuestionEntity, QuestionEditModel, QuestionDetailModel, QuestionCreateModel, IQuestionRepository>, IQuestionFacade
 {
     public QuestionFacade(IQuestionRepository repository, IMapper mapper) : base(repository, mapper)
     {
     }
 
-    public async Task<ICollection<QuestionListModel>> Search(QuestionQueryObject questionQuery)
+    public async Task<ICollection<QuestionListModel>> SearchByText(QuestionQueryObject questionQuery)
     {
-        return mapper.Map<List<QuestionListModel>>(await repository.Search(questionQuery));
+        var result = await repository.SearchByText(questionQuery);
+        return mapper.Map<List<QuestionListModel>>(result);
     }
 
-    public async Task UpdateListQuestion(QuestionListModel model)
+    public async Task<ICollection<QuestionListModel>> SearchByDescription(QuestionQueryObject questionQuery)
+    {
+        var result = await repository.SearchByDescription(questionQuery);
+        return mapper.Map<List<QuestionListModel>>(result);
+    }
+
+    public async Task UpdateListQuestion(QuestionEditModel model)
     {
         var entity = mapper.Map<QuestionEntity>(model);
         await repository.UpdateAsync(entity);

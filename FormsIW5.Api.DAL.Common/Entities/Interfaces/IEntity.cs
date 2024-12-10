@@ -3,5 +3,5 @@
 public interface IEntity
 {
     Guid Id { get; init; }
-    public string? OwnerId { get; set; }
+    string? OwnerId { get; set; }
 }

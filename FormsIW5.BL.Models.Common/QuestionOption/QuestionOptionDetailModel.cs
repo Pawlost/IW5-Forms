@@ -8,5 +8,5 @@ public record QuestionOptionDetailModel : IModel
     public Guid Id { get; init; }
     public string? SelectionName { get; set; }
     public QuestionOptionListModel? SelectedAnswer { get; set; }
-    public required QuestionListModel Question { get; set; }
+    public required QuestionEditModel Question { get; set; }
 }

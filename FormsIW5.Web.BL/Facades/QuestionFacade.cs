@@ -8,7 +8,7 @@ public class QuestionFacade : FacadeBase<IQuestionApiClient>
     {
     }
 
-    public async Task<ICollection<QuestionListModel>> QuestionListGetAsync()
+    public async Task<ICollection<QuestionEditModel>> QuestionListGetAsync()
     {
         return await client.QuestionGetAsync();
     }
@@ -18,11 +18,11 @@ public class QuestionFacade : FacadeBase<IQuestionApiClient>
         return await client.QuestionPostAsync(createModel);
     }
 
-    public async Task QuestionPutAsync(QuestionListModel model)
+    public async Task QuestionPutAsync(QuestionEditModel model)
     {
         await client.UpdateQuestionAsync(model);
     }
-    public async Task<QuestionListModel> ListAsync(Guid id)
+    public async Task<QuestionEditModel> ListAsync(Guid id)
     {
         return await client.ListAsync(id);
     }
@@ -33,5 +33,15 @@ public class QuestionFacade : FacadeBase<IQuestionApiClient>
     public async Task QuestionDeleteAsync(Guid id)
     {
         await client.QuestionDeleteAsync(id);
+    }
+
+    public async Task<ICollection<QuestionListModel>> SearchByTextAsync(Guid id, string text)
+    {
+        return await client.SearchByTextAsync(id, text);
+    }
+
+    public async Task<ICollection<QuestionListModel>> SearchByDescriptionAsync(Guid id, string description)
+    {
+        return await client.SearchByDescriptionAsync(id, description);
     }
 }

@@ -18,9 +18,9 @@ public class AnswerFacade : FacadeBase<IAnswerApiClient>
         return await client.AnswerPostAsync(createModel);
     }
 
-    public async Task<Guid?> AnswerPutAsync(AnswerDetailModel model)
+    public async Task AnswerPutAsync(AnswerDetailModel model)
     {
-        return await client.AnswerPutAsync(model);
+        await client.AnswerPutAsync(model);
     }
 
     public async Task<AnswerListModel> ListAsync(Guid id)

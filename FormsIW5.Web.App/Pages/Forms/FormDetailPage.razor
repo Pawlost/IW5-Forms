@@ -1,12 +1,25 @@
-﻿@page "/answerForm/{Id:guid}"
+﻿@page "/forms/{Id:guid}"
 
 @using FormsIW5.Web.App.Components;
-@using FormsIW5.Web.App.Components.Answers
 
+<AuthorizeView>
+    <Authorized>
+        <button type="submit" class="btn btn-success" @onclick="@Edit">
+            Edit
+        </button>
 
-<button type="submit" class="btn btn-success" @onclick="@Answer">
-    Submit Answer
-</button>
+        <button type="submit" class="btn btn-success" @onclick="@Answer">
+            Answer
+        </button>
+
+         <button type="submit" class="btn btn-success" @onclick="@ShowAnswers">
+            Show Answers
+        </button> 
+    </Authorized>
+    <NotAuthorized>
+        <p>You must be signed to be able to answer form</p>
+    </NotAuthorized>
+</AuthorizeView>
 
 <h3>Form Detail</h3>
 
@@ -19,7 +32,7 @@
 <div class="row">
     <div class="col-md">
         <div class="bg-sec h-100 rounded">
-            @if (formDetail.Questions.Count != 0)
+            @if (questionList.Count != 0)
             {
                 <table class="table border table-striped">
                     <thead class="thead-light">
@@ -28,9 +41,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var question in formDetail.Questions)
+                        @foreach (var question in questionList)
                         {
-                            <AnswerComponent Question="@question" />
+                            <p>@question.QuestionText</p>
+
                         }
                        </tbody>
                 </table>

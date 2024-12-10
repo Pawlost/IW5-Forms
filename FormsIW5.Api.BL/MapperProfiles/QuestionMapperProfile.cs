@@ -8,7 +8,8 @@ public class QuestionMapperProfile : Profile
 {
     public QuestionMapperProfile()
     {
-        CreateMap<QuestionEntity, QuestionListModel>().ReverseMap();
+        CreateMap<QuestionEntity, QuestionEditModel>().ReverseMap(); 
+        CreateMap<QuestionEntity, QuestionListModel>();
         CreateMap<QuestionEntity, QuestionDetailModel>().ReverseMap();
         CreateMap<QuestionCreateModel, QuestionEntity>();
     }

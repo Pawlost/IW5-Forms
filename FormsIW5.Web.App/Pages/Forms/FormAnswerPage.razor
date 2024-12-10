@@ -1,0 +1,21 @@
+﻿@page "/answerForm/{Id:guid}"
+
+@using FormsIW5.Web.App.Components;
+@using FormsIW5.Web.App.Components.Answers
+
+<h1>Form Detail</h1>
+
+<div class="row">
+    <h2>@formDetail.FormName</h2>
+    <h4>@formDetail.StartDate</h4>
+    <h5>@formDetail.EndDate</h5>
+</div>
+
+<h1>Questions:</h1>
+
+@foreach (var question in formDetail.Questions)
+{
+    <div class="row">
+        <AnswerComponent Question="@question" />
+    </div>
+}
