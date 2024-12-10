@@ -28,7 +28,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label class="w-100 font-weight-bold">
-                    <InputSelect @bind-Value="Data.QuestionType" class="form-control">
+                    <InputSelect @bind-Value="Data.QuestionType" class="form-control" @onfocusout="HandleUpdateAsync">
                         @foreach (var foodType in Enum.GetValues<QuestionType>())
                         {
                             <option value="@foodType">@foodType.GetReadableName()</option>
@@ -58,9 +58,9 @@
                 </label>
                 <div class="input-group">
                     <div class="p-2">Min:</div>
-                    <InputNumber min="0" @bind-Value="Data.FromValue" class="form-control" id="durationInput" />
+                    <InputNumber min="0" @bind-Value="Data.FromValue" class="form-control" id="durationInput" @onfocusout="HandleUpdateAsync"  />
                     <div class="p-2">Max:</div>
-                    <InputNumber min="0" @bind-Value="Data.ToValue" class="form-control" />
+                    <InputNumber min="0" @bind-Value="Data.ToValue" class="form-control" @onfocusout="HandleUpdateAsync"  />
                 </div>
             </div>
         </div>

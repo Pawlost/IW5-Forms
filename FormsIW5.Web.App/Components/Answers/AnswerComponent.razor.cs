@@ -9,7 +9,7 @@ namespace FormsIW5.Web.App.Components.Answers;
 public partial class AnswerComponent
 {
     [Parameter]
-    public required QuestionListModel Question { get; set; }
+    public required QuestionEditModel Question { get; set; }
 
     private AnswerCreateModel Data { get; set; } = new();
 

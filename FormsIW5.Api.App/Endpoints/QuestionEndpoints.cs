@@ -14,16 +14,18 @@ public static class QuestionEndpoints
         var group = endpointRoute.MapGroup("question").WithTags("question");
 
         //Get all
-        group.MapGet("", async ([FromServices] IListFacade<QuestionListModel> facade) => await facade.GetAllAsync());
+        group.MapGet("", async ([FromServices] IListFacade<QuestionEditModel> facade) => await facade.GetAllAsync());
 
         //Get list model By Id
-        group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<QuestionListModel> facade) => await facade.GetSingleListModelByIdAsync(id));
+        group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<QuestionEditModel> facade) => await facade.GetSingleListModelByIdAsync(id));
 
         //Get detail By Id
         group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<QuestionDetailModel> facade) => await facade.GetByIdAsync(id));
 
         // Search by text
-        group.MapGet("search", async ([FromQuery] string? text, [FromQuery] string? description, [FromServices] IQuestionFacade facade) => await facade.Search(new QuestionQueryObject { Text = text, Description = description }));
+        group.MapGet("search/{formId:guid}", async (Guid formId, [FromQuery] string? text, [FromQuery] string? description, [FromServices] IQuestionFacade facade) => {
+            await facade.Search(new QuestionQueryObject { Text = text, Description = description, FormId=formId });
+        });
 
         //Create
         group.MapPost("", async (QuestionCreateModel newQuestion, [FromServices] ICreateFacade<QuestionCreateModel> facade, IHttpContextAccessor httpContextAccessor) => 
@@ -33,7 +35,7 @@ public static class QuestionEndpoints
         });
 
         // Update
-        group.MapPut("/updateQuestion", async (QuestionListModel question, [FromServices] IQuestionFacade facade) => await facade.UpdateListQuestion(question));
+        group.MapPut("/updateQuestion", async (QuestionEditModel question, [FromServices] IQuestionFacade facade) => await facade.UpdateListQuestion(question));
 
         // Delete
         group.MapDelete("{id:guid}", async (Guid id, [FromServices] IDetailFacade<QuestionDetailModel> facade, IHttpContextAccessor httpContextAccessor) => {

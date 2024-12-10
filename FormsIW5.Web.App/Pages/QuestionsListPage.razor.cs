@@ -9,7 +9,7 @@ public partial class QuestionsListPage
     [Inject]
     private QuestionFacade facade { get; set; } = null!;
 
-    private ICollection<QuestionListModel> questionList { get; set; } = [];
+    private ICollection<QuestionEditModel> questionList { get; set; } = [];
 
     protected override async Task OnInitializedAsync()
     {

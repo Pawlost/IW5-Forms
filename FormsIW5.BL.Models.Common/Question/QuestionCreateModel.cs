@@ -1,5 +1,4 @@
-﻿using FormsIW5.BL.Models.Common.AnswerSelection;
-using FormsIW5.BL.Models.Common.Interfaces;
+﻿using FormsIW5.BL.Models.Common.Interfaces;
 using FormsIW5.Common.Enums;
 using System.ComponentModel.DataAnnotations;
 

@@ -7,7 +7,7 @@ using FormsIW5.BL.Models.Common.Question;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class QuestionFacade : FacadeBase<QuestionEntity, QuestionListModel, QuestionDetailModel, QuestionCreateModel, IQuestionRepository>, IQuestionFacade
+public class QuestionFacade : FacadeBase<QuestionEntity, QuestionEditModel, QuestionDetailModel, QuestionCreateModel, IQuestionRepository>, IQuestionFacade
 {
     public QuestionFacade(IQuestionRepository repository, IMapper mapper) : base(repository, mapper)
     {
@@ -18,7 +18,7 @@ public class QuestionFacade : FacadeBase<QuestionEntity, QuestionListModel, Ques
         return mapper.Map<List<QuestionListModel>>(await repository.Search(questionQuery));
     }
 
-    public async Task UpdateListQuestion(QuestionListModel model)
+    public async Task UpdateListQuestion(QuestionEditModel model)
     {
         var entity = mapper.Map<QuestionEntity>(model);
         await repository.UpdateAsync(entity);

@@ -16,12 +16,17 @@ public class QuestionRepository : RepositoryBase<QuestionEntity>, IQuestionRepos
     public async Task<ICollection<QuestionEntity>?> Search(QuestionQueryObject questionQuery)
     {
 
-        return await dbContext.Set<QuestionEntity>().Where(x => !(String.IsNullOrEmpty(questionQuery.Text) ||
-        String.IsNullOrEmpty(questionQuery.Description) ||
-        String.IsNullOrEmpty(x.QuestionText) ||
-         String.IsNullOrEmpty(x.Description) ||
-        !x.QuestionText.Contains(questionQuery.Text) ||
-        !x.Description.Contains(questionQuery.Description))).ToListAsync();
+        var isQueryEmpty = String.IsNullOrEmpty(questionQuery.Text) && String.IsNullOrEmpty(questionQuery.Description);
+
+        var query = dbContext.Set<QuestionEntity>().Where(q => q.FormId == questionQuery.FormId);
+        
+        if (!isQueryEmpty) {
+            query = query.Where(x =>
+               !(String.IsNullOrEmpty(x.QuestionText) || String.IsNullOrEmpty(x.Description)) &&
+               (x.QuestionText.Contains(questionQuery.Text) || x.Description.Contains(questionQuery.Description))
+           );
+        }
+        return await query.ToListAsync();
     }
 
     public override async Task<QuestionEntity?> GetByIdAsync(Guid id)

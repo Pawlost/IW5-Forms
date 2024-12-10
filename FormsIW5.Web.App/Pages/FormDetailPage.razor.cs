@@ -21,7 +21,7 @@ public partial class FormDetailPage
 
     private FormDetailModel formDetail { get; set; } = null!;
 
-    private ICollection<QuestionListModel> questionList { get; set; } = [];
+    private ICollection<QuestionEditModel> questionList { get; set; } = [];
 
     [Inject]
     private NavigationManager navigationManager { get; set; } = null!;

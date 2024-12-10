@@ -8,7 +8,7 @@ public class QuestionFacade : FacadeBase<IQuestionApiClient>
     {
     }
 
-    public async Task<ICollection<QuestionListModel>> QuestionListGetAsync()
+    public async Task<ICollection<QuestionEditModel>> QuestionListGetAsync()
     {
         return await client.QuestionGetAsync();
     }
@@ -18,11 +18,11 @@ public class QuestionFacade : FacadeBase<IQuestionApiClient>
         return await client.QuestionPostAsync(createModel);
     }
 
-    public async Task QuestionPutAsync(QuestionListModel model)
+    public async Task QuestionPutAsync(QuestionEditModel model)
     {
         await client.UpdateQuestionAsync(model);
     }
-    public async Task<QuestionListModel> ListAsync(Guid id)
+    public async Task<QuestionEditModel> ListAsync(Guid id)
     {
         return await client.ListAsync(id);
     }

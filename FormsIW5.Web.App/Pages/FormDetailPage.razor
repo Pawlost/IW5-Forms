@@ -2,12 +2,12 @@
 
 @using FormsIW5.Web.App.Components;
 
-<button type="submit" class="btn btn-success" @onclick="@Edit">
-    Edit
-</button>
-
 <AuthorizeView>
     <Authorized>
+        <button type="submit" class="btn btn-success" @onclick="@Edit">
+            Edit
+        </button>
+
         <button type="submit" class="btn btn-success" @onclick="@Answer">
             Answer
         </button>

@@ -45,11 +45,11 @@ namespace FormsIW5.Web.BL
         System.Threading.Tasks.Task<System.Guid> FormPostAsync(FormCreateModel newForm, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid?> FormPutAsync(FormDetailModel form);
+        System.Threading.Tasks.Task FormPutAsync(FormDetailModel form);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid?> FormPutAsync(FormDetailModel form, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task FormPutAsync(FormDetailModel form, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<FormListModel> ListAsync(System.Guid id);
@@ -282,14 +282,14 @@ namespace FormsIW5.Web.BL
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid?> FormPutAsync(FormDetailModel form)
+        public virtual System.Threading.Tasks.Task FormPutAsync(FormDetailModel form)
         {
             return FormPutAsync(form, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid?> FormPutAsync(FormDetailModel form, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task FormPutAsync(FormDetailModel form, System.Threading.CancellationToken cancellationToken)
         {
             if (form == null)
                 throw new System.ArgumentNullException("form");
@@ -305,7 +305,6 @@ namespace FormsIW5.Web.BL
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PUT");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
@@ -337,8 +336,7 @@ namespace FormsIW5.Web.BL
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Guid?>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            return objectResponse_.Object;
+                            return;
                         }
                         else
                         {
@@ -710,11 +708,11 @@ namespace FormsIW5.Web.BL
     public partial interface IQuestionApiClient : FormsIW5.Web.BL.Clients.Interfaces.IModifiableClient
     {
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<QuestionListModel>> QuestionGetAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<QuestionEditModel>> QuestionGetAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<QuestionListModel>> QuestionGetAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<QuestionEditModel>> QuestionGetAsync(System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Guid> QuestionPostAsync(QuestionCreateModel newQuestion);
@@ -724,11 +722,11 @@ namespace FormsIW5.Web.BL
         System.Threading.Tasks.Task<System.Guid> QuestionPostAsync(QuestionCreateModel newQuestion, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<QuestionListModel> ListAsync(System.Guid id);
+        System.Threading.Tasks.Task<QuestionEditModel> ListAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<QuestionListModel> ListAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<QuestionEditModel> ListAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<QuestionDetailModel> QuestionGetAsync(System.Guid id);
@@ -745,18 +743,18 @@ namespace FormsIW5.Web.BL
         System.Threading.Tasks.Task QuestionDeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<QuestionListModel>> SearchAsync(string text, string description);
+        System.Threading.Tasks.Task SearchAsync(System.Guid formId, string text, string description);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<QuestionListModel>> SearchAsync(string text, string description, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task SearchAsync(System.Guid formId, string text, string description, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateQuestionAsync(QuestionListModel question);
+        System.Threading.Tasks.Task UpdateQuestionAsync(QuestionEditModel question);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateQuestionAsync(QuestionListModel question, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task UpdateQuestionAsync(QuestionEditModel question, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -809,14 +807,14 @@ namespace FormsIW5.Web.BL
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<QuestionListModel>> QuestionGetAsync()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<QuestionEditModel>> QuestionGetAsync()
         {
             return QuestionGetAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<QuestionListModel>> QuestionGetAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<QuestionEditModel>> QuestionGetAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -857,7 +855,7 @@ namespace FormsIW5.Web.BL
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<QuestionListModel>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<QuestionEditModel>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -968,14 +966,14 @@ namespace FormsIW5.Web.BL
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<QuestionListModel> ListAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task<QuestionEditModel> ListAsync(System.Guid id)
         {
             return ListAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<QuestionListModel> ListAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<QuestionEditModel> ListAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1020,7 +1018,7 @@ namespace FormsIW5.Web.BL
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<QuestionListModel>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<QuestionEditModel>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1202,15 +1200,18 @@ namespace FormsIW5.Web.BL
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<QuestionListModel>> SearchAsync(string text, string description)
+        public virtual System.Threading.Tasks.Task SearchAsync(System.Guid formId, string text, string description)
         {
-            return SearchAsync(text, description, System.Threading.CancellationToken.None);
+            return SearchAsync(formId, text, description, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<QuestionListModel>> SearchAsync(string text, string description, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SearchAsync(System.Guid formId, string text, string description, System.Threading.CancellationToken cancellationToken)
         {
+            if (formId == null)
+                throw new System.ArgumentNullException("formId");
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -1218,12 +1219,12 @@ namespace FormsIW5.Web.BL
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "api/question/search"
-                    urlBuilder_.Append("api/question/search");
+                    // Operation Path: "api/question/search/{formId}"
+                    urlBuilder_.Append("api/question/search/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(formId, System.Globalization.CultureInfo.InvariantCulture)));
                     urlBuilder_.Append('?');
                     if (text != null)
                     {
@@ -1260,12 +1261,7 @@ namespace FormsIW5.Web.BL
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<QuestionListModel>>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            return objectResponse_.Object;
+                            return;
                         }
                         else
                         {
@@ -1288,14 +1284,14 @@ namespace FormsIW5.Web.BL
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task UpdateQuestionAsync(QuestionListModel question)
+        public virtual System.Threading.Tasks.Task UpdateQuestionAsync(QuestionEditModel question)
         {
             return UpdateQuestionAsync(question, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task UpdateQuestionAsync(QuestionListModel question, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task UpdateQuestionAsync(QuestionEditModel question, System.Threading.CancellationToken cancellationToken)
         {
             if (question == null)
                 throw new System.ArgumentNullException("question");
@@ -1494,11 +1490,11 @@ namespace FormsIW5.Web.BL
         System.Threading.Tasks.Task<System.Guid> AnswerPostAsync(AnswerCreateModel newAnswer, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid?> AnswerPutAsync(AnswerDetailModel answer);
+        System.Threading.Tasks.Task AnswerPutAsync(AnswerDetailModel answer);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid?> AnswerPutAsync(AnswerDetailModel answer, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task AnswerPutAsync(AnswerDetailModel answer, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<AnswerListModel> ListAsync(System.Guid id);
@@ -1738,14 +1734,14 @@ namespace FormsIW5.Web.BL
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid?> AnswerPutAsync(AnswerDetailModel answer)
+        public virtual System.Threading.Tasks.Task AnswerPutAsync(AnswerDetailModel answer)
         {
             return AnswerPutAsync(answer, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid?> AnswerPutAsync(AnswerDetailModel answer, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task AnswerPutAsync(AnswerDetailModel answer, System.Threading.CancellationToken cancellationToken)
         {
             if (answer == null)
                 throw new System.ArgumentNullException("answer");
@@ -1761,7 +1757,6 @@ namespace FormsIW5.Web.BL
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PUT");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
@@ -1793,8 +1788,7 @@ namespace FormsIW5.Web.BL
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Guid?>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            return objectResponse_.Object;
+                            return;
                         }
                         else
                         {
