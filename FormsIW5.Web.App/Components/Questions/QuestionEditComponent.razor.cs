@@ -33,8 +33,8 @@ public partial class QuestionEditComponent
         await UpdateAsync();
     }
     public async Task AddQuestionOptionAsync() {
-        var count = Data.AnswerSelections.Count;
-        Data.AnswerSelections.Add(new() { SelectionName = $"Option {count}"});
+        var count = Data.QuestionOptions.Count;
+        Data.QuestionOptions.Add(new() { SelectionName = $"Option {count}"});
         await UpdateAsync();
     }
 }

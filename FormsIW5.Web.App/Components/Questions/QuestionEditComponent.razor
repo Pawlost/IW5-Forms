@@ -9,9 +9,9 @@
     </div>
 
     <div class="horizontal-selection-container">
-        @foreach (var answer in Data.AnswerSelections)
+        @foreach (var answer in Data.QuestionOptions)
         {
-            <InputText @bind-Value="@Data.QuestionText" class="form-control" @onfocusout="HandleUpdateAsync" />
+            <InputText @bind-Value="@answer.SelectionName" class="form-control" @onfocusout="HandleUpdateAsync" />
         }
     </div>
     <button @onclick="@AddQuestionOptionAsync">Add Option</button>
