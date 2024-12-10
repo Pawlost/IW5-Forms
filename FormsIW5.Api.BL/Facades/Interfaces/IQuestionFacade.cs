@@ -5,7 +5,8 @@ namespace FormsIW5.Api.BL.Facades.Interfaces;
 
 public interface IQuestionFacade : IDetailFacade<QuestionDetailModel>, IListFacade<QuestionEditModel>, ICreateFacade<QuestionCreateModel>
 {
-    Task<ICollection<QuestionListModel>> Search(QuestionQueryObject questionQuery);
+    Task<ICollection<QuestionListModel>> SearchByText(QuestionQueryObject questionQuery);
+    Task<ICollection<QuestionListModel>> SearchByDescription(QuestionQueryObject questionQuery);
 
     Task UpdateListQuestion(QuestionEditModel questionQuery);
 }

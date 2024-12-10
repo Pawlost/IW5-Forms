@@ -23,8 +23,15 @@ public static class QuestionEndpoints
         group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<QuestionDetailModel> facade) => await facade.GetByIdAsync(id));
 
         // Search by text
-        group.MapGet("search/{formId:guid}", async (Guid formId, [FromQuery] string? text, [FromQuery] string? description, [FromServices] IQuestionFacade facade) => {
-            await facade.Search(new QuestionQueryObject { Text = text, Description = description, FormId=formId });
+        group.MapGet("searchByText/{formId:guid}", async (Guid formId, [FromQuery] string? text, [FromServices] IQuestionFacade facade) => 
+        {
+            return await facade.SearchByText(new QuestionQueryObject { TextMatch = text, FormId=formId });
+        });
+
+        // Search by description
+        group.MapGet("searchByDescription/{formId:guid}", async (Guid formId, [FromQuery] string? description, [FromServices] IQuestionFacade facade) => 
+        {
+            return await facade.SearchByDescription(new QuestionQueryObject { TextMatch = description, FormId = formId });
         });
 
         //Create

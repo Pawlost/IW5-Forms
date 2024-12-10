@@ -20,10 +20,10 @@ public class FormFacade : FacadeBase<IFormApiClient>
         return await client.FormPostAsync(createModel);
     }
 
-    public async Task<Guid?> FormPutAsync(FormDetailModel model)
+    public async Task FormPutAsync(FormDetailModel model)
     {
         InitClient();
-        return await client.FormPutAsync(model);
+        await client.FormPutAsync(model);
     }
     public async Task<FormListModel> ListAsync(Guid id)
     {

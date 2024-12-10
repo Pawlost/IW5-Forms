@@ -34,4 +34,14 @@ public class QuestionFacade : FacadeBase<IQuestionApiClient>
     {
         await client.QuestionDeleteAsync(id);
     }
+
+    public async Task<ICollection<QuestionListModel>> SearchByTextAsync(Guid id, string text)
+    {
+        return await client.SearchByTextAsync(id, text);
+    }
+
+    public async Task<ICollection<QuestionListModel>> SearchByDescriptionAsync(Guid id, string description)
+    {
+        return await client.SearchByDescriptionAsync(id, description);
+    }
 }

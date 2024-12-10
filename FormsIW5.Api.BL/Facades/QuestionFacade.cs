@@ -13,9 +13,16 @@ public class QuestionFacade : FacadeBase<QuestionEntity, QuestionEditModel, Ques
     {
     }
 
-    public async Task<ICollection<QuestionListModel>> Search(QuestionQueryObject questionQuery)
+    public async Task<ICollection<QuestionListModel>> SearchByText(QuestionQueryObject questionQuery)
     {
-        return mapper.Map<List<QuestionListModel>>(await repository.Search(questionQuery));
+        var result = await repository.SearchByText(questionQuery);
+        return mapper.Map<List<QuestionListModel>>(result);
+    }
+
+    public async Task<ICollection<QuestionListModel>> SearchByDescription(QuestionQueryObject questionQuery)
+    {
+        var result = await repository.SearchByDescription(questionQuery);
+        return mapper.Map<List<QuestionListModel>>(result);
     }
 
     public async Task UpdateListQuestion(QuestionEditModel model)
