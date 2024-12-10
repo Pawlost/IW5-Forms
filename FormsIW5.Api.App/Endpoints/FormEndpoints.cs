@@ -28,10 +28,18 @@ public static class FormEndpoints
         });
 
         // Update
-        group.MapPut("", async (FormDetailModel form, [FromServices] IDetailFacade<FormDetailModel> facade) => await facade.UpdateAsync(form));
+        group.MapPut("", async (FormDetailModel form, [FromServices] IDetailFacade<FormDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>
+        {
+            var userId = EndpointExtensions.GetUserId(httpContextAccessor);
+            await facade.UpdateAsync(form, userId);
+        });
 
         // Delete
-        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IDetailFacade<FormDetailModel> facade) => await facade.DeleteAsync(id));
+        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IDetailFacade<FormDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>
+        {
+            var userId = EndpointExtensions.GetUserId(httpContextAccessor);
+            await facade.DeleteAsync(id, userId);
+        });
 
         return endpointRoute;
     }

@@ -36,7 +36,10 @@ public static class QuestionEndpoints
         group.MapPut("/updateQuestion", async (QuestionListModel question, [FromServices] IQuestionFacade facade) => await facade.UpdateListQuestion(question));
 
         // Delete
-        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IDetailFacade<QuestionDetailModel> facade) => await facade.DeleteAsync(id));
+        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IDetailFacade<QuestionDetailModel> facade, IHttpContextAccessor httpContextAccessor) => {
+            var userId = EndpointExtensions.GetUserId(httpContextAccessor);
+            await facade.DeleteAsync(id, userId);
+        });
 
         return endpointRoute;
     }

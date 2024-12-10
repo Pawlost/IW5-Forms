@@ -16,6 +16,17 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
+                <label class="w-100">
+                    Question Description:
+                    <InputTextArea @bind-Value="@Data.Description" class="form-control" @onfocusout="HandleUpdateAsync" />
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
                 <label class="w-100 font-weight-bold">
                     <InputSelect @bind-Value="Data.QuestionType" class="form-control">
                         @foreach (var foodType in Enum.GetValues<QuestionType>())

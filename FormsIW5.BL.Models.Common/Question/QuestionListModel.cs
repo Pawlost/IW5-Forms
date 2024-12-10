@@ -11,6 +11,7 @@ public record QuestionListModel : IModel
     public string? QuestionText { get; set; }
     public int FromValue { get; set; }
     public int ToValue { get; set; }
+    public string? Description { get; set; }
 
     [Required]
     public Guid FormId { get; set; }
