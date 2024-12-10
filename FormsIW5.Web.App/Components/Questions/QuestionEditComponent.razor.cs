@@ -1,6 +1,7 @@
 ﻿using FormsIW5.BL.Models.Common.Question;
 using FormsIW5.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace FormsIW5.Web.App.Components.Questions;
 
@@ -23,11 +24,14 @@ public partial class QuestionEditComponent
         await base.OnInitializedAsync();
     }
 
-    public async Task UpdateAsync()
-    {
+    public async Task UpdateAsync() {
         await QuestionFacade.QuestionPutAsync(Data);
     }
 
+    private async Task HandleUpdateAsync(FocusEventArgs e)
+    {
+        await UpdateAsync();
+    }
     public async Task AddQuestionOptionAsync() {
         var count = Data.AnswerSelections.Count;
         Data.AnswerSelections.Add(new() { SelectionName = $"Option {count}"});

@@ -4,11 +4,11 @@ using FormsIW5.BL.Models.Common.AnswerSelection;
 
 namespace FormsIW5.Api.BL.MapperProfiles;
 
-public class AnswerSelectionMapperProfile : Profile
+public class QuestionOptionMapperProfile : Profile
 {
-    public AnswerSelectionMapperProfile() 
+    public QuestionOptionMapperProfile() 
     {
-        CreateMap<QuestionOptionEntity, QuestionOptionListModel>();
+        CreateMap<QuestionOptionEntity, QuestionOptionListModel>().ReverseMap();
         CreateMap<QuestionOptionEntity, QuestionOptionDetailModel>().ReverseMap();
         CreateMap<QuestionOptionCreateModel, QuestionOptionEntity>();
     }

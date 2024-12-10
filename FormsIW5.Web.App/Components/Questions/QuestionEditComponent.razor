@@ -4,14 +4,14 @@
     <div class="form-group">
         <label class="w-100">
             Question Name:
-            <InputText @bind-Value="@Data.QuestionText" class="form-control" @onchange="@UpdateAsync" />
+            <InputText @bind-Value="@Data.QuestionText" class="form-control" @onfocusout="HandleUpdateAsync" />
         </label>
     </div>
 
     <div class="horizontal-selection-container">
         @foreach (var answer in Data.AnswerSelections)
         {
-            <InputText @bind-Value="@Data.QuestionText" class="form-control" @onchange="@UpdateAsync" />
+            <InputText @bind-Value="@Data.QuestionText" class="form-control" @onfocusout="HandleUpdateAsync" />
         }
     </div>
     <button @onclick="@AddQuestionOptionAsync">Add Option</button>

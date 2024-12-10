@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace FormsIW5.Web.App.Pages;
 
-public partial class FormDetailPage
+public partial class FormAnswerPage
 {
     [Parameter]
     public Guid Id { get; set; }
@@ -21,15 +21,12 @@ public partial class FormDetailPage
 
     private FormDetailModel formDetail { get; set; } = null!;
 
-    private ICollection<QuestionListModel> questionList { get; set; } = [];
-
     [Inject]
     private NavigationManager navigationManager { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
         formDetail = await formFacade.FormGetAsync(Id);
-        questionList = formDetail.Questions;
         await base.OnInitializedAsync();
     }
 
@@ -39,11 +36,6 @@ public partial class FormDetailPage
     }
 
     public void Answer()
-    {
-        navigationManager.NavigateTo($"/answerForm/{formDetail.Id}");
-    }
-
-    public void ShowAnswers()
     {
         navigationManager.NavigateTo($"/answerForm/{formDetail.Id}");
     }

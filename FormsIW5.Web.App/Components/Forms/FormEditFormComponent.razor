@@ -1,4 +1,5 @@
-﻿<h3>FormEditComponent</h3>
+﻿@using FormsIW5.Web.App.Components.Questions
+<h3>FormEditComponent</h3>
 
 <EditForm Model="@Data">
     <button type="submit" class="btn btn-success" @onclick="@SaveAsync">
@@ -29,7 +30,7 @@
 
 @foreach (var questionId in QuestionIds)
 {
-    
+    <QuestionEditComponent QuestionId=@questionId />
 }
 
 
