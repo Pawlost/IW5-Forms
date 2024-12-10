@@ -37,9 +37,6 @@ namespace FormsIW5.Api.DAL.Migrations
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("SelectedAnswerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("TextAnswer")
                         .HasColumnType("nvarchar(max)");
 
@@ -47,31 +44,7 @@ namespace FormsIW5.Api.DAL.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.HasIndex("SelectedAnswerId");
-
                     b.ToTable("Answers");
-                });
-
-            modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.AnswerSelectionEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("OwnerId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("QuestionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("SelectionName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("AnswersSelection");
                 });
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.FormEntity", b =>
@@ -87,14 +60,14 @@ namespace FormsIW5.Api.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("bit");
+
                     b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -135,27 +108,33 @@ namespace FormsIW5.Api.DAL.Migrations
                     b.ToTable("Questions");
                 });
 
+            modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionOptionEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("OwnerId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("QuestionOptionName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("QuestionOptions");
+                });
+
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.AnswerEntity", b =>
                 {
                     b.HasOne("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", "Question")
                         .WithMany("Answers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FormsIW5.Api.DAL.Common.Entities.AnswerSelectionEntity", "SelectedAnswer")
-                        .WithMany("Answers")
-                        .HasForeignKey("SelectedAnswerId");
-
-                    b.Navigation("Question");
-
-                    b.Navigation("SelectedAnswer");
-                });
-
-            modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.AnswerSelectionEntity", b =>
-                {
-                    b.HasOne("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", "Question")
-                        .WithMany("AnswerSelections")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -174,9 +153,15 @@ namespace FormsIW5.Api.DAL.Migrations
                     b.Navigation("Form");
                 });
 
-            modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.AnswerSelectionEntity", b =>
+            modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionOptionEntity", b =>
                 {
-                    b.Navigation("Answers");
+                    b.HasOne("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", "Question")
+                        .WithMany("QuestionOptions")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.FormEntity", b =>
@@ -186,9 +171,9 @@ namespace FormsIW5.Api.DAL.Migrations
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", b =>
                 {
-                    b.Navigation("AnswerSelections");
-
                     b.Navigation("Answers");
+
+                    b.Navigation("QuestionOptions");
                 });
 #pragma warning restore 612, 618
         }

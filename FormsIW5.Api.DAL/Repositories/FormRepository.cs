@@ -12,7 +12,7 @@ public class FormRepository : RepositoryBase<FormEntity>, IFormRepository
     }
     public override async Task<FormEntity?> GetByIdAsync(Guid id)
     {
-        return await dbContext.Set<FormEntity>().Include(q => q.Questions).SingleOrDefaultAsync(entity => entity.Id == id);
+        return await dbContext.Set<FormEntity>().Include(f => f.Questions).ThenInclude(q => q.QuestionOptions).SingleOrDefaultAsync(entity => entity.Id == id);
     }
 }
 

@@ -3,29 +3,35 @@ using FormsIW5.Web.BL.Installer;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using FormsIW5.Common.Installer;
+using FormsIW5.Web.BL;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("app");
-
-var apiBaseUrl = builder.Configuration.GetValue<string>("ApiBaseUrl");
 
 builder.Services.Install<WebBLInstaller>(builder.Configuration);
 
 builder.Services.AddTransient<AuthorizationMessageHandler>();
 
-builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri(apiBaseUrl))
-    .AddHttpMessageHandler(serviceProvider
-    => serviceProvider?.GetService<AuthorizationMessageHandler>()
-        ?.ConfigureHandler(
-            authorizedUrls: [apiBaseUrl],
-            scopes: ["cookbookapi"]));
+const string scope = "iw5FormsScope";
 
-builder.Services.AddScoped<HttpClient>(serviceProvider => serviceProvider.GetService<IHttpClientFactory>().CreateClient("api"));
+var apiBaseUrl = builder.Configuration.GetValue<Uri>("ApiBaseUrl");
+
+builder.Services.AddHttpClient(ClientNames.LogInClientName, client => client.BaseAddress = apiBaseUrl)
+    .AddHttpMessageHandler(serviceProvider
+    => serviceProvider?.GetService<AuthorizationMessageHandler>()!
+    .ConfigureHandler(
+            authorizedUrls: [apiBaseUrl.ToString()],
+            scopes: [scope])
+    );
+
+builder.Services.AddHttpClient(ClientNames.AnonymousClientName, client => client.BaseAddress = apiBaseUrl);
+
+builder.Services.AddScoped(serviceProvider => serviceProvider.GetService<IHttpClientFactory>()!.CreateClient(ClientNames.LogInClientName));
 
 builder.Services.AddOidcAuthentication(options =>
 {
     builder.Configuration.Bind("IdentityProvider", options.ProviderOptions);
-    options.ProviderOptions.DefaultScopes.Add("cookbookapi");
+    options.ProviderOptions.DefaultScopes.Add(scope);
 });
 
 var host = builder.Build();

@@ -1,39 +1,44 @@
 ﻿using FormsIW5.BL.Models.Common.Answer;
-using FormsIW5.BL.Models.Common.User;
 
 namespace FormsIW5.Web.BL.Facades;
 
-public class AnswerFacade : IWebFacade
+public class AnswerFacade : FacadeBase<IAnswerApiClient>
 {
-    private readonly IAnswerApiClient apiClient;
-    public AnswerFacade(IAnswerApiClient apiClient)
+    public AnswerFacade(IAnswerApiClient apiClient, IHttpClientFactory clientFactory) : base(clientFactory, apiClient)
     {
-        this.apiClient = apiClient;
     }
+
     public async Task<ICollection<AnswerListModel>> AnswerGetAsync()
     {
-        return await apiClient.AnswerGetAsync();
+        return await client.AnswerGetAsync();
     }
 
     public async Task<Guid> AnswerPostAsync(AnswerCreateModel createModel)
     {
-        return await apiClient.AnswerPostAsync(createModel);
+        return await client.AnswerPostAsync(createModel);
     }
 
     public async Task<Guid?> AnswerPutAsync(AnswerDetailModel model)
     {
-        return await apiClient.AnswerPutAsync(model);
+        return await client.AnswerPutAsync(model);
     }
+
     public async Task<AnswerListModel> ListAsync(Guid id)
     {
-        return await apiClient.ListAsync(id);
+        return await client.ListAsync(id);
     }
     public async Task<AnswerDetailModel> AnswerGetAsync(Guid id)
     {
-        return await apiClient.AnswerGetAsync(id);
+        return await client.AnswerGetAsync(id);
     }
+
+    public async Task<ICollection<AnswerDetailModel>> GetFormAnswersAsync(Guid id)
+    {
+        return await client.FormAnswerAsync(id);
+    }
+
     public async Task AnswerDeleteAsync(Guid id)
     {
-        await apiClient.AnswerDeleteAsync(id);
+        await client.AnswerDeleteAsync(id);
     }
 }

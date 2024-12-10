@@ -52,7 +52,7 @@ namespace FormsIW5.Api.DAL.Migrations
                     b.ToTable("Answers");
                 });
 
-            modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.AnswerSelectionEntity", b =>
+            modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionOptionEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -157,7 +157,7 @@ namespace FormsIW5.Api.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FormsIW5.Api.DAL.Common.Entities.AnswerSelectionEntity", "SelectedAnswer")
+                    b.HasOne("FormsIW5.Api.DAL.Common.Entities.QuestionOptionEntity", "SelectedAnswer")
                         .WithMany("Answers")
                         .HasForeignKey("SelectedAnswerId");
 
@@ -166,7 +166,7 @@ namespace FormsIW5.Api.DAL.Migrations
                     b.Navigation("SelectedAnswer");
                 });
 
-            modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.AnswerSelectionEntity", b =>
+            modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionOptionEntity", b =>
                 {
                     b.HasOne("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", "Question")
                         .WithMany("AnswersSelections")
@@ -199,7 +199,7 @@ namespace FormsIW5.Api.DAL.Migrations
                     b.Navigation("Form");
                 });
 
-            modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.AnswerSelectionEntity", b =>
+            modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionOptionEntity", b =>
                 {
                     b.Navigation("Answers");
                 });

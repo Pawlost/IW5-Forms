@@ -1,0 +1,18 @@
+﻿@using FormsIW5.BL.Models.Common.Form
+@inherits FormsIW5.Web.App.Pages.PageBase
+
+<h1 class="headline">Public Forms</h1>
+
+@if (formList.Count != 0)
+{
+    <div class="form-container">
+        @foreach (var form in formList)
+        {
+            <FormCard Form=@form/>
+        }
+    </div>
+}
+else
+{
+    <p>No forms currently available</p>
+}

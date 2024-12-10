@@ -185,7 +185,7 @@ namespace FormsIW5.IdentityProvider.DAL.Migrations
                             Id = new Guid("b1f70862-ba5c-45cd-9086-b99347db2ee8"),
                             AccessFailedCount = 0,
                             Active = false,
-                            ConcurrencyStamp = "60b06ed7-56a0-434c-9c5b-bd493a5e22d0",
+                            ConcurrencyStamp = "4af0ce48-b9db-4d6e-b346-2da50d774add",
                             Email = "xbalus03@vutbr.cz",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -196,6 +196,23 @@ namespace FormsIW5.IdentityProvider.DAL.Migrations
                             Subject = "admin",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("94aafab9-26f0-49ac-a5de-c98709057238"),
+                            AccessFailedCount = 0,
+                            Active = false,
+                            ConcurrencyStamp = "fda5b000-6d2f-44b7-a4dd-5aac76e36d84",
+                            Email = "xbalus03@vutbr.cz",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "XBALUS03@VUTBR.CZ",
+                            NormalizedUserName = "USER",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI14r3DlK6kMbyvIA1cf0/eFzpY8nbdDqwsTXeTEYgQZhG1XeS7hZLHrZWFmNnGCwQ==",
+                            PhoneNumberConfirmed = false,
+                            Subject = "user",
+                            TwoFactorEnabled = false,
+                            UserName = "User"
                         });
                 });
 

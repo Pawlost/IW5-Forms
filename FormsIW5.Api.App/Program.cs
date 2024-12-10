@@ -1,9 +1,7 @@
-using FormsIW5.Common.Installer;
+﻿using FormsIW5.Common.Installer;
 using Microsoft.EntityFrameworkCore;
 using FormsIW5.Api.App.Endpoints;
 using FormsIW5.Api.DAL;
-using FormsIW5.Api.App.Configurations;
-using Microsoft.Extensions.Options;
 using FormsIW5.Api.DAL.Common.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using FormsIW5.Api.DAL.Installer;
@@ -41,11 +39,6 @@ public class Program
 
         builder.Services.Install<ApiBLInstaller>(builder.Configuration);
 
-        builder.Services.AddOptions<MigrationConfiguration>()
-            .BindConfiguration("MigrationOptions")
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
-
         var app = builder.Build();
 
         var environment = app.Services.GetRequiredService<IWebHostEnvironment>();
@@ -78,21 +71,22 @@ public class Program
         app.Run();
     }
 
-    public static void MigrateDB(IServiceProvider services) {
-
-        var configuration = services.GetRequiredService<IOptions<MigrationConfiguration>>();
-
-        if (configuration.Value.ApplyMigration)
-        {
-            using var dbContext = services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
-            dbContext.Database.Migrate();
-        }
+    public static void MigrateDB(IServiceProvider services)
+    {
+        using var dbContext = services.CreateScope().ServiceProvider.GetRequiredService<FormsIW5DbContext>();
+        dbContext.Database.Migrate();
     }
 
     public static void AddEndpoints(IEndpointRouteBuilder endpointRoute, bool enableIdentity)
     {
-        endpointRoute.MapGroup("api").WithOpenApi()
-            .AddFormEndpoints(enableIdentity)
+        var endpoints = endpointRoute.MapGroup("api").WithOpenApi();
+
+        if (enableIdentity)
+        {
+            endpoints.RequireAuthorization();
+        }
+
+        endpoints.AddFormEndpoints()
             .AddQuestionEndpoints()
             .AddAnswerEndpoints();
     }
@@ -113,11 +107,8 @@ public class Program
                 options.TokenValidationParameters.ValidateAudience = false;
             });
 
-        serviceCollection.AddAuthorization(
-                options =>
-                {
-                    options.AddPolicy("ingredient-admin", policy => policy.RequireRole("admin"));
-                });
+        serviceCollection.AddAuthorizationBuilder()
+            .AddPolicy("ingredient-admin", policy => policy.RequireRole("admin"));
         serviceCollection.AddHttpContextAccessor();
     }
 }

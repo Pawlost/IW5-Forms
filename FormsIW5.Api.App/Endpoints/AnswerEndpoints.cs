@@ -1,4 +1,5 @@
-﻿using FormsIW5.Api.BL.Facades.Interfaces;
+﻿using FormsIW5.Api.App.Extensions;
+using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.BL.Models.Common.Answer;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,8 +20,15 @@ public static class AnswerEndpoints
         //Get detail By Id
         group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<AnswerDetailModel> facade) => await facade.GetByIdAsync(id));
 
+        group.MapGet("formAnswer/{id:guid}", async (Guid id, [FromServices] IAnswerFacade facade) => await facade.GetFormAnswersAsync(id));
+
         //Create
-        group.MapPost("", async (AnswerCreateModel newAnswer, [FromServices] ICreateFacade<AnswerCreateModel> facade) => await facade.CreateAsync(newAnswer));
+        group.MapPost("", async (AnswerCreateModel newAnswer, [FromServices] ICreateFacade<AnswerCreateModel> facade, IHttpContextAccessor httpContextAccessor) => 
+            {
+                var userId = EndpointExtensions.GetUserId(httpContextAccessor);
+                return await facade.CreateAsync(newAnswer, userId);
+            }
+        );
 
         // Update
         group.MapPut("", async (AnswerDetailModel answer, [FromServices] IDetailFacade<AnswerDetailModel> facade) => await facade.UpdateAsync(answer));

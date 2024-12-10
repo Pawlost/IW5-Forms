@@ -1,0 +1,12 @@
+﻿ <h3>Question</h3>
+<h3>@Question.QuestionText</h3>
+ 
+<h3>Answer</h3>
+
+  <div class="form-group">
+        <label class="w-100">
+            TextAnswer Name:
+            <InputText @bind-Value="@Data.TextAnswer" class="form-control" />
+        </label>
+    </div>
+    <button @onclick="@SubmitAnswerAsync">Submit answer</button>

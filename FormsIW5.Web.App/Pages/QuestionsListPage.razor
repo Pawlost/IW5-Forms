@@ -1,0 +1,32 @@
+﻿@page "/questions"
+@using FormsIW5.BL.Models.Common.Form
+@inherits FormsIW5.Web.App.Pages.PageBase
+
+<h3>QuestionsListPage</h3>
+
+<div class="row">
+    <div class="col-md">
+        <div class="bg-sec h-100 rounded">
+            @if (questionList.Count != 0)
+            {
+                <table class="table border table-striped">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="row">Question Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ingredient in questionList)
+                        {
+                            <tr>
+                                <td style="vertical-align: middle;">
+                                    <NavLink href="@($"/ingredients/{ingredient.Id}")">@ingredient.QuestionText</NavLink>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>

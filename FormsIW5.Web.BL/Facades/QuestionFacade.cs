@@ -1,39 +1,37 @@
-﻿using FormsIW5.BL.Models.Common.Answer;
-using FormsIW5.BL.Models.Common.Question;
+﻿using FormsIW5.BL.Models.Common.Question;
 
 namespace FormsIW5.Web.BL.Facades;
 
-public class QuestionFacade : IWebFacade
+public class QuestionFacade : FacadeBase<IQuestionApiClient>
 {
-    private readonly IQuestionApiClient apiClient;
-    public QuestionFacade(IQuestionApiClient apiClient)
+    public QuestionFacade(IQuestionApiClient apiClient, IHttpClientFactory clientFactory) : base(clientFactory, apiClient)
     {
-        this.apiClient = apiClient;
     }
+
     public async Task<ICollection<QuestionListModel>> QuestionListGetAsync()
     {
-        return await apiClient.QuestionGetAsync();
+        return await client.QuestionGetAsync();
     }
 
     public async Task<Guid> QuestionPostAsync(QuestionCreateModel createModel)
     {
-        return await apiClient.QuestionPostAsync(createModel);
+        return await client.QuestionPostAsync(createModel);
     }
 
-    public async Task<Guid?> QuestionPutAsync(QuestionDetailModel model)
+    public async Task QuestionPutAsync(QuestionListModel model)
     {
-        return await apiClient.QuestionPutAsync(model);
+        await client.UpdateQuestionAsync(model);
     }
     public async Task<QuestionListModel> ListAsync(Guid id)
     {
-        return await apiClient.ListAsync(id);
+        return await client.ListAsync(id);
     }
     public async Task<QuestionDetailModel> QuestionGetAsync(Guid id)
     {
-        return await apiClient.QuestionGetAsync(id);
+        return await client.QuestionGetAsync(id);
     }
     public async Task QuestionDeleteAsync(Guid id)
     {
-        await apiClient.QuestionDeleteAsync(id);
+        await client.QuestionDeleteAsync(id);
     }
 }

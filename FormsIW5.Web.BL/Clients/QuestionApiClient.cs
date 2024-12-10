@@ -2,7 +2,14 @@
 
 public partial class QuestionApiClient
 {
-    partial void Initialize() {
+    public HttpClient HttpClient
+    {
+        get { return _httpClient; }
+        set { _httpClient = value; }
+    }
+
+    partial void Initialize()
+    {
         BaseUrl = _httpClient?.BaseAddress?.ToString();
     }
 }

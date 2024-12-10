@@ -12,5 +12,5 @@ public record QuestionEntity : EntityBase
     public Guid FormId { get; set; }
     public FormEntity? Form { get; set; }
     public ICollection<AnswerEntity> Answers { get; set; } = [];
-    public ICollection<AnswerSelectionEntity> AnswerSelections { get; set; } = [];
+    public ICollection<QuestionOptionEntity> QuestionOptions { get; set; } = [];
 }

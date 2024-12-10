@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FormsIW5.Api.BL.Facades.Interfaces;
+using FormsIW5.Api.DAL.Common.Entities.Interfaces;
 using FormsIW5.Api.DAL.Common.Repositories;
-using FormsIW5.Api.DAL.Entities.Interfaces;
 using FormsIW5.BL.Models.Common.Interfaces;
 
 namespace FormsIW5.Api.BL.Facades;
@@ -24,9 +24,10 @@ public class FacadeBase<TEntity, TListModel, TDetailModel, TCreateModel, TReposi
         this.repository = repository;
         this.mapper = mapper;
     }
-    public async Task<Guid> CreateAsync(TCreateModel detailModel)
+    public async Task<Guid> CreateAsync(TCreateModel createModel, string? userId)
     {
-        var entity = mapper.Map<TEntity>(detailModel);
+        var entity = mapper.Map<TEntity>(createModel);
+        entity.OwnerId = userId;
         return await repository.InsertAsync(entity);
     }
 

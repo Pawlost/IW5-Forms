@@ -1,13 +1,9 @@
 ﻿@using Microsoft.Extensions.Localization
-@namespace CookBook.Web.App
+@namespace IW5Forms.Web.App
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand mr-xl-5" href="#" >
-            <img src="/images/cook-book.svg" class="d-inline mr-2" />
-        </a>
-
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -16,26 +12,27 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <NavLink href="" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
-                        Home label
+                        Public forms
                     </NavLink>
                 </li>
-                <li class="nav-item">
-                    <NavLink href="/recipes" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
-                       Recipes label
+                <li>
+                    <NavLink href="/createForm" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
+                        Create new form
                     </NavLink>
                 </li>
-                <li class="nav-item">
-                    <NavLink href="/ingredients" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
-                       Ingredients label  
-                    </NavLink>
+                <li>
+                    <AuthorizeView>
+                        <Authorized>
+                            <NavLink href="/userForms" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
+                                Your forms
+                            </NavLink>
+                        </Authorized>
+                    </AuthorizeView>
                 </li>
-
                 <li>
                     <LoginDisplay/>
                 </li>
             </ul>
-
-            @*<CultureSelector/>*@
         </div>
     </div>
 </nav>

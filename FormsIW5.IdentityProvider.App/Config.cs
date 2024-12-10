@@ -29,14 +29,14 @@ namespace FormsIW5.IdentityProvider.App
 
         public static IEnumerable<ApiScope> ApiScopes =>
         [
-            new ("cookbookapi", [JwtClaimTypes.Role])
+            new ("iw5FormsScope", [JwtClaimTypes.Role])
         ];
 
         public static IEnumerable<Client> Clients = new List<Client>()
         {
             new Client(){
-                    ClientName = "CookBook Client",
-                    ClientId = "cookbookclient",
+                    ClientName = "Forms IW5 Web Client",
+                    ClientId = "Iw5FormsClient",
                     AllowOfflineAccess = true,
                     RedirectUris =
                     [
@@ -53,7 +53,7 @@ namespace FormsIW5.IdentityProvider.App
                     [
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "cookbookapi"
+                        "iw5FormsScope"
                     ],
                     ClientSecrets =
                     {

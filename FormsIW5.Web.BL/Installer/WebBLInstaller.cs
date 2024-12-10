@@ -1,5 +1,5 @@
 ﻿using FormsIW5.Common.Installer;
-using FormsIW5.Web.BL.Facades;
+using FormsIW5.Web.BL.Facades.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,17 +9,14 @@ public class WebBLInstaller : IInstaller
 {
     public void Install(IServiceCollection serviceCollection, IConfiguration? configuration)
     {
-        var apiBaseUrl = configuration?.GetValue<Uri>("ApiBaseUrl");
-
-        serviceCollection.AddScoped<IUserApiClient, UserApiClient>();
         serviceCollection.AddScoped<IFormApiClient, FormApiClient>();
         serviceCollection.AddScoped<IQuestionApiClient, QuestionApiClient>();
         serviceCollection.AddScoped<IAnswerApiClient, AnswerApiClient>();
 
         serviceCollection.Scan(selector =>
-             selector.FromAssemblyOf<WebBLInstaller>()
-                 .AddClasses(classes => classes.AssignableTo<IWebFacade>())
-                 .AsSelfWithInterfaces()
-                 .WithTransientLifetime());
+           selector.FromAssemblyOf<WebBLInstaller>()
+         .AddClasses(classes => classes.AssignableTo<IWebFacade>())
+         .AsSelfWithInterfaces()
+         .WithTransientLifetime());
     }
 }

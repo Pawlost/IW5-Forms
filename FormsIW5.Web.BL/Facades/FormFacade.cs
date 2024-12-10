@@ -1,38 +1,43 @@
-﻿using FormsIW5.BL.Models.Common.Answer;
-using FormsIW5.BL.Models.Common.Form;
+﻿using FormsIW5.BL.Models.Common.Form;
 
 namespace FormsIW5.Web.BL.Facades;
 
-public class FormFacade : IWebFacade
+public class FormFacade : FacadeBase<IFormApiClient>
 {
-    private readonly IFormApiClient apiClient;
-    public FormFacade(IFormApiClient apiClient)
+    public FormFacade(IFormApiClient apiClient, IHttpClientFactory clientFactory) : base(clientFactory, apiClient)
     {
-        this.apiClient = apiClient;
     }
+
     public async Task<ICollection<FormListModel>> FormGetAsync()
     {
-        return await apiClient.FormGetAsync();
+        InitClient(ClientNames.AnonymousClientName);
+        return await client.FormGetAsync();
     }
-    public async Task<Guid> AnswerPostAsync(FormCreateModel createModel)
+
+    public async Task<Guid> FormPostAsync(FormCreateModel createModel)
     {
-        return await apiClient.FormPostAsync(createModel);
+        InitClient();
+        return await client.FormPostAsync(createModel);
     }
 
     public async Task<Guid?> FormPutAsync(FormDetailModel model)
     {
-        return await apiClient.FormPutAsync(model);
+        InitClient();
+        return await client.FormPutAsync(model);
     }
     public async Task<FormListModel> ListAsync(Guid id)
     {
-        return await apiClient.ListAsync(id);
+        InitClient();
+        return await client.ListAsync(id);
     }
     public async Task<FormDetailModel> FormGetAsync(Guid id)
     {
-        return await apiClient.FormGetAsync(id);
+        InitClient(ClientNames.AnonymousClientName);
+        return await client.FormGetAsync(id);
     }
-    public async Task AnswerDeleteAsync(Guid id)
+    public async Task FormDeleteAsync(Guid id)
     {
-        await apiClient.FormDeleteAsync(id);
+        InitClient();
+        await client.FormDeleteAsync(id);
     }
 }

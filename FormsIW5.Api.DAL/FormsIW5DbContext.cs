@@ -8,7 +8,7 @@ public class FormsIW5DbContext(DbContextOptions<FormsIW5DbContext> options) : Db
     public DbSet<QuestionEntity> Questions { get; set; } = null!;
     public DbSet<FormEntity> Forms { get; set; } = null!;
     public DbSet<AnswerEntity> Answers { get; set; } = null!;
-    public DbSet<AnswerSelectionEntity> AnswersSelection { get; set; } = null!;
+    public DbSet<QuestionOptionEntity> QuestionOptions { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -24,12 +24,7 @@ public class FormsIW5DbContext(DbContextOptions<FormsIW5DbContext> options) : Db
             .WithOne(answerEntity => answerEntity.Question);
         
         modelBuilder.Entity<QuestionEntity>()
-            .HasMany(questionEntity => questionEntity.AnswerSelections)
+            .HasMany(questionEntity => questionEntity.QuestionOptions)
             .WithOne(answerEntity => answerEntity.Question);
-
-        modelBuilder.Entity<AnswerSelectionEntity>()
-            .HasMany(answerSelection => answerSelection.Answers)
-            .WithOne(answerEntity => answerEntity.SelectedAnswer)
-            .HasForeignKey(answerEntity => answerEntity.SelectedAnswerId);
     }
 }

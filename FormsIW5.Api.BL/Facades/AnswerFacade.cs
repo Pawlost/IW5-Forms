@@ -11,4 +11,10 @@ public class AnswerFacade : FacadeBase<AnswerEntity, AnswerListModel, AnswerDeta
     public AnswerFacade(IAnswerRepository repository, IMapper mapper) : base(repository, mapper)
     {
     }
+
+    public async Task<ICollection<AnswerDetailModel>> GetFormAnswersAsync(Guid formId)
+    {
+        var entity = await repository.GetFormAnswersAsync(formId);
+        return mapper.Map<List<AnswerDetailModel>>(entity);
+    }
 }

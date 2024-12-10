@@ -7,7 +7,7 @@ namespace FormsIW5.IdentityProvider.App.Installers;
 
 public class IdentityProviderAppInstaller : IInstaller
 {
-    public void Install(IServiceCollection serviceCollection, IConfiguration configuration)
+    public void Install(IServiceCollection serviceCollection, IConfiguration? configuration)
     {
         serviceCollection.AddIdentity<AppUserEntity, AppRoleEntity>()
             .AddEntityFrameworkStores<IdentityProviderDbContext>()

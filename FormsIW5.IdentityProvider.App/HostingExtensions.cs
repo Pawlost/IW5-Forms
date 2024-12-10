@@ -20,7 +20,7 @@ namespace FormsIW5.IdentityProvider.App
             var allowedRedirectUri = builder.Configuration.GetValue<string>("IdentityProvider:RedirectUri");
             if (allowedRedirectUri is not null)
             {
-                Config.Clients.Where(c => c.ClientId.Equals("cookbookclient")).First().RedirectUris.Add(allowedRedirectUri);
+                Config.Clients.First().RedirectUris.Add(allowedRedirectUri);
             }
             else {
                 throw new NullReferenceException("Redirect uri must be set for client");
