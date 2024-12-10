@@ -9,8 +9,8 @@ public class FormsEndpointTests
 
     public FormsEndpointTests()
     {
-        var application = new FormsIW5ApiApplicationFactory();
-        _client = new Lazy<HttpClient>(application.CreateClient());
+      //  var application = new FormsIW5ApiApplicationFactory();
+        //_client = new Lazy<HttpClient>(application.CreateClient());
     }
 
     //DummyClass
