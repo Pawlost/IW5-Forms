@@ -170,7 +170,7 @@ namespace FormsIW5.Api.DAL.Migrations
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionOptionEntity", b =>
                 {
                     b.HasOne("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", "Question")
-                        .WithMany("AnswerSelections")
+                        .WithMany("QuestionOptions")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -185,7 +185,7 @@ namespace FormsIW5.Api.DAL.Migrations
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", b =>
                 {
-                    b.Navigation("AnswerSelections");
+                    b.Navigation("QuestionOptions");
 
                     b.Navigation("Answers");
                 });

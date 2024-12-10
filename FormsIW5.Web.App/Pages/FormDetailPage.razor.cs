@@ -45,6 +45,6 @@ public partial class FormDetailPage
 
     public void ShowAnswers()
     {
-        navigationManager.NavigateTo($"/answerForm/{formDetail.Id}");
+        navigationManager.NavigateTo($"/showAnswers/{formDetail.Id}");
     }
 }

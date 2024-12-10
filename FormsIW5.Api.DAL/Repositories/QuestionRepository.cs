@@ -26,6 +26,6 @@ public class QuestionRepository : RepositoryBase<QuestionEntity>, IQuestionRepos
 
     public override async Task<QuestionEntity?> GetByIdAsync(Guid id)
     {
-        return await dbContext.Set<QuestionEntity>().Include(q => q.Answers).Include(q => q.AnswerSelections).SingleOrDefaultAsync(entity => entity.Id == id);
+        return await dbContext.Set<QuestionEntity>().Include(q => q.Answers).Include(q => q.QuestionOptions).SingleOrDefaultAsync(entity => entity.Id == id);
     }
 }

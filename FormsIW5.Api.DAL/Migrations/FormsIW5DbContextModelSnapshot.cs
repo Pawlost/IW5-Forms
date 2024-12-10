@@ -37,17 +37,12 @@ namespace FormsIW5.Api.DAL.Migrations
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("SelectedAnswerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("TextAnswer")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("QuestionId");
-
-                    b.HasIndex("SelectedAnswerId");
 
                     b.ToTable("Answers");
                 });
@@ -125,7 +120,7 @@ namespace FormsIW5.Api.DAL.Migrations
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("SelectionName")
+                    b.Property<string>("QuestionOptionName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -144,13 +139,7 @@ namespace FormsIW5.Api.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FormsIW5.Api.DAL.Common.Entities.QuestionOptionEntity", "SelectedAnswer")
-                        .WithMany()
-                        .HasForeignKey("SelectedAnswerId");
-
                     b.Navigation("Question");
-
-                    b.Navigation("SelectedAnswer");
                 });
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", b =>
@@ -167,7 +156,7 @@ namespace FormsIW5.Api.DAL.Migrations
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionOptionEntity", b =>
                 {
                     b.HasOne("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", "Question")
-                        .WithMany("AnswerSelections")
+                        .WithMany("QuestionOptions")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -182,9 +171,9 @@ namespace FormsIW5.Api.DAL.Migrations
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", b =>
                 {
-                    b.Navigation("AnswerSelections");
-
                     b.Navigation("Answers");
+
+                    b.Navigation("QuestionOptions");
                 });
 #pragma warning restore 612, 618
         }

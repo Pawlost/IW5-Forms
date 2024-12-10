@@ -14,6 +14,11 @@ public class AnswerRepository : RepositoryBase<AnswerEntity>, IAnswerRepository
 
     public override async Task<AnswerEntity?> GetByIdAsync(Guid id)
     {
-        return await dbContext.Set<AnswerEntity>().Include(a => a.SelectedAnswer).SingleOrDefaultAsync(entity => entity.Id == id);
+        return await dbContext.Set<AnswerEntity>().SingleOrDefaultAsync(entity => entity.Id == id);
+    }
+
+    public async Task<ICollection<AnswerEntity>> GetFormAnswersAsync(Guid formId)
+    {
+        return await dbContext.Set<FormEntity>().Include(f => f.Questions).ThenInclude(q => q.Answers).SelectMany(f => f.Questions).SelectMany(q => q.Answers).ToListAsync();
     }
 }

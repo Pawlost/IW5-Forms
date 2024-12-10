@@ -24,7 +24,7 @@ public class FormsIW5DbContext(DbContextOptions<FormsIW5DbContext> options) : Db
             .WithOne(answerEntity => answerEntity.Question);
         
         modelBuilder.Entity<QuestionEntity>()
-            .HasMany(questionEntity => questionEntity.AnswerSelections)
+            .HasMany(questionEntity => questionEntity.QuestionOptions)
             .WithOne(answerEntity => answerEntity.Question);
     }
 }

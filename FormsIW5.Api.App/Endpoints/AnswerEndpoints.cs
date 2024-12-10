@@ -20,6 +20,8 @@ public static class AnswerEndpoints
         //Get detail By Id
         group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<AnswerDetailModel> facade) => await facade.GetByIdAsync(id));
 
+        group.MapGet("formAnswer/{id:guid}", async (Guid id, [FromServices] IAnswerFacade facade) => await facade.GetFormAnswersAsync(id));
+
         //Create
         group.MapPost("", async (AnswerCreateModel newAnswer, [FromServices] ICreateFacade<AnswerCreateModel> facade, IHttpContextAccessor httpContextAccessor) => 
             {

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FormsIW5.Api.DAL.Migrations
 {
     [DbContext(typeof(FormsIW5DbContext))]
-    [Migration("20241209220601_RefactorConnections")]
-    partial class RefactorConnections
+    [Migration("20241210025022_AddRename")]
+    partial class AddRename
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,17 +40,12 @@ namespace FormsIW5.Api.DAL.Migrations
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("SelectedAnswerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("TextAnswer")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("QuestionId");
-
-                    b.HasIndex("SelectedAnswerId");
 
                     b.ToTable("Answers");
                 });
@@ -128,7 +123,7 @@ namespace FormsIW5.Api.DAL.Migrations
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("SelectionName")
+                    b.Property<string>("QuestionOptionName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -136,7 +131,7 @@ namespace FormsIW5.Api.DAL.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("AnswersSelection");
+                    b.ToTable("QuestionOptions");
                 });
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.AnswerEntity", b =>
@@ -147,13 +142,7 @@ namespace FormsIW5.Api.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FormsIW5.Api.DAL.Common.Entities.QuestionOptionEntity", "SelectedAnswer")
-                        .WithMany()
-                        .HasForeignKey("SelectedAnswerId");
-
                     b.Navigation("Question");
-
-                    b.Navigation("SelectedAnswer");
                 });
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", b =>
@@ -185,9 +174,9 @@ namespace FormsIW5.Api.DAL.Migrations
 
             modelBuilder.Entity("FormsIW5.Api.DAL.Common.Entities.QuestionEntity", b =>
                 {
-                    b.Navigation("QuestionOptions");
-
                     b.Navigation("Answers");
+
+                    b.Navigation("QuestionOptions");
                 });
 #pragma warning restore 612, 618
         }
