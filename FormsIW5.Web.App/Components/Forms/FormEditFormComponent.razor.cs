@@ -1,5 +1,4 @@
 ﻿using FormsIW5.BL.Models.Common.Form;
-using FormsIW5.BL.Models.Common.Question;
 using FormsIW5.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
 
@@ -11,10 +10,19 @@ public partial class FormEditFormComponent
     private FormFacade FormFacade { get; set; } = null!;
 
     [Parameter]
-    public FormEditModel FormEditModel { get; set; } = new();
+    public required Guid FormId { get; set; }
+
+    private FormEditModel EditForm { get; set; } = new();
+    private bool IsUpdated { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        EditForm = await FormFacade.FormGetAsync(FormId);
+        await base.OnInitializedAsync();
+    }
 
     public async Task SaveAsync()
     {
-        await FormFacade.FormEditAsync(Data);
+       var guid = await FormFacade.FormEditAsync(EditForm);
+       IsUpdated = guid is not null;
     }
 }

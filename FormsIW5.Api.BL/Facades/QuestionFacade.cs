@@ -30,4 +30,9 @@ public class QuestionFacade : FacadeBase<QuestionEntity, QuestionEditModel, Ques
         var entity = mapper.Map<QuestionEntity>(model);
         await repository.UpdateAsync(entity);
     }
+
+    public async Task<ICollection<Guid>> GetQuestionsIdsAsync(Guid formId)
+    {
+        return await repository.GetQuestionsIdsAsync(formId);
+    }
 }

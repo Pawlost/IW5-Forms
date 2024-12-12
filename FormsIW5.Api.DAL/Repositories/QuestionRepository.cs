@@ -41,4 +41,9 @@ public class QuestionRepository : RepositoryBase<QuestionEntity>, IQuestionRepos
 
         return await query.ToListAsync();
     }
+
+    public async Task<ICollection<Guid>> GetQuestionsIdsAsync(Guid formId)
+    {
+        return await dbContext.Set<QuestionEntity>().Where(q => q.FormId == formId).Select(q => q.Id).ToListAsync();
+    }
 }

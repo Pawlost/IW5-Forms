@@ -6,7 +6,7 @@ using FormsIW5.BL.Models.Common.Interfaces;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class FacadeBase<TEntity, TListModel, TDetailModel, TCreateModel, TRepository> : IListFacade<TListModel>, IDetailFacade<TDetailModel>,
+public class FacadeBase<TEntity, TListModel, TDetailModel, TCreateModel, TRepository> : IListFacade<TListModel>, IUpdateFacade<TDetailModel>,
     ICreateFacade<TCreateModel>
     where TEntity : IEntity
     where TListModel : IModel
@@ -27,10 +27,12 @@ public class FacadeBase<TEntity, TListModel, TDetailModel, TCreateModel, TReposi
 
     protected async Task ThrowIfWrongOwnerAsync(Guid id, string? ownerId)
     {
-        if (ownerId is not null
-            && (await repository.GetByIdAsync(id))?.OwnerId != ownerId)
+        if (ownerId is not null)
         {
-            throw new UnauthorizedAccessException();
+            var entity = await repository.GetByIdAsync(id);
+            if (entity?.OwnerId != ownerId) {
+                throw new UnauthorizedAccessException();
+            }
         }
     }
 
@@ -69,6 +71,7 @@ public class FacadeBase<TEntity, TListModel, TDetailModel, TCreateModel, TReposi
     {
         await ThrowIfWrongOwnerAsync(detailModel.Id, ownerId);
         var entity = mapper.Map<TEntity>(detailModel);
+        entity.OwnerId = ownerId;
         return await repository.UpdateAsync(entity);
     }
 

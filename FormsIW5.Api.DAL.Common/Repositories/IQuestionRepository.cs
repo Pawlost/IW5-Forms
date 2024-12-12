@@ -5,7 +5,7 @@ namespace FormsIW5.Api.DAL.Common.Repositories;
 
 public interface IQuestionRepository : IApiRepository<QuestionEntity>
 {
-    public Task<ICollection<QuestionEntity>?> SearchByText(QuestionQueryObject questionQuery);
-    public Task<ICollection<QuestionEntity>?> SearchByDescription(QuestionQueryObject questionQuery);
-
+    Task<ICollection<QuestionEntity>?> SearchByText(QuestionQueryObject questionQuery);
+    Task<ICollection<QuestionEntity>?> SearchByDescription(QuestionQueryObject questionQuery);
+    Task<ICollection<Guid>> GetQuestionsIdsAsync(Guid formId);
 }

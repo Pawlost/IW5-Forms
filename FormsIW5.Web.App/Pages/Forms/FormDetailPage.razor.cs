@@ -19,7 +19,7 @@ public partial class FormDetailPage
     [Inject]
     private FormFacade formFacade { get; set; } = null!;
 
-    private FormDetailModel formDetail { get; set; } = null!;
+    private FormEditModel formDetail { get; set; } = null!;
 
     private ICollection<QuestionEditModel> questionList { get; set; } = [];
 
@@ -29,7 +29,7 @@ public partial class FormDetailPage
     protected override async Task OnInitializedAsync()
     {
         formDetail = await formFacade.FormGetAsync(Id);
-        questionList = formDetail.Questions;
+      //  questionList = formDetail.Questions;
         await base.OnInitializedAsync();
     }
 

@@ -6,16 +6,9 @@ using FormsIW5.BL.Models.Common.Form;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class FormFacade : FacadeBase<FormEntity, FormListModel, FormDetailModel, FormCreateModel, IFormRepository>, IFormFacade
+public class FormFacade : FacadeBase<FormEntity, FormListModel, FormEditModel, FormCreateModel, IFormRepository>
 {
     public FormFacade(IFormRepository repository, IMapper mapper) : base(repository, mapper)
     {
-    }
-
-    public async Task UpdateAsync(FormEditModel editModel, string? ownerId)
-    {
-        await ThrowIfWrongOwnerAsync(editModel.Id, ownerId);
-        var entity = mapper.Map<FormEntity>(editModel);
-        await repository.UpdateAsync(entity);
     }
 }

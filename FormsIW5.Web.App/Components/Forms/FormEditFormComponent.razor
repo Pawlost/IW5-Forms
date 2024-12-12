@@ -1,28 +1,33 @@
 ﻿@using FormsIW5.Web.App.Components.Questions
 
-<EditForm Model="@FormEditModel">
-    <button type="submit" class="btn btn-success" @onclick="@SaveAsync">
-        Save
-    </button>
-
+<EditForm Model="@EditForm">
     <div class="form-group">
         <label class="w-100">
             Form name:
-            <InputText @bind-Value="@FormEditModel.FormName" class="form-control" />
+            <InputText @bind-Value="@EditForm.FormName" class="form-control" />
         </label>
     </div>
 
     <div class="form-group">
         <label class="w-100">
             Start date:
-            <InputDate @bind-Value="@FormEditModel.StartDate" class="form-control" />
+            <InputDate @bind-Value="@EditForm.StartDate" class="form-control" />
         </label>
     </div>
 
     <div class="form-group">
         <label class="w-100">
             End date:
-            <InputDate @bind-Value="@FormEditModel.EndDate" class="form-control" />
+            <InputDate @bind-Value="@EditForm.EndDate" class="form-control" />
         </label>
     </div>
+
+    <button type="submit" class="btn btn-success" @onclick="@SaveAsync">
+        Update form
+    </button>
 </EditForm>
+
+@if (IsUpdated)
+{
+    <p>Entity updated</p>
+}

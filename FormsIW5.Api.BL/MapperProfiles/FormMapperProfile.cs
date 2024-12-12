@@ -11,5 +11,6 @@ public class FormMapperProfile : Profile
         CreateMap<FormEntity, FormListModel>();
         CreateMap<FormEntity, FormDetailModel>().ReverseMap();
         CreateMap<FormCreateModel, FormEntity>();
+        CreateMap<FormEditModel, FormEntity>().ReverseMap();
     }
 }

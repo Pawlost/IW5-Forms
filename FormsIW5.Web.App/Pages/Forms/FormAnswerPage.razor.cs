@@ -20,7 +20,7 @@ public partial class FormAnswerPage
     [Inject]
     private FormFacade formFacade { get; set; } = null!;
 
-    private FormDetailModel formDetail { get; set; } = null!;
+    private FormEditModel formDetail { get; set; } = null!;
 
     [Inject]
     private NavigationManager navigationManager { get; set; } = null!;

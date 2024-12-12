@@ -39,7 +39,6 @@ public class RepositoryBase<TEntity> : IApiRepository<TEntity>, IDisposable
             return null;
         }
 
-        dbContext.Set<TEntity>().Attach(entity);
         var updatedEntity = dbContext.Set<TEntity>().Update(entity);
         await dbContext.SaveChangesAsync();
 

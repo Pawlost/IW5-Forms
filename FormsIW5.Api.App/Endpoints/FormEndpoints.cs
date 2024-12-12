@@ -17,8 +17,8 @@ public static class FormEndpoints
         //Get list model By Id
         group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<FormListModel> facade) => await facade.GetSingleListModelByIdAsync(id));
 
-        //Get detail By Id
-        group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<FormDetailModel> facade) => await facade.GetByIdAsync(id)).AllowAnonymous();
+        //Get edit By Id
+        group.MapGet("{id:guid}", async (Guid id, [FromServices] IUpdateFacade<FormEditModel> facade) => await facade.GetByIdAsync(id)).AllowAnonymous();
 
         //Create
         group.MapPost("", async (FormCreateModel newForm, [FromServices] ICreateFacade<FormCreateModel> facade, IHttpContextAccessor httpContextAccessor) =>
@@ -28,21 +28,14 @@ public static class FormEndpoints
         });
 
         // Update
-        group.MapPut("", async (FormDetailModel form, [FromServices] IDetailFacade<FormDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>
+        group.MapPut("", async (FormEditModel form, [FromServices] IUpdateFacade<FormEditModel> facade, IHttpContextAccessor httpContextAccessor) =>
         {
             var userId = EndpointExtensions.GetUserId(httpContextAccessor);
-            await facade.UpdateAsync(form, userId);
-        });
-
-        //Edit
-        group.MapPut("edit", async (FormEditModel form, [FromServices] IEditFacade<FormEditModel> facade, IHttpContextAccessor httpContextAccessor) =>
-        {
-            var userId = EndpointExtensions.GetUserId(httpContextAccessor);
-            await facade.UpdateAsync(form, userId);
+            return await facade.UpdateAsync(form, userId);
         });
 
         // Delete
-        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IDetailFacade<FormDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>
+        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IAppFacadeBase facade, IHttpContextAccessor httpContextAccessor) =>
         {
             var userId = EndpointExtensions.GetUserId(httpContextAccessor);
             await facade.DeleteAsync(id, userId);

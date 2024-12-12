@@ -16,20 +16,17 @@ public partial class FormDetailComponent
     [Parameter]
     public required Guid FormId { get; set; }
 
-    private FormDetailModel Data { get; set; } = new();
-
-    public ICollection<Guid> QuestionIds { get; set; } = [];
+    public ICollection<Guid> QuestionsIds { get; set; } = [];
 
     protected override async Task OnInitializedAsync()
     {
-        Data = await FormFacade.FormGetAsync(FormId);
-        QuestionIds = Data.Questions.Select(d => d.Id).ToList();
+        QuestionsIds = await QuestionFacade.GetQuestionsIdsAsync(FormId);
         await base.OnInitializedAsync();
     }
     public async Task AddQuestionAsync()
     {
-        var draftQuestion = new QuestionCreateModel() { QuestionText = "Draft question", FormId = Data.Id };
+        var draftQuestion = new QuestionCreateModel() { QuestionText = "Draft question", FormId = FormId };
         var questionId = await QuestionFacade.QuestionPostAsync(draftQuestion);
-        QuestionIds.Add(questionId);
+        QuestionsIds.Add(questionId);
     }
 }
