@@ -34,6 +34,13 @@ public static class FormEndpoints
             await facade.UpdateAsync(form, userId);
         });
 
+        //Edit
+        group.MapPut("edit", async (FormEditModel form, [FromServices] IEditFacade<FormEditModel> facade, IHttpContextAccessor httpContextAccessor) =>
+        {
+            var userId = EndpointExtensions.GetUserId(httpContextAccessor);
+            await facade.UpdateAsync(form, userId);
+        });
+
         // Delete
         group.MapDelete("{id:guid}", async (Guid id, [FromServices] IDetailFacade<FormDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>
         {

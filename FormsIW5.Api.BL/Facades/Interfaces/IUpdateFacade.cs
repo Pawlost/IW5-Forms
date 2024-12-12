@@ -2,7 +2,7 @@
 
 namespace FormsIW5.Api.BL.Facades.Interfaces;
 
-public interface IDetailFacade<TDetailModelBase> : IAppFacadeBase
+public interface IUpdateFacade<TDetailModelBase> : IAppFacadeBase
     where TDetailModelBase : IModel
 {
     Task<TDetailModelBase?> GetByIdAsync(Guid id);

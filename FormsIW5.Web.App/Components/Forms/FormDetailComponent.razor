@@ -1,0 +1,13 @@
+﻿@using FormsIW5.Web.App.Components.Questions
+<h3>FormEditComponent</h3>
+
+<FormEditFormComponent/>
+
+@foreach (var questionId in QuestionIds)
+{
+    <QuestionEditComponent QuestionId=@questionId />
+}
+
+
+<button onclick="@AddQuestionAsync">Add question</button>
+<button onclick="">Share Form</button>

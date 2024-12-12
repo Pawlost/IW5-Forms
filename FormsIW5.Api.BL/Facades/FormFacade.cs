@@ -11,4 +11,11 @@ public class FormFacade : FacadeBase<FormEntity, FormListModel, FormDetailModel,
     public FormFacade(IFormRepository repository, IMapper mapper) : base(repository, mapper)
     {
     }
+
+    public async Task UpdateAsync(FormEditModel editModel, string? ownerId)
+    {
+        await ThrowIfWrongOwnerAsync(editModel.Id, ownerId);
+        var entity = mapper.Map<FormEntity>(editModel);
+        await repository.UpdateAsync(entity);
+    }
 }

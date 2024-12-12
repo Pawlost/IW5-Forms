@@ -19,7 +19,7 @@ public static class AnswerEndpoints
         group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<AnswerListModel> facade) => await facade.GetSingleListModelByIdAsync(id));
 
         //Get detail By Id
-        group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<AnswerDetailModel> facade) => await facade.GetByIdAsync(id));
+        group.MapGet("{id:guid}", async (Guid id, [FromServices] IUpdateFacade<AnswerDetailModel> facade) => await facade.GetByIdAsync(id));
 
         group.MapGet("formAnswer/{id:guid}", async (Guid id, [FromServices] IAnswerFacade facade) => await facade.GetFormAnswersAsync(id));
 
@@ -32,14 +32,14 @@ public static class AnswerEndpoints
         );
 
         // Update
-        group.MapPut("", async (AnswerDetailModel answer, [FromServices] IDetailFacade<AnswerDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>
+        group.MapPut("", async (AnswerDetailModel answer, [FromServices] IUpdateFacade<AnswerDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>
         {
             var userId = EndpointExtensions.GetUserId(httpContextAccessor);
             await facade.UpdateAsync(answer, userId);
         });
 
         // Delete
-        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IDetailFacade<AnswerDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>
+        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IUpdateFacade<AnswerDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>
         {
             var userId = EndpointExtensions.GetUserId(httpContextAccessor);
             await facade.DeleteAsync(id, userId);
