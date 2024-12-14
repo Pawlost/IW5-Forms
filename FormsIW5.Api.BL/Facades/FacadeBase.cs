@@ -6,11 +6,11 @@ using FormsIW5.BL.Models.Common.Interfaces;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class FacadeBase<TEntity, TListModel, TDetailModel, TCreateModel, TRepository> : IListFacade<TListModel>, IUpdateFacade<TDetailModel>,
+public class FacadeBase<TEntity, TListModel, TEditModel, TCreateModel, TRepository> : IListFacade<TListModel>, IUpdateFacade<TEditModel>,
     ICreateFacade<TCreateModel>
     where TEntity : IEntity
     where TListModel : IModel
-    where TDetailModel : IModel
+    where TEditModel : IModel
     where TCreateModel : ICreateModel
     where TRepository : IApiRepository<TEntity>
 {
@@ -61,13 +61,13 @@ public class FacadeBase<TEntity, TListModel, TDetailModel, TCreateModel, TReposi
         return mapper.Map<List<TListModel>>(entities);
     }
 
-    public async Task<TDetailModel?> GetByIdAsync(Guid id)
+    public async Task<TEditModel?> GetByIdAsync(Guid id)
     {
         var entity = await repository.GetByIdAsync(id);
-        return mapper.Map<TDetailModel>(entity);
+        return mapper.Map<TEditModel>(entity);
     }
 
-    public async Task<Guid?> UpdateAsync(TDetailModel detailModel, string? ownerId)
+    public virtual async Task<Guid?> UpdateAsync(TEditModel detailModel, string? ownerId)
     {
         await ThrowIfWrongOwnerAsync(detailModel.Id, ownerId);
         var entity = mapper.Map<TEntity>(detailModel);

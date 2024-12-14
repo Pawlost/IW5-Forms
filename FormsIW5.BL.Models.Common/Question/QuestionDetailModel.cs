@@ -17,7 +17,6 @@ public record QuestionDetailModel : IModel
 
     [Required]
     public Guid FormId { get; set; }
-
-    public ICollection<AnswerListModel> Answers { get; set; } = [];
-    public ICollection<QuestionOptionListModel> AnswerSelections { get; set; } = [];
+    public AnswerDetailModel? Answer { get; set; }
+    public ICollection<QuestionOptionListModel> QuestionOptions { get; set; } = [];
 }

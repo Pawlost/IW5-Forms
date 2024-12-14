@@ -1,5 +1,4 @@
 ﻿using FormsIW5.Api.DAL.Common.Entities;
-using FormsIW5.Api.DAL.Common.Entities.Interfaces;
 using FormsIW5.Api.DAL.Common.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,24 +10,12 @@ public class FormRepository : RepositoryBase<FormEntity>, IFormRepository
     : base(dbContext)
     {
     }
-    public override async Task<FormEntity?> GetByIdAsync(Guid id)
+
+    public async Task<FormEntity?> GetFormDetailAsync(Guid id) 
     {
-        return await dbContext.Set<FormEntity>().AsNoTracking().Include(f => f.Questions).ThenInclude(q => q.QuestionOptions).SingleOrDefaultAsync(entity => entity.Id == id);
+        return await dbContext.Set<FormEntity>().AsNoTracking().
+            Include(f => f.Questions).ThenInclude(q => q.Answers).
+            SingleOrDefaultAsync(entity => entity.Id == id);
     }
-
-    /*
-    public override async Task<Guid?> UpdateAsync(FormEntity entity)
-    {
-        if (!await ExistsAsync(entity.Id))
-        {
-            return null;
-        }
-
-        dbContext.Entry(entity).State = EntityState.Modified;
-        dbContext.Entry(entity).Property(p => p.Questions).IsModified = false;
-        await dbContext.SaveChangesAsync();
-
-        return entity.Id;
-    }*/
 }
 

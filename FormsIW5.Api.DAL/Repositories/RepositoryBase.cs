@@ -21,7 +21,7 @@ public class RepositoryBase<TEntity> : IApiRepository<TEntity>, IDisposable
 
     public virtual async Task<TEntity?> GetByIdAsync(Guid id)
     {
-        return await dbContext.Set<TEntity>().SingleOrDefaultAsync(entity => entity.Id == id);
+        return await dbContext.Set<TEntity>().AsNoTracking().SingleOrDefaultAsync(entity => entity.Id == id);
     }
 
     public virtual async Task<Guid> InsertAsync(TEntity entity)
@@ -57,7 +57,7 @@ public class RepositoryBase<TEntity> : IApiRepository<TEntity>, IDisposable
 
     public virtual async Task<bool> ExistsAsync(Guid id)
     {
-        return await dbContext.Set<TEntity>().AnyAsync(entity => entity.Id == id);
+        return await dbContext.Set<TEntity>().AsNoTracking().AnyAsync(entity => entity.Id == id);
     }
 
     public void Dispose()

@@ -13,7 +13,7 @@ public partial class FormListComponent
 
     protected override async Task OnInitializedAsync()
     {
-        formList = await facade.FormGetAsync();
+        formList = await facade.GetAllAsync();
         await base.OnInitializedAsync();
     }
 }

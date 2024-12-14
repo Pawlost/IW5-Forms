@@ -5,7 +5,7 @@
 
 <h1>Form Detail</h1>
 
-<div class="row">
+@* <div class="row">
     <h2>@formDetail.FormName</h2>
     <h4>@formDetail.StartDate</h4>
     <h5>@formDetail.EndDate</h5>
@@ -13,10 +13,9 @@
 
 <h1>Questions:</h1>
 
-@*
 @foreach (var question in formDetail.Questions)
 {
     <div class="row">
         <AnswerComponent Question="@question" />
     </div>
-}*@
+} *@

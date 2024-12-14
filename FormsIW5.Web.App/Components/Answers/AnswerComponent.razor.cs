@@ -16,10 +16,6 @@ public partial class AnswerComponent
     [Inject]
     private AnswerFacade answerFacade { get; set; } = null!;
 
-    public void HandleChange(ChangeEventArgs e)
-    {
-        Data.TextAnswer = e.Value?.ToString() ?? "";
-    }
 
     public async Task SubmitAnswerAsync()
     {

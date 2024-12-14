@@ -7,12 +7,7 @@
         <button type="submit" class="btn btn-success" @onclick="@Edit">
             Edit
         </button>
-
-        <button type="submit" class="btn btn-success" @onclick="@Answer">
-            Answer
-        </button>
-
-         <button type="submit" class="btn btn-success" @onclick="@ShowAnswers">
+        <button type="submit" class="btn btn-success" @onclick="@ShowAnswers">
             Show Answers
         </button> 
     </Authorized>
@@ -28,27 +23,91 @@
 <h1>@formDetail.EndDate</h1>
 
 <h3>QuestionsList</h3>
+@using FormsIW5.Common.Enums
 
 <div class="row">
     <div class="col-md">
         <div class="bg-sec h-100 rounded">
-            @if (questionList.Count != 0)
+            @if (formDetail.Questions.Count != 0)
             {
-                <table class="table border table-striped">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="row">Question Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var question in questionList)
-                        {
-                            <p>@question.QuestionText</p>
-
-                        }
-                       </tbody>
-                </table>
+                <FormEdit>
+                    @foreach (var question in formDetail.Questions)
+                    {
+                        <AuthorizeView>
+                            <Authorized>
+                                <div class="horizontal-selection-container">
+                                    <h4>@question.QuestionText</h4>
+                                    @if (question.QuestionType == QuestionType.RangeType)
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input class="mx-3" type="range" min="@question.FromValue" max="@question.ToValue" @bind=@question.Answer.IntegerAnswer @bind:event="oninput" />
+                                                    <span class="ms-4">@question.Answer.IntegerAnswer</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (question.QuestionType == QuestionType.DropDown)
+                                    {
+                                        <div class="horizontal-selection-container">
+                                            @foreach (var option in question.QuestionOptions)
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <input type="radio" id="@option.QuestionOptionName" name="options" @onchange="HandleOptionChange" value="@option.QuestionOptionName" />
+                                                            <label for="@option.QuestionOptionName">@option.QuestionOptionName</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <InputText width="100px" placeholder="Your Answer" @bind-Value="@question.Answer.TextAnswer" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </Authorized>
+                            <NotAuthorized>
+                                <p>@question.QuestionText</p>
+                            </NotAuthorized>
+                        </AuthorizeView>
+                    }
+                </FormEdit>
+            }
+            else
+            {
+                <p>This form has no questions</p>    
             }
         </div>
     </div>
 </div>
+
+<AuthorizeView>
+    <Authorized>
+        <button type="submit" class="btn btn-success" @onclick="@SubmitAnswerAsync">
+            Answer
+        </button>
+
+        @if (AnswerStatus == AnswerState.Submitted)
+        {
+            <p>Answer submitted</p>
+        } 
+        else if (AnswerStatus == AnswerState.Updated)
+        {
+            <p>Answer updated</p>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You must be signed in to create a new form.</p>
+        <a href="authentication/login" class="nav-link font-weight-bold">Log in</a>
+    </NotAuthorized>
+</AuthorizeView>

@@ -8,7 +8,7 @@ public class FormFacade : FacadeBase<IFormApiClient>
     {
     }
 
-    public async Task<ICollection<FormListModel>> FormGetAsync()
+    public async Task<ICollection<FormListModel>> GetAllAsync()
     {
         InitClient(ClientNames.AnonymousClientName);
         return await client.FormGetAsync();
@@ -30,10 +30,15 @@ public class FormFacade : FacadeBase<IFormApiClient>
         InitClient();
         return await client.ListAsync(id);
     }
-    public async Task<FormEditModel> FormGetAsync(Guid id)
+    public async Task<FormDetailModel> GetDetailAsync(Guid id)
     {
         InitClient();
-        return await client.FormGetAsync(id);
+        return await client.DetailAsync(id);
+    }
+    public async Task<FormEditModel> GetEditAsync(Guid id)
+    {
+        InitClient();
+        return await client.EditAsync(id);
     }
     public async Task FormDeleteAsync(Guid id)
     {

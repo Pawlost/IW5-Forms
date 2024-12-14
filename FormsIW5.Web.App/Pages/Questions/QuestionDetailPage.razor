@@ -16,27 +16,27 @@
     <p>@QuestionDetailModel.ToValue</p>
 
     <div class="horizontal-selection-container">
-        @foreach (var answer in QuestionDetailModel.Answers)
+@*         @foreach (var answer in QuestionDetailModel.Answers)
         {
             <p>Answer: @answer.IntegerAnswer</p>
-        }
+        } *@
     </div>
 }
 else if (QuestionDetailModel.QuestionType == QuestionType.DropDown)
 {
     <p>Type: Selection</p>
     <div class="horizontal-selection-container">
-        @foreach (var questionOption in QuestionDetailModel.AnswerSelections)
+        @foreach (var questionOption in QuestionDetailModel.QuestionOptions)
         {
             <p>Option: @questionOption.QuestionOptionName</p>
 
         }
     </div>
     <div class="horizontal-selection-container">
-        @foreach (var answer in QuestionDetailModel.Answers)
+@*         @foreach (var answer in QuestionDetailModel.Answers)
         {
             <p>Answer: @answer.TextAnswer</p>
-        }
+        } *@
     </div>
 }
 else
@@ -44,9 +44,9 @@ else
     <p>Type: Open answer</p>
 
     <div class="horizontal-selection-container">
-        @foreach (var answer in QuestionDetailModel.Answers)
+@*         @foreach (var answer in QuestionDetailModel.Answers)
         {
             <p>Answer: @answer.TextAnswer</p>
-        }
+        } *@
     </div>
 }

@@ -25,11 +25,11 @@ public partial class FormAnswerPage
     [Inject]
     private NavigationManager navigationManager { get; set; } = null!;
 
-    protected override async Task OnInitializedAsync()
-    {
-        formDetail = await formFacade.FormGetAsync(Id);
-        await base.OnInitializedAsync();
-    }
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    formDetail = await formFacade.GetDetailAsync(Id);
+    //    await base.OnInitializedAsync();
+    //}
 
     public void Edit()
     {

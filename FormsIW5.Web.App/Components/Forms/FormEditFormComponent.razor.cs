@@ -16,7 +16,7 @@ public partial class FormEditFormComponent
     private bool IsUpdated { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        EditForm = await FormFacade.FormGetAsync(FormId);
+        EditForm = await FormFacade.GetEditAsync(FormId);
         await base.OnInitializedAsync();
     }
 

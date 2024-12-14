@@ -32,11 +32,6 @@ public class AnswerFacade : FacadeBase<IAnswerApiClient>
         return await client.AnswerGetAsync(id);
     }
 
-    public async Task<ICollection<AnswerDetailModel>> GetFormAnswersAsync(Guid id)
-    {
-        return await client.FormAnswerAsync(id);
-    }
-
     public async Task AnswerDeleteAsync(Guid id)
     {
         await client.AnswerDeleteAsync(id);
