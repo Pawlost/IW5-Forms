@@ -24,7 +24,7 @@ public static class FormEndpoints
         group.MapGet("detail/{id:guid}", async (Guid id, [FromServices] IFormFacade facade, IHttpContextAccessor httpContextAccessor) => {
             var userId = EndpointExtensions.GetUserId(httpContextAccessor);
             return await facade.GetFormDetailByOwnerIdAsync(id, userId); 
-        });
+        }).AllowAnonymous();
 
         //Create
         group.MapPost("", async (FormCreateModel newForm, [FromServices] ICreateFacade<FormCreateModel> facade, IHttpContextAccessor httpContextAccessor) =>

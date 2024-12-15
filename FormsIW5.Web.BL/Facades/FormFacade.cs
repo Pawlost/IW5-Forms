@@ -10,39 +10,39 @@ public class FormFacade : FacadeBase<IFormApiClient>
 
     public async Task<ICollection<FormListModel>> GetAllAsync()
     {
-        InitClient(ClientNames.AnonymousClientName);
+        SwitchClient(ClientNames.AnonymousClientName);
         return await client.FormGetAsync();
     }
 
     public async Task<Guid> FormPostAsync(FormCreateModel createModel)
     {
-        InitClient();
+        SwitchClient();
         return await client.FormPostAsync(createModel);
     }
 
     public async Task<Guid?> FormEditAsync(FormEditModel model)
     {
-        InitClient();
+        SwitchClient();
         return await client.FormPutAsync(model);
     }
     public async Task<FormListModel> ListAsync(Guid id)
     {
-        InitClient();
+        SwitchClient();
         return await client.ListAsync(id);
     }
-    public async Task<FormDetailModel> GetDetailAsync(Guid id)
+    public async Task<FormDetailModel> GetDetailAsync(Guid id, string clientName = ClientNames.AnonymousClientName)
     {
-        InitClient();
+        SwitchClient(clientName);
         return await client.DetailAsync(id);
     }
     public async Task<FormEditModel> GetEditAsync(Guid id)
     {
-        InitClient();
+        SwitchClient();
         return await client.EditAsync(id);
     }
     public async Task FormDeleteAsync(Guid id)
     {
-        InitClient();
+        SwitchClient();
         await client.FormDeleteAsync(id);
     }
 }

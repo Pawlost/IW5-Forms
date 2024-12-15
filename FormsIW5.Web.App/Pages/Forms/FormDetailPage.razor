@@ -30,7 +30,7 @@
         <div class="bg-sec h-100 rounded">
             @if (formDetail.Questions.Count != 0)
             {
-                <FormEdit>
+                <FormEdit Model="@formDetail">
                     @foreach (var question in formDetail.Questions)
                     {
                         <AuthorizeView>
@@ -63,7 +63,7 @@
                                                 </div>
                                             }
                                         </div>
-                                    }
+                                    }                                                    
                                     else
                                     {
                                         <div class="row">

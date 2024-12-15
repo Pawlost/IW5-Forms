@@ -14,8 +14,7 @@ public class FormRepository : RepositoryBase<FormEntity>, IFormRepository
     public async Task<FormEntity?> GetFormDetailAsync(Guid id) 
     {
         return await dbContext.Set<FormEntity>().AsNoTracking().
-            Include(f => f.Questions).ThenInclude(q => q.Answers).
-            SingleOrDefaultAsync(entity => entity.Id == id);
+            Include(f => f.Questions).SingleOrDefaultAsync(entity => entity.Id == id);
     }
 }
 

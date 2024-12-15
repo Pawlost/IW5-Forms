@@ -15,6 +15,6 @@ public class AnswerRepository : RepositoryBase<AnswerEntity>, IAnswerRepository
 
     public async Task<AnswerEntity?> GetAnswerByOwnerIdAsync(Guid questionId, string ownerId)
     {
-        return await dbContext.Set<AnswerEntity>().AsNoTracking().SingleOrDefaultAsync(a => a.QuestionId == questionId && a.OwnerId == ownerId);
+        return await dbContext.Set<AnswerEntity>().AsNoTracking().FirstOrDefaultAsync(a => a.QuestionId == questionId && a.OwnerId == ownerId);
     }
 }

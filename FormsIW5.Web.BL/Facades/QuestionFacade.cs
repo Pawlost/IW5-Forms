@@ -10,52 +10,52 @@ public class QuestionFacade : FacadeBase<IQuestionApiClient>
 
     public async Task<ICollection<QuestionEditModel>> QuestionListGetAsync()
     {
-        InitClient();
+        SwitchClient();
         return await client.QuestionGetAsync();
     }
 
     public async Task<Guid> QuestionPostAsync(QuestionCreateModel createModel)
     {
-        InitClient();
+        SwitchClient();
         return await client.QuestionPostAsync(createModel);
     }
 
     public async Task QuestionPutAsync(QuestionEditModel model)
     {
-        InitClient();
+        SwitchClient();
         await client.UpdateQuestionAsync(model);
     }
     public async Task<QuestionEditModel> ListAsync(Guid id)
     {
-        InitClient();
+        SwitchClient();
         return await client.ListAsync(id);
     }
     public async Task<QuestionDetailModel> QuestionGetAsync(Guid id)
     {
-        InitClient();
+        SwitchClient();
         return await client.QuestionGetAsync(id);
     }
     public async Task QuestionDeleteAsync(Guid id)
     {
-        InitClient();
+        SwitchClient();
         await client.QuestionDeleteAsync(id);
     }
 
     public async Task<ICollection<QuestionListModel>> SearchByTextAsync(Guid id, string text)
     {
-        InitClient();
+        SwitchClient();
         return await client.SearchByTextAsync(id, text);
     }
 
     public async Task<ICollection<QuestionListModel>> SearchByDescriptionAsync(Guid id, string description)
     {
-        InitClient();
+        SwitchClient();
         return await client.SearchByDescriptionAsync(id, description);
     }
 
     public async Task<ICollection<Guid>> GetQuestionsIdsAsync(Guid formId)
     {
-        InitClient();
+        SwitchClient();
         return await client.GetQuestionsIdsAsync(formId);
     }
 }
