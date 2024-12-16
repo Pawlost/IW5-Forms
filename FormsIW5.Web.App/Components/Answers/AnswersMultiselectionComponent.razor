@@ -1,0 +1,16 @@
+﻿@using FormsIW5.Common.Enums
+<div class="horizontal-selection-container">
+    <InputRadioGroup TValue="Guid" Value=SelectedQuestionOptionId ValueChanged="OnQuestionOptionChange" ValueExpression="@(()=>SelectedQuestionOptionId)">
+        @foreach (var option in QuestionOptions)
+        {
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                        <InputRadio Value="option.Id"/>
+                        <p>@option.QuestionOptionName</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </InputRadioGroup>
+</div>

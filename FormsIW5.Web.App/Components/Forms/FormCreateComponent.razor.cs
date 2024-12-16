@@ -33,6 +33,6 @@ public partial class FormCreateComponent
 
     public void Back()
     {
-        navigationManager.NavigateTo($"/forms/create");
+        navigationManager.NavigateTo($"/forms/{FormId}");
     }
 }

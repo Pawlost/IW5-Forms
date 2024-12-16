@@ -41,7 +41,7 @@ public static class FormEndpoints
         });
 
         // Delete
-        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IAppFacadeBase facade, IHttpContextAccessor httpContextAccessor) =>
+        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IFormFacade facade, IHttpContextAccessor httpContextAccessor) =>
         {
             var userId = EndpointExtensions.GetUserId(httpContextAccessor);
             await facade.DeleteAsync(id, userId);

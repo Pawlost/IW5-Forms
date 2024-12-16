@@ -4,7 +4,7 @@
 
 <button type="submit" class="btn btn-success" @onclick="@Back">
     Back
-</button>
+</button> 
 
 <AuthorizeView>
     <Authorized>
@@ -13,7 +13,11 @@
         </button>
         <button type="submit" class="btn btn-success" @onclick="@ShowAnswers">
             Show Answers
-        </button> 
+        </button>
+        
+        <button type="submit" class="btn-danger" @onclick="@DeleteAsync">
+            Delete
+        </button>
     </Authorized>
     <NotAuthorized>
         <p>You must be signed to be able to answer form</p>
@@ -22,20 +26,21 @@
 
 <h3>Form Detail</h3>
 
-<h1>@formDetail.FormName</h1>
-<h1>@formDetail.StartDate</h1>
-<h1>@formDetail.EndDate</h1>
+<h1>@FormModel.FormName</h1>
+<h1>@FormModel.StartDate</h1>
+<h1>@FormModel.EndDate</h1>
 
 <h3>QuestionsList</h3>
 @using FormsIW5.Common.Enums
+@using FormsIW5.Web.App.Components.Answers
 
 <div class="row">
     <div class="col-md">
         <div class="bg-sec h-100 rounded">
-            @if (formDetail.Questions.Count != 0)
+            @if (FormModel.Questions.Count != 0)
             {
-                <FormEdit Model="@formDetail">
-                    @foreach (var question in formDetail.Questions)
+                <FormEdit Model="@FormModel">
+                    @foreach (var question in FormModel.Questions)
                     {
                         <AuthorizeView>
                             <Authorized>
@@ -52,21 +57,9 @@
                                             </div>
                                         </div>
                                     }
-                                    else if (question.QuestionType == QuestionType.DropDown)
+                                    else if (question.QuestionType == QuestionType.Multiselection)
                                     {
-                                        <div class="horizontal-selection-container">
-                                            @foreach (var option in question.QuestionOptions)
-                                            {
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <input type="radio" id="@option.QuestionOptionName" name="options" @onchange="HandleOptionChange" value="@option.QuestionOptionName" />
-                                                            <label for="@option.QuestionOptionName">@option.QuestionOptionName</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
+                                        <AnswersMultiselectionComponent InitialSelectedQuestionOption=question.Answer?.QuestionOptionId QuestionOptions=@question.QuestionOptions OnSelected=OnQuestionOptionMultiselection QuestionId=@question.Id />
                                     }                                                    
                                     else
                                     {

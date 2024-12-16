@@ -1,8 +1,10 @@
-﻿using FormsIW5.BL.Models.Common.Form;
+﻿using FormsIW5.BL.Models.Common.AnswerSelection;
+using FormsIW5.BL.Models.Common.Form;
 using FormsIW5.Web.BL;
 using FormsIW5.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using static FormsIW5.Web.App.Components.Answers.AnswersMultiselectionComponent;
 
 namespace FormsIW5.Web.App.Pages.Forms;
 
@@ -14,7 +16,7 @@ public partial class FormDetailPage
     [Inject]
     private FormFacade formFacade { get; set; } = null!;
 
-    private FormDetailModel formDetail { get; set; } = new();
+    private FormDetailModel FormModel { get; set; } = new();
 
     [Inject]
     private NavigationManager navigationManager { get; set; } = null!;
@@ -39,9 +41,9 @@ public partial class FormDetailPage
         var authState = await authStateTask;
         string clientName = authState.User?.Identity?.IsAuthenticated is true ? clientName = ClientNames.LogInClientName : clientName = ClientNames.AnonymousClientName;
 
-        formDetail = await formFacade.GetDetailAsync(Id, clientName);
+        FormModel = await formFacade.GetDetailAsync(Id, clientName);
 
-        foreach (var question in formDetail.Questions)
+        foreach (var question in FormModel.Questions)
         {
             if (question.Answer == null)
             {
@@ -58,11 +60,11 @@ public partial class FormDetailPage
 
     public void Edit()
     {
-        navigationManager.NavigateTo($"/forms/create/{formDetail.Id}");
+        navigationManager.NavigateTo($"/forms/create/{FormModel.Id}");
     }
     public void ShowAnswers()
     {
-        navigationManager.NavigateTo($"/questions/search/{formDetail.Id}");
+        navigationManager.NavigateTo($"/questions/search/{FormModel.Id}");
     }
     public void Back()
     {
@@ -71,7 +73,7 @@ public partial class FormDetailPage
 
     private async Task SubmitAnswerAsync() 
     {
-        foreach (var model in formDetail.Questions) 
+        foreach (var model in FormModel.Questions) 
         {
             if (model.Answer != null)
             {
@@ -81,8 +83,17 @@ public partial class FormDetailPage
         }
     }
 
-    public void HandleOptionChange(ChangeEventArgs e)
+    public async Task DeleteAsync() {
+        await formFacade.FormDeleteAsync(Id);
+        Back();
+    }
+
+    public void OnQuestionOptionMultiselection(QuestionOptionId selectedIds)
     {
-        //Data.TextAnswer = e.Value?.ToString() ?? "";
+        var question = FormModel.Questions.Single(f => f.Id == selectedIds.QuestionId);
+        if (question.Answer is not null)
+        {
+            question.Answer.QuestionOptionId = selectedIds.OptionId;
+        }
     }
 }

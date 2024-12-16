@@ -7,8 +7,7 @@ public record AnswerCreateModel : ICreateModel
 {
     public string TextAnswer { get; set; } = "";
     public int IntegerAnswer { get; set; } = 0;
-
-//    public Guid SelectedAnswerId { get; set; }
+    public Guid QuestionOptionId { get; set; } = Guid.Empty;
 
     [Required]
     public Guid QuestionId { get; set; }

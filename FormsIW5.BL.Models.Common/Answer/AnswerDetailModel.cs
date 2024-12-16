@@ -11,4 +11,6 @@ public record AnswerDetailModel : IModel
 
     [Required]
     public Guid QuestionId { get; set; }
+
+    public Guid QuestionOptionId { get; set; }
 }

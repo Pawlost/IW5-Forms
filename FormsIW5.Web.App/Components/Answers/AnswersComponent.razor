@@ -1,5 +1,9 @@
 ﻿@using FormsIW5.Common.Enums
 
+@if (AnswerModels.Count == 0)
+{
+    <p>No answers found</p>
+}
 
 @if (QuestionType == QuestionType.RangeType)
 {
@@ -8,23 +12,25 @@
         <p>@answer.IntegerAnswer</p>
     }
 }
-else if (QuestionType == QuestionType.DropDown)
+else if (QuestionType == QuestionType.Multiselection)
 {
-    @foreach (var answer in AnswerModels)
-    {
-        <p>@answer.TextAnswer</p>
-    }
+
+    <div class="horizontal-selection-container">
+
+        @foreach (var answer in AnswerModels)
+        {
+            @foreach (var questionOption in QuestionOptions)
+            {
+                if (questionOption.Id == answer.QuestionOptionId)
+                {
+                    <p>Option: @questionOption.QuestionOptionName</p>
+                }
+            }
+        }
+    </div>
 }
 else
 {
-    <div class="horizontal-selection-container">
-        @foreach (var questionOption in QuestionOptions)
-        {
-            <p>Option: @questionOption.QuestionOptionName</p>
-
-        }
-    </div>
-
     @foreach (var answer in AnswerModels)
     {
         <p>@answer.TextAnswer</p>
