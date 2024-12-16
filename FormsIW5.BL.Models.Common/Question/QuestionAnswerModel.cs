@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FormsIW5.BL.Models.Common.Question;
 
-public record QuestionDetailModel : IModel
+public record QuestionAnswerModel : IModel
 {
     public Guid Id { get; init; }
     public string? QuestionText { get; set; }
@@ -17,6 +17,6 @@ public record QuestionDetailModel : IModel
 
     [Required]
     public Guid FormId { get; set; }
-    public ICollection<AnswerDetailModel> Answers { get; set; } = null!;
+    public AnswerDetailModel? Answer { get; set; }
     public ICollection<QuestionOptionListModel> QuestionOptions { get; set; } = [];
 }

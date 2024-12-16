@@ -58,11 +58,15 @@ public partial class FormDetailPage
 
     public void Edit()
     {
-        navigationManager.NavigateTo($"/createForm/{formDetail.Id}");
+        navigationManager.NavigateTo($"/forms/create/{formDetail.Id}");
     }
     public void ShowAnswers()
     {
-        navigationManager.NavigateTo($"/searchQuestions/{formDetail.Id}");
+        navigationManager.NavigateTo($"/questions/search/{formDetail.Id}");
+    }
+    public void Back()
+    {
+        navigationManager.NavigateTo($"/");
     }
 
     private async Task SubmitAnswerAsync() 

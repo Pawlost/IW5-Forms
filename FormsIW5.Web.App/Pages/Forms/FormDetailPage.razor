@@ -2,6 +2,10 @@
 
 @using FormsIW5.Web.App.Components;
 
+<button type="submit" class="btn btn-success" @onclick="@Back">
+    Back
+</button>
+
 <AuthorizeView>
     <Authorized>
         <button type="submit" class="btn btn-success" @onclick="@Edit">

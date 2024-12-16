@@ -1,1 +1,17 @@
-﻿<button onclick="@CreateDraftAsync">Create a new draft</button>
+﻿@using FormsIW5.Web.App.Components.Questions
+<h3>FormEditComponent</h3>
+
+<button type="submit" class="btn btn-success" @onclick="@Back">
+    Back
+</button>
+
+<FormEditFormComponent FormId=@FormId/>
+
+@foreach (var questionId in QuestionsIds)
+{
+    <QuestionEditComponent QuestionId=@questionId />
+}
+
+
+<button onclick="@AddQuestionAsync">Add question</button>
+<button onclick="">Share Form</button>

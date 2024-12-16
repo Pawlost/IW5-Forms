@@ -16,7 +16,7 @@ public static class QuestionEndpoints
         group.MapGet("", async ([FromServices] IListFacade<QuestionEditModel> facade) => await facade.GetAllAsync());
 
         //Get all ids
-        group.MapGet("getQuestionsIds/{formId:guid}", async (Guid formId, [FromServices] IQuestionFacade facade) => await facade.GetQuestionsIdsAsync(formId));
+        group.MapGet("questions/ids/{formId:guid}", async (Guid formId, [FromServices] IQuestionFacade facade) => await facade.GetQuestionsIdsAsync(formId));
 
         //Get list model By Id
         group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<QuestionEditModel> facade) => await facade.GetSingleListModelByIdAsync(id));
@@ -44,7 +44,7 @@ public static class QuestionEndpoints
         });
 
         // Update
-        group.MapPut("/updateQuestion", async (QuestionEditModel question, [FromServices] IQuestionFacade facade) => await facade.UpdateListQuestion(question));
+        group.MapPut("/question/update", async (QuestionEditModel question, [FromServices] IQuestionFacade facade) => await facade.UpdateListQuestion(question));
 
         // Delete
         group.MapDelete("{id:guid}", async (Guid id, [FromServices] IUpdateFacade<QuestionDetailModel> facade, IHttpContextAccessor httpContextAccessor) => {

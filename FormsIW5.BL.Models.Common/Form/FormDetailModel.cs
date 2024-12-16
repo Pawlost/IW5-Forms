@@ -9,5 +9,5 @@ public record FormDetailModel : IModel
     public string FormName { get; set; } = "";
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-    public ICollection<QuestionDetailModel> Questions { get; set; } = [];
+    public ICollection<QuestionAnswerModel> Questions { get; set; } = [];
 }

@@ -811,11 +811,11 @@ namespace FormsIW5.Web.BL
         System.Threading.Tasks.Task<System.Guid> QuestionPostAsync(QuestionCreateModel newQuestion, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<System.Guid>> GetQuestionsIdsAsync(System.Guid formId);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<System.Guid>> IdsAsync(System.Guid formId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<System.Guid>> GetQuestionsIdsAsync(System.Guid formId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<System.Guid>> IdsAsync(System.Guid formId, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<QuestionEditModel> ListAsync(System.Guid id);
@@ -853,11 +853,11 @@ namespace FormsIW5.Web.BL
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<QuestionListModel>> SearchByDescriptionAsync(System.Guid formId, string description, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateQuestionAsync(QuestionEditModel question);
+        System.Threading.Tasks.Task UpdateAsync(QuestionEditModel question);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateQuestionAsync(QuestionEditModel question, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task UpdateAsync(QuestionEditModel question, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -1069,14 +1069,14 @@ namespace FormsIW5.Web.BL
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<System.Guid>> GetQuestionsIdsAsync(System.Guid formId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<System.Guid>> IdsAsync(System.Guid formId)
         {
-            return GetQuestionsIdsAsync(formId, System.Threading.CancellationToken.None);
+            return IdsAsync(formId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<System.Guid>> GetQuestionsIdsAsync(System.Guid formId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<System.Guid>> IdsAsync(System.Guid formId, System.Threading.CancellationToken cancellationToken)
         {
             if (formId == null)
                 throw new System.ArgumentNullException("formId");
@@ -1092,8 +1092,8 @@ namespace FormsIW5.Web.BL
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "api/question/getQuestionsIds/{formId}"
-                    urlBuilder_.Append("api/question/getQuestionsIds/");
+                    // Operation Path: "api/question/questions/ids/{formId}"
+                    urlBuilder_.Append("api/question/questions/ids/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(formId, System.Globalization.CultureInfo.InvariantCulture)));
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -1555,14 +1555,14 @@ namespace FormsIW5.Web.BL
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task UpdateQuestionAsync(QuestionEditModel question)
+        public virtual System.Threading.Tasks.Task UpdateAsync(QuestionEditModel question)
         {
-            return UpdateQuestionAsync(question, System.Threading.CancellationToken.None);
+            return UpdateAsync(question, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task UpdateQuestionAsync(QuestionEditModel question, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task UpdateAsync(QuestionEditModel question, System.Threading.CancellationToken cancellationToken)
         {
             if (question == null)
                 throw new System.ArgumentNullException("question");
@@ -1581,8 +1581,8 @@ namespace FormsIW5.Web.BL
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "api/question/updateQuestion"
-                    urlBuilder_.Append("api/question/updateQuestion");
+                    // Operation Path: "api/question/question/update"
+                    urlBuilder_.Append("api/question/question/update");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 

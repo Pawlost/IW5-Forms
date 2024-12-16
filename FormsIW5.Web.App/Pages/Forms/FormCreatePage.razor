@@ -1,20 +1,18 @@
-﻿@page "/createForm"
-@page "/createForm/{Id:guid}"
+﻿@page "/forms/create"
+@page "/forms/create/{Id:guid}"
 
 @using FormsIW5.Web.App.Components;
 @using FormsIW5.Web.App.Components.Forms
 
 <AuthorizeView>
     <Authorized>
-        You can create new form.
-
         @if (Id == Guid.Empty)
         {
-            <FormCreateComponent/>
+            <button onclick="@CreateDraftAsync">Create a new draft</button>
         }
         else
         {
-            <FormDetailComponent FormId=@Id />
+            <FormCreateComponent FormId=@Id />
         }
     </Authorized>
     <NotAuthorized>

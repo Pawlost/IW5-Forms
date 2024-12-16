@@ -1,0 +1,32 @@
+﻿@using FormsIW5.Common.Enums
+
+
+@if (QuestionType == QuestionType.RangeType)
+{
+    @foreach (var answer in AnswerModels)
+    {
+        <p>@answer.IntegerAnswer</p>
+    }
+}
+else if (QuestionType == QuestionType.DropDown)
+{
+    @foreach (var answer in AnswerModels)
+    {
+        <p>@answer.TextAnswer</p>
+    }
+}
+else
+{
+    <div class="horizontal-selection-container">
+        @foreach (var questionOption in QuestionOptions)
+        {
+            <p>Option: @questionOption.QuestionOptionName</p>
+
+        }
+    </div>
+
+    @foreach (var answer in AnswerModels)
+    {
+        <p>@answer.TextAnswer</p>
+    }
+}

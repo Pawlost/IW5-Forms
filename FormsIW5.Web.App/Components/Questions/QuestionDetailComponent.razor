@@ -1,0 +1,29 @@
+﻿@using FormsIW5.Common.Enums
+@using FormsIW5.Web.App.Components.Answers
+
+<div>
+    <h1>@QuestionModel.QuestionText</h1>
+    <h2>@QuestionModel.Description</h2>
+</div>
+
+@if (QuestionModel.QuestionType == QuestionType.RangeType)
+{
+    <p>Type: Range</p>
+
+    <p>From:</p>
+    <p>@QuestionModel.FromValue</p>
+    <p>To:</p>
+    <p>@QuestionModel.ToValue</p>
+}
+else if (QuestionModel.QuestionType == QuestionType.DropDown)
+{
+    <p>Type: Dropdown</p>
+}
+else
+{
+    <p>Type: Open answer</p>
+}
+
+<div class="horizontal-selection-container">
+    <AnswersComponent AnswerModels=@QuestionModel.Answers QuestionOptions="@QuestionModel.QuestionOptions" QuestionType="@QuestionModel.QuestionType" />
+</div>

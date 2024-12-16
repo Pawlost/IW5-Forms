@@ -23,14 +23,14 @@ public class QuestionFacade : FacadeBase<IQuestionApiClient>
     public async Task QuestionPutAsync(QuestionEditModel model)
     {
         SwitchClient();
-        await client.UpdateQuestionAsync(model);
+        await client.UpdateAsync(model);
     }
     public async Task<QuestionEditModel> ListAsync(Guid id)
     {
         SwitchClient();
         return await client.ListAsync(id);
     }
-    public async Task<QuestionDetailModel> QuestionGetAsync(Guid id)
+    public async Task<QuestionDetailModel> GetQuestionDetailAsync(Guid id)
     {
         SwitchClient();
         return await client.QuestionGetAsync(id);
@@ -56,6 +56,6 @@ public class QuestionFacade : FacadeBase<IQuestionApiClient>
     public async Task<ICollection<Guid>> GetQuestionsIdsAsync(Guid formId)
     {
         SwitchClient();
-        return await client.GetQuestionsIdsAsync(formId);
+        return await client.IdsAsync(formId);
     }
 }
