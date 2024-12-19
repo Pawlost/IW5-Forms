@@ -1,4 +1,4 @@
-﻿namespace FormsIW5.IdentityProvider.BL.Models.AppUserClaim;
+﻿namespace FormsIW5.BL.Models.Common.User;
 public class AppUserClaimListModel
 {
     public string? ClaimType { get; set; }

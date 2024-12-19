@@ -2,7 +2,7 @@
 using FormsIW5.IdentityProvider.BL.Facades.Interfaces;
 using FormsIW5.IdentityProvider.DAL.Entities;
 using Microsoft.AspNetCore.Identity;
-using FormsIW5.IdentityProvider.BL.Models.AppUserClaim;
+using FormsIW5.BL.Models.Common.User;
 
 namespace FormsIW5.IdentityProvider.BL.Facades;
 

@@ -1,4 +1,4 @@
-﻿using FormsIW5.IdentityProvider.BL.Models.AppUserClaim;
+﻿using FormsIW5.BL.Models.Common.User;
 
 namespace FormsIW5.IdentityProvider.BL.Facades.Interfaces;
 

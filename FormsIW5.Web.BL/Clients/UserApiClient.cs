@@ -1,5 +1,17 @@
-﻿namespace FormsIW5.Web.BL;
+﻿using System.Net.Http;
 
-public class UserApiClient
+namespace FormsIW5.Web.BL;
+
+public partial class ApiClient
 {
+    public HttpClient HttpClient
+    {
+        get { return _httpClient; }
+        set { _httpClient = value; }
+    }
+
+    partial void Initialize()
+    {
+        BaseUrl = _httpClient?.BaseAddress?.ToString();
+    }
 }

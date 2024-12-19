@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace FormsIW5.IdentityProvider.BL.Models.AppUser;
+namespace FormsIW5.BL.Models.Common.User;
 
 public class AppUserExternalCreateModel
 {

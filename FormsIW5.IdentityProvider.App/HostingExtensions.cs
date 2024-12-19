@@ -7,6 +7,7 @@ using FormsIW5.IdentityProvider.DAL.Installer;
 using FormsIW5.IdentityProvider.DAL;
 using Microsoft.EntityFrameworkCore;
 using Duende.IdentityServer.Models;
+using FormsIW5.IdentityProvider.App.Endpoints;
 
 namespace FormsIW5.IdentityProvider.App
 {
@@ -27,6 +28,9 @@ namespace FormsIW5.IdentityProvider.App
             }
 
             builder.Services.AddRazorPages();
+
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddOpenApiDocument();
 
             builder.Services.AddIdentityServer(options =>
                 {
@@ -68,7 +72,13 @@ namespace FormsIW5.IdentityProvider.App
 
             app.UseAuthorization();
             app.MapRazorPages().RequireAuthorization();
-           // app.UseUserEndpoints();
+            app.UseUserEndpoints();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseOpenApi();
+                app.UseSwaggerUi();
+            }
 
             return app;
         }

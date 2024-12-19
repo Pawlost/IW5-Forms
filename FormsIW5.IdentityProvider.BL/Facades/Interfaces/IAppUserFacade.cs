@@ -1,5 +1,4 @@
 ﻿using FormsIW5.BL.Models.Common.User;
-using FormsIW5.IdentityProvider.BL.Models.AppUser;
 
 namespace FormsIW5.IdentityProvider.BL.Facades.Interfaces;
 

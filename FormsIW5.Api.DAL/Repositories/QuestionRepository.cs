@@ -19,26 +19,21 @@ public class QuestionRepository : RepositoryBase<QuestionEntity>, IQuestionRepos
         return await dbContext.Set<QuestionEntity>().Include(q => q.Answers).Include(q => q.QuestionOptions).SingleOrDefaultAsync(entity => entity.Id == id);
     }
 
+    private IQueryable<QuestionEntity> GetBasicSearchQuery(QuestionQueryObject questionQuery) {
+        return dbContext.Set<QuestionEntity>().Where(q => q.FormId == questionQuery.FormId);
+    }
+
     public async Task<ICollection<QuestionEntity>?> SearchByText(QuestionQueryObject questionQuery)
     {
-        var query = dbContext.Set<QuestionEntity>().Where(q => q.FormId == questionQuery.FormId);
-
-        if (!String.IsNullOrEmpty(questionQuery.TextMatch))
-        {
-            query = query.Where(q => !String.IsNullOrEmpty(q.QuestionText) && q.QuestionText.Contains(questionQuery.TextMatch));
-        }
-
+        var query = GetBasicSearchQuery(questionQuery)
+            .Where(q => EF.Functions.Like(q.QuestionText, $"%{questionQuery.TextMatch}%"));
         return await query.ToListAsync();
     }
 
     public async Task<ICollection<QuestionEntity>?> SearchByDescription(QuestionQueryObject questionQuery)
     {
-        var query = dbContext.Set<QuestionEntity>().Where(q => q.FormId == questionQuery.FormId);
-
-        if (!String.IsNullOrEmpty(questionQuery.TextMatch))
-        {
-            query = query.Where(q => !String.IsNullOrEmpty(q.Description) && q.Description.Contains(questionQuery.TextMatch));
-        }
+        var query = GetBasicSearchQuery(questionQuery)
+            .Where(q => EF.Functions.Like(q.Description, $"%{questionQuery.TextMatch}%"));
 
         return await query.ToListAsync();
     }
