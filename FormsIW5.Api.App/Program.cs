@@ -88,7 +88,8 @@ public class Program
 
         endpoints.AddFormEndpoints()
             .AddQuestionEndpoints()
-            .AddAnswerEndpoints();
+            .AddAnswerEndpoints()
+            .AddQuestionOptionEndpoints();
     }
 
     public static void ConfigureAuthentication(IServiceCollection serviceCollection, IConfiguration? configuration)

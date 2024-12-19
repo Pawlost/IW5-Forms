@@ -1,4 +1,9 @@
 ﻿@using FormsIW5.Web.App.Components.Questions
+<h3>FormEditComponent</h3>
+
+<button type="submit" class="btn btn-success" @onclick="@Back">
+    Go to detail
+</button>
 
 <EditForm Model="@EditForm">
     <div class="form-group">
@@ -31,3 +36,11 @@
 {
     <p>Entity updated</p>
 }
+
+@foreach (var questionId in QuestionsIds)
+{
+     <QuestionEditComponent OnDelete="DeleteQuestionCallback" QuestionId=@questionId />
+}
+
+<button @onclick="@AddQuestionAsync">Add question</button>
+<button onclick="">Share Form</button>

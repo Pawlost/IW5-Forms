@@ -6,7 +6,7 @@ using FormsIW5.BL.Models.Common.Interfaces;
 
 namespace FormsIW5.Api.BL.Facades;
 
-public class FacadeBase<TEntity, TListModel, TEditModel, TCreateModel, TRepository> : IListFacade<TListModel>, IUpdateFacade<TEditModel>,
+public class FacadeBase<TEntity, TListModel, TEditModel, TCreateModel, TRepository> : AppFacadeBase<TRepository, TEntity>, IListFacade<TListModel>, IUpdateFacade<TEditModel>,
     ICreateFacade<TCreateModel>
     where TEntity : IEntity
     where TListModel : IModel
@@ -14,26 +14,13 @@ public class FacadeBase<TEntity, TListModel, TEditModel, TCreateModel, TReposito
     where TCreateModel : ICreateModel
     where TRepository : IApiRepository<TEntity>
 {
-    protected readonly TRepository repository;
     protected readonly IMapper mapper;
 
     public FacadeBase(
         TRepository repository,
-        IMapper mapper)
+        IMapper mapper) : base(repository)
     {
-        this.repository = repository;
         this.mapper = mapper;
-    }
-
-    protected async Task ThrowIfWrongOwnerAsync(Guid id, string? ownerId)
-    {
-        if (ownerId is not null)
-        {
-            var entity = await repository.GetByIdAsync(id);
-            if (entity?.OwnerId != ownerId) {
-                throw new UnauthorizedAccessException();
-            }
-        }
     }
 
     public async Task<Guid> CreateAsync(TCreateModel createModel, string? userId)
@@ -41,12 +28,6 @@ public class FacadeBase<TEntity, TListModel, TEditModel, TCreateModel, TReposito
         var entity = mapper.Map<TEntity>(createModel);
         entity.OwnerId = userId;
         return await repository.InsertAsync(entity);
-    }
-
-    public async Task DeleteAsync(Guid id, string? ownerId)
-    {
-        await ThrowIfWrongOwnerAsync(id, ownerId);
-        await repository.RemoveAsync(id);
     }
 
     public async Task<TListModel> GetSingleListModelByIdAsync(Guid id)
@@ -73,10 +54,5 @@ public class FacadeBase<TEntity, TListModel, TEditModel, TCreateModel, TReposito
         var entity = mapper.Map<TEntity>(detailModel);
         entity.OwnerId = ownerId;
         return await repository.UpdateAsync(entity);
-    }
-
-    public async Task<bool> ExistsAsync(Guid id)
-    {
-        return await repository.ExistsAsync(id);
     }
 }

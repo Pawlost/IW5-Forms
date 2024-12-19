@@ -7,6 +7,6 @@ public interface IQuestionFacade : IUpdateFacade<QuestionDetailModel>, IListFaca
 {
     Task<ICollection<QuestionListModel>> SearchByText(QuestionQueryObject questionQuery);
     Task<ICollection<QuestionListModel>> SearchByDescription(QuestionQueryObject questionQuery);
-    Task UpdateListQuestion(QuestionEditModel questionQuery);
+    Task UpdateListQuestion(QuestionEditModel questionQuery, string? ownerId);
     Task<ICollection<Guid>> GetQuestionsIdsAsync(Guid formId);
 }

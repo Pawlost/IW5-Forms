@@ -10,6 +10,7 @@ public class WebBLInstaller : IInstaller
     public void Install(IServiceCollection serviceCollection, IConfiguration? configuration)
     {
         serviceCollection.AddScoped<IFormApiClient, FormApiClient>();
+        serviceCollection.AddScoped<IQuestionOptionsApiClient, QuestionOptionsApiClient>();
         serviceCollection.AddScoped<IQuestionApiClient, QuestionApiClient>();
         serviceCollection.AddScoped<IAnswerApiClient, AnswerApiClient>();
 

@@ -1,13 +1,17 @@
 ﻿@using FormsIW5.Common.Enums
 <h3>QuestionEditComponent</h3>
 
-<EditForm Model="@Data">
+<button type="button" class="btn-danger" @onclick="DeleteQuestionAsync">
+    Delete
+</button>
+
+<EditForm Model="@Model">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label class="w-100">
                     Question Name:
-                    <InputText @bind-Value="@Data.QuestionText" class="form-control" @onfocusout="HandleUpdateAsync" />
+                    <InputText @bind-Value="@Model.QuestionText" class="form-control" @onfocusout="UpdateAsync" />
                 </label>
             </div>
         </div>
@@ -18,7 +22,7 @@
             <div class="form-group">
                 <label class="w-100">
                     Question Description:
-                    <InputTextArea @bind-Value="@Data.Description" class="form-control" @onfocusout="HandleUpdateAsync" />
+                    <InputTextArea @bind-Value="@Model.Description" class="form-control" @onfocusout="UpdateAsync" />
                 </label>
             </div>
         </div>
@@ -28,7 +32,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label class="w-100 font-weight-bold">
-                    <InputSelect @bind-Value="Data.QuestionType" class="form-control" @onfocusout="HandleUpdateAsync">
+                    <InputSelect @bind-Value="Model.QuestionType" class="form-control" @onfocusout="UpdateAsync">
                         @foreach (var foodType in Enum.GetValues<QuestionType>())
                         {
                             <option value="@foodType">@foodType.GetReadableName()</option>
@@ -39,17 +43,17 @@
         </div>
     </div>
 
-    @if (Data.QuestionType == QuestionType.Multiselection)
+    @if (Model.QuestionType == QuestionType.Multiselection)
     {
         <div class="horizontal-selection-container">
-            @foreach (var answer in Data.QuestionOptions)
+            @foreach (var option in Model.QuestionOptions)
             {
-                <InputText @bind-Value="@answer.QuestionOptionName" class="form-control" @onfocusout="HandleUpdateAsync" />
+                <QuestionOptionComponent OnChanged="UpdateAsync" OnDelete="DeleteQuestionOptionAsync" QuestionOption="@option" />
             }
         </div>
         <button @onclick="@AddQuestionOptionAsync">Add Option</button>
     }
-    else if (Data.QuestionType == QuestionType.RangeType)
+    else if (Model.QuestionType == QuestionType.RangeType)
     {
         <div class="col-md-6">
             <div class="form-group">
@@ -58,9 +62,9 @@
                 </label>
                 <div class="input-group">
                     <div class="p-2">Min:</div>
-                    <InputNumber min="0" @bind-Value="Data.FromValue" class="form-control" id="durationInput" @onfocusout="HandleUpdateAsync"  />
+                    <InputNumber min="0" @bind-Value="Model.FromValue" class="form-control" id="durationInput" @onfocusout="UpdateAsync" />
                     <div class="p-2">Max:</div>
-                    <InputNumber min="0" @bind-Value="Data.ToValue" class="form-control" @onfocusout="HandleUpdateAsync"  />
+                    <InputNumber min="0" @bind-Value="Model.ToValue" class="form-control" @onfocusout="UpdateAsync" />
                 </div>
             </div>
         </div>

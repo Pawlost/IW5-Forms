@@ -23,7 +23,7 @@ public class ApiDALInstaller : IInstaller
 
         serviceCollection.Scan(selector =>
             selector.FromAssemblyOf<ApiDALInstaller>()
-            .AddClasses(classes => classes.AssignableTo(typeof(IApiRepository<>)))
+            .AddClasses(classes => classes.AssignableTo(typeof(IRemoveRepository<>)))
             .AsSelfWithInterfaces()
             .WithScopedLifetime());
     }
