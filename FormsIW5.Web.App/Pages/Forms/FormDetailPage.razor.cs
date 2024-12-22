@@ -38,7 +38,7 @@ public partial class FormDetailPage
     protected override async Task OnInitializedAsync()
     {
         var authState = await authStateTask;
-        string clientName = authState.User?.Identity?.IsAuthenticated is true ? clientName = ClientNames.LogInClientName : clientName = ClientNames.AnonymousClientName;
+        string clientName = authState.User?.Identity?.IsAuthenticated is true ? clientName = ClientNames.LogInApiClientName : clientName = ClientNames.AnonymousClientName;
 
         FormModel = await formFacade.GetDetailAsync(Id, clientName);
 

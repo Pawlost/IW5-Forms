@@ -109,7 +109,7 @@ public class Program
             });
 
         serviceCollection.AddAuthorizationBuilder()
-            .AddPolicy("ingredient-admin", policy => policy.RequireRole("admin"));
+            .AddPolicy("AdminPolicy", policy => policy.RequireRole("admin"));
         serviceCollection.AddHttpContextAccessor();
     }
 }

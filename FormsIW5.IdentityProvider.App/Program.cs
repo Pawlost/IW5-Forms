@@ -20,9 +20,6 @@ try
 
     app.ConfigurePipeline();
 
-    app.MapGroup("api")
-        .AllowAnonymous();
-
     app.Run();
 }
 catch (Exception ex)

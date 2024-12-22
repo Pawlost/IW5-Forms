@@ -3,5 +3,6 @@
 public static class ClientNames
 {
     public const string AnonymousClientName = "anonymous";
-    public const string LogInClientName = "api";
+    public const string LogInApiClientName = "api";
+    public const string UserApiClientName = "user";
 }

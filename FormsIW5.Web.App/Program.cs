@@ -16,7 +16,7 @@ const string scope = "iw5FormsScope";
 
 var apiBaseUrl = builder.Configuration.GetValue<Uri>("ApiBaseUrl");
 
-builder.Services.AddHttpClient(ClientNames.LogInClientName, client => client.BaseAddress = apiBaseUrl)
+builder.Services.AddHttpClient(ClientNames.LogInApiClientName, client => client.BaseAddress = apiBaseUrl)
     .AddHttpMessageHandler(serviceProvider
     => serviceProvider?.GetService<AuthorizationMessageHandler>()!
     .ConfigureHandler(
@@ -26,11 +26,23 @@ builder.Services.AddHttpClient(ClientNames.LogInClientName, client => client.Bas
 
 builder.Services.AddHttpClient(ClientNames.AnonymousClientName, client => client.BaseAddress = apiBaseUrl);
 
-builder.Services.AddScoped(serviceProvider => serviceProvider.GetService<IHttpClientFactory>()!.CreateClient(ClientNames.LogInClientName));
+builder.Services.AddScoped(serviceProvider => serviceProvider.GetService<IHttpClientFactory>()!.CreateClient(ClientNames.LogInApiClientName));
+
+Uri? identityUrl = builder.Configuration?.GetValue<Uri?>("IdentityProvider:Authority");
+
+if (identityUrl is not null)
+{
+    builder.Services.AddHttpClient(ClientNames.UserApiClientName, client => client.BaseAddress = identityUrl)
+    .AddHttpMessageHandler(serviceProvider
+    => serviceProvider?.GetService<AuthorizationMessageHandler>()!
+    .ConfigureHandler(
+            authorizedUrls: [identityUrl.ToString()],
+            scopes: [scope]));
+}
 
 builder.Services.AddOidcAuthentication(options =>
 {
-    builder.Configuration.Bind("IdentityProvider", options.ProviderOptions);
+    builder.Configuration?.Bind("IdentityProvider", options.ProviderOptions);
     options.ProviderOptions.DefaultScopes.Add(scope);
 });
 

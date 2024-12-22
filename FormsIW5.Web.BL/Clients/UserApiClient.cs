@@ -1,13 +1,14 @@
-﻿using System.Net.Http;
+﻿namespace FormsIW5.Web.BL;
 
-namespace FormsIW5.Web.BL;
-
-public partial class ApiClient
+public partial class UserApiClient
 {
     public HttpClient HttpClient
     {
         get { return _httpClient; }
-        set { _httpClient = value; }
+        set {
+            _httpClient = value;
+            Initialize();
+        }
     }
 
     partial void Initialize()

@@ -9,13 +9,19 @@ public static class UserEndpoints
 {
     public static IEndpointRouteBuilder UseUserEndpoints(this IEndpointRouteBuilder endpointRouteBuilder)
     {
-        var userEndpoints = endpointRouteBuilder.MapGroup("user");
+        var userEndpoints = endpointRouteBuilder.MapGroup("user").WithTags("user");
 
         userEndpoints.MapGet("search",
             async (
                 IAppUserFacade appUserFacade,
                 string searchString)
-                => await appUserFacade.SearchAsync(searchString));
+                => await appUserFacade.SearchAsync(searchString)).RequireAuthorization("AdminPolicy");
+
+        userEndpoints.MapGet("delete/{userId:guid}",
+            async (
+                IAppUserFacade appUserFacade,
+                Guid userId)
+                => await appUserFacade.DeleteUserAsync(userId));
 
         userEndpoints.MapPost("",
             async Task<Results<Created<Guid>, BadRequest, BadRequest<string>>> (
@@ -38,7 +44,7 @@ public static class UserEndpoints
                     return TypedResults.BadRequest(e.Message);
                     throw;
                 }
-            });
+            }).WithTags("CreateUser");
 
         return endpointRouteBuilder;
     }

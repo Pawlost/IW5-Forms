@@ -126,4 +126,13 @@ public class AppUserFacade(
         var users = await appUserRepository.SearchAsync(searchString);
         return mapper.Map<List<AppUserListModel>>(users);
     }
+
+    public async Task DeleteUserAsync(Guid userId)
+    {
+        var user = await userManager.FindByIdAsync(userId.ToString());
+        if (user is not null)
+        {
+            await userManager.DeleteAsync(user);
+        }
+    }
 }

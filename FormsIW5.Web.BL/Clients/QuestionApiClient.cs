@@ -5,7 +5,10 @@ public partial class QuestionApiClient
     public HttpClient HttpClient
     {
         get { return _httpClient; }
-        set { _httpClient = value; }
+        set {
+            _httpClient = value;
+            Initialize();
+        }
     }
 
     partial void Initialize()

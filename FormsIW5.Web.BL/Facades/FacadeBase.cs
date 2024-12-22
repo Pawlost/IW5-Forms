@@ -18,7 +18,7 @@ namespace FormsIW5.Web.BL.Facades
         protected void SwitchClient(string? clientName = null) {
             if (clientName is null)
             {
-                client.HttpClient = clientFactory.CreateClient(ClientNames.LogInClientName);
+                client.HttpClient = clientFactory.CreateClient(ClientNames.LogInApiClientName);
             } 
             else 
             {

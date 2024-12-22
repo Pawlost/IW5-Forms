@@ -1,0 +1,16 @@
+﻿@page "/users/manage" 
+
+<h3>Search users</h3>
+
+ <div class="search-bar">
+    <label for="textSearch">Search by username</label>
+    <input id="textSearch" type="text" @bind-value="@Username" @bind-value:event="oninput" placeholder="Search user..." />
+    <button class="search-button" @onclick="SearchUser">Search</button>
+</div>
+
+<div class="horizontal-selection-container">
+    @foreach (var user in Users)
+    {
+        <p>Username: @user.UserName</p>
+    }
+</div>  

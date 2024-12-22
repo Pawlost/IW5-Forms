@@ -8,6 +8,9 @@ using FormsIW5.IdentityProvider.DAL;
 using Microsoft.EntityFrameworkCore;
 using Duende.IdentityServer.Models;
 using FormsIW5.IdentityProvider.App.Endpoints;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 
 namespace FormsIW5.IdentityProvider.App
 {
@@ -19,6 +22,7 @@ namespace FormsIW5.IdentityProvider.App
             builder.Services.Install<IdentityProviderBLInstaller>(builder.Configuration);
             builder.Services.Install<IdentityProviderAppInstaller>(builder.Configuration);
             var allowedRedirectUri = builder.Configuration.GetValue<string>("IdentityProvider:RedirectUri");
+
             if (allowedRedirectUri is not null)
             {
                 Config.Clients.First().RedirectUris.Add(allowedRedirectUri);
@@ -31,6 +35,13 @@ namespace FormsIW5.IdentityProvider.App
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddOpenApiDocument();
+
+            builder.Services.AddAuthorization(options =>
+            {
+                //TODO: User does not receive the proper admin role on identity server side
+                options.AddPolicy("AdminPolicy", policy =>
+                    policy.RequireClaim("sub", "admin"));
+            });
 
             builder.Services.AddIdentityServer(options =>
                 {
@@ -68,9 +79,10 @@ namespace FormsIW5.IdentityProvider.App
             app.UseStaticFiles();
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseIdentityServer();
 
-            app.UseAuthorization();
             app.MapRazorPages().RequireAuthorization();
             app.UseUserEndpoints();
 

@@ -13,6 +13,7 @@ public class WebBLInstaller : IInstaller
         serviceCollection.AddScoped<IQuestionOptionsApiClient, QuestionOptionsApiClient>();
         serviceCollection.AddScoped<IQuestionApiClient, QuestionApiClient>();
         serviceCollection.AddScoped<IAnswerApiClient, AnswerApiClient>();
+        serviceCollection.AddScoped<IUserApiClient, UserApiClient>();
 
         serviceCollection.Scan(selector =>
            selector.FromAssemblyOf<WebBLInstaller>()
