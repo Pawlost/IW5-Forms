@@ -1,4 +1,5 @@
 ﻿@page "/users/manage" 
+@using FormsIW5.Web.App.Components.Users
 
 <h3>Search users</h3>
 
@@ -11,6 +12,6 @@
 <div class="horizontal-selection-container">
     @foreach (var user in Users)
     {
-        <p>Username: @user.UserName</p>
+        <UserComponent User="@user" OnDelete="OnUserDelete" />
     }
 </div>  

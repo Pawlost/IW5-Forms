@@ -14,9 +14,9 @@ public class UserFacade : FacadeBase<IUserApiClient>
         return await client.SearchAsync(userName);
     }
 
-    //public async Task QuestionOptionDeleteAsync(Guid id)
-    //{
-    //    //SwitchClient();
-    //    //await client.UserAsync(id);
-    //}
+    public async Task DeleteUserAsync(Guid id)
+    {
+        SwitchClient(ClientNames.UserApiClientName);
+        await client.DeleteAsync(id);
+    }
 }

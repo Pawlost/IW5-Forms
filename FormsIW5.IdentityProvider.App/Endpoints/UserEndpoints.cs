@@ -15,7 +15,7 @@ public static class UserEndpoints
             async (
                 IAppUserFacade appUserFacade,
                 string searchString)
-                => await appUserFacade.SearchAsync(searchString)).RequireAuthorization("AdminPolicy");
+                => await appUserFacade.SearchAsync(searchString));
 
         userEndpoints.MapGet("delete/{userId:guid}",
             async (

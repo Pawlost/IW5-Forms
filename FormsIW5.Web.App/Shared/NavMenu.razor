@@ -30,9 +30,13 @@
                     </AuthorizeView>
                 </li>
                 <li>
+                    <AuthorizeView Policy="AdminPolicy">
+                        <Authorized>
                             <NavLink href="/users/manage" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
                                 Manage users
                             </NavLink>
+                        </Authorized>
+                    </AuthorizeView>
                 </li>
                 <li>
                     <LoginDisplay/>

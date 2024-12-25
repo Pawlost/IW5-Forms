@@ -46,6 +46,12 @@ builder.Services.AddOidcAuthentication(options =>
     options.ProviderOptions.DefaultScopes.Add(scope);
 });
 
+builder.Services.AddAuthorizationCore(options =>
+{
+    options.AddPolicy("AdminPolicy", policy =>
+        policy.RequireClaim("sub", "admin"));
+});
+
 var host = builder.Build();
 
 await host.RunAsync();

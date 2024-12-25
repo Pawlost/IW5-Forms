@@ -6,11 +6,7 @@ using Serilog;
 using FormsIW5.IdentityProvider.DAL.Installer;
 using FormsIW5.IdentityProvider.DAL;
 using Microsoft.EntityFrameworkCore;
-using Duende.IdentityServer.Models;
 using FormsIW5.IdentityProvider.App.Endpoints;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
 
 namespace FormsIW5.IdentityProvider.App
 {
@@ -36,12 +32,9 @@ namespace FormsIW5.IdentityProvider.App
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddOpenApiDocument();
 
-            builder.Services.AddAuthorization(options =>
-            {
-                //TODO: User does not receive the proper admin role on identity server side
-                options.AddPolicy("AdminPolicy", policy =>
+            builder.Services.AddAuthorizationBuilder()
+                .AddPolicy("AdminPolicy", policy =>
                     policy.RequireClaim("sub", "admin"));
-            });
 
             builder.Services.AddIdentityServer(options =>
                 {
