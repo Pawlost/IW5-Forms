@@ -27,6 +27,12 @@ namespace FormsIW5.IdentityProvider.App
                 throw new NullReferenceException("Redirect uri must be set for client");
             }
 
+            var logoutUri = builder.Configuration.GetValue<string>("IdentityProvider:PostLogoutRedirectUri");
+            if (logoutUri is not null)
+            {
+                Config.Clients.First().PostLogoutRedirectUris.Add(logoutUri);
+            }
+
             builder.Services.AddRazorPages();
 
             builder.Services.AddEndpointsApiExplorer();
