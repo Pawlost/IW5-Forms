@@ -1,4 +1,5 @@
-﻿using FormsIW5.BL.Models.Common.Form;
+﻿using Blazored.FluentValidation;
+using FormsIW5.BL.Models.Common.Form;
 using FormsIW5.BL.Models.Common.Question;
 using FormsIW5.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
@@ -20,8 +21,24 @@ public partial class FormEditComponent
 
     public ICollection<Guid> QuestionsIds { get; set; } = [];
 
-    private FormEditModel EditForm { get; set; } = new();
+    private FormEditModel EditForm { get; set; } = FormEditModel.Empty;
     private bool IsUpdated { get; set; }
+
+
+    private FluentValidationValidator? validator;
+
+    private async Task CheckValidation()
+    {
+        if (validator != null)
+        {
+            var isValid = await validator.ValidateAsync();
+            if (isValid)
+            {
+                await SaveAsync();
+            }
+        }
+    }
+
     public async Task SaveAsync()
     {
         var guid = await FormFacade.FormEditAsync(EditForm);

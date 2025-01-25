@@ -8,27 +8,26 @@
 
 <AuthorizeView>
     <Authorized>
+        @if (FormModel.IsOwner)
+        {
         <button type="submit" class="btn btn-success" @onclick="@Edit">
             Edit
         </button>
         <button type="submit" class="btn btn-success" @onclick="@ShowAnswers">
             Show Answers
         </button>
-        
         <button type="submit" class="btn-danger" @onclick="@DeleteAsync">
             Delete
-        </button>
+            </button>
+        }
     </Authorized>
-    <NotAuthorized>
-        <p>You must be signed to be able to answer form</p>
-    </NotAuthorized>
 </AuthorizeView>
 
 <h3>Form Detail</h3>
 
 <h1>@FormModel.FormName</h1>
-<h1>@FormModel.StartDate</h1>
-<h1>@FormModel.EndDate</h1>
+<h1>@FormModel.FormStartDate</h1>
+<h1>@FormModel.FormEndDate</h1>
 
 <h3>QuestionsList</h3>
 @using FormsIW5.Common.Enums

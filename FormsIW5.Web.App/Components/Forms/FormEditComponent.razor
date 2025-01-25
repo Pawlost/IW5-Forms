@@ -6,30 +6,41 @@
 </button>
 
 <EditForm Model="@EditForm">
+    <Blazored.FluentValidation.FluentValidationValidator @ref="validator" />
+    
+    <small class="form-text text-danger">
+        <ValidationSummary />
+    </small>
+
     <div class="form-group">
         <label class="w-100">
             Form name:
-            <InputText @bind-Value="@EditForm.FormName" class="form-control" />
+            <InputText @bind-Value="@EditForm.FormName" class="form-control" @onfocusout="CheckValidation" />
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => EditForm.FormName)" />
+            </small>
         </label>
     </div>
 
     <div class="form-group">
         <label class="w-100">
             Start date:
-            <InputDate @bind-Value="@EditForm.StartDate" class="form-control" />
+            <InputDate @bind-Value="@EditForm.FormStartDate" class="form-control" @onfocusout="CheckValidation" />
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => EditForm.FormStartDate)" />
+            </small>
         </label>
     </div>
 
     <div class="form-group">
         <label class="w-100">
             End date:
-            <InputDate @bind-Value="@EditForm.EndDate" class="form-control" />
+            <InputDate @bind-Value="@EditForm.FormEndDate" class="form-control" @onfocusout="CheckValidation" />
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => EditForm.FormEndDate)" />
+            </small>
         </label>
     </div>
-
-    <button type="submit" class="btn btn-success" @onclick="@SaveAsync">
-        Update form
-    </button>
 </EditForm>
 
 @if (IsUpdated)

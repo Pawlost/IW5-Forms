@@ -164,8 +164,7 @@ public class Index : PageModel
         }
 
         // something went wrong, show form with error
-        await BuildModelAsync(Input.ReturnUrl);
-        return Page();
+        return await OnGet(Input.ReturnUrl);
     }
 
     private async Task BuildModelAsync(string returnUrl)

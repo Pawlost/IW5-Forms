@@ -7,7 +7,8 @@ public record FormDetailModel : IModel
 {
     public Guid Id { get; init; }
     public string FormName { get; set; } = "";
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
+    public DateTime FormStartDate { get; set; }
+    public DateTime FormEndDate { get; set; }
+    public bool IsOwner { get; set; }
     public ICollection<QuestionAnswerModel> Questions { get; set; } = [];
 }

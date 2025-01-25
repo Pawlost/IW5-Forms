@@ -8,7 +8,7 @@ public class FormFacade : FacadeBase<IFormApiClient>
     {
     }
 
-    public async Task<ICollection<FormListModel>> GetAllAsync()
+    public async Task<ICollection<FormListModel>> GetAllFormsAsync()
     {
         SwitchClient(ClientNames.AnonymousClientName);
         return await client.FormGetAsync();

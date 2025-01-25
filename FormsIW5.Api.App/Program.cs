@@ -6,6 +6,7 @@ using FormsIW5.Api.DAL.Common.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using FormsIW5.Api.DAL.Installer;
 using FormsIW5.Api.BL.Installer;
+using FormsIW5.BL.Models.Common.Installers;
 
 namespace FormsIW5.Api.App;
 
@@ -38,6 +39,7 @@ public class Program
         }
 
         builder.Services.Install<ApiBLInstaller>(builder.Configuration);
+        builder.Services.Install<ValidatorInstaller>(builder.Configuration);
 
         var app = builder.Build();
 

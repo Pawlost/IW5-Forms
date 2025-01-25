@@ -17,12 +17,8 @@ public partial class FormCreatePage
 
     public async Task CreateDraftAsync()
     {
-        var createModel = new FormCreateModel
-        {
-            FormName = "Draft Form",
-            StartDate = DateTime.Now,
-            EndDate = DateTime.Now
-        };
+        var createModel = FormCreateModel.Empty;
+        createModel.FormName = "New Form Draft";
 
         var formId = await formFacade.FormPostAsync(createModel);
         navigationManager.NavigateTo($"/forms/create/{formId}");

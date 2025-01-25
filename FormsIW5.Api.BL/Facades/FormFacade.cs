@@ -2,7 +2,6 @@
 using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Api.DAL.Common.Entities;
 using FormsIW5.Api.DAL.Common.Repositories;
-using FormsIW5.Api.DAL.Repositories;
 using FormsIW5.BL.Models.Common.Answer;
 using FormsIW5.BL.Models.Common.Form;
 
@@ -21,8 +20,12 @@ public class FormFacade : FacadeBase<FormEntity, FormListModel, FormEditModel, F
         var entity = await repository.GetFormDetailAsync(id);
         var formDetail = mapper.Map<FormDetailModel>(entity);
 
-        if (ownerId != null) 
-        { 
+        formDetail.IsOwner = false;
+
+        if (ownerId != null)
+        {
+            formDetail.IsOwner = entity?.OwnerId == ownerId;
+
             foreach (var question in formDetail.Questions) 
             {
                 var answerEntity = await answerRepository.GetAnswerByOwnerIdAsync(question.Id, ownerId);

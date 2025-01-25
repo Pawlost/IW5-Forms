@@ -1,4 +1,5 @@
 ﻿using FormsIW5.Api.App.Extensions;
+using FormsIW5.Api.App.Filters;
 using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.BL.Models.Common.Form;
 using Microsoft.AspNetCore.Http;
@@ -31,7 +32,7 @@ public static class FormEndpoints
         {
             var userId = EndpointExtensions.GetUserId(httpContextAccessor);
             return await facade.CreateAsync(newForm, userId);
-        });
+        }).AddEndpointFilter<ValidationFilter<FormCreateModel>>();
 
         // Update
         group.MapPut("", async (FormEditModel form, [FromServices] IUpdateFacade<FormEditModel> facade, IHttpContextAccessor httpContextAccessor) =>
@@ -43,9 +44,17 @@ public static class FormEndpoints
         // Delete
         group.MapDelete("{id:guid}", async (Guid id, [FromServices] IFormFacade facade, IHttpContextAccessor httpContextAccessor) =>
         {
+            bool isadmin = httpContextAccessor.HttpContext.User.IsInRole("admin");
             var userId = EndpointExtensions.GetUserId(httpContextAccessor);
             await facade.DeleteAsync(id, userId);
         });
+
+        //// Delete
+        //group.MapDelete("{id:guid}", async (Guid id, [FromServices] IFormFacade facade, IHttpContextAccessor httpContextAccessor) =>
+        //{
+        //    var userId = EndpointExtensions.GetUserId(httpContextAccessor);
+        //    await facade.DeleteAsync(id, userId);
+        //}).RequireAuthorization("AdminPolicy");
 
         return endpointRoute;
     }
