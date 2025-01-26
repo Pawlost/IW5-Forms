@@ -1,0 +1,57 @@
+﻿@using FormsIW5.Web.App.Components.Questions
+<h3>FormEditComponent</h3>
+
+<button type="submit" class="btn btn-success" @onclick="@Back">
+    Go to detail
+</button>
+
+<EditForm Model="@EditForm">
+    <Blazored.FluentValidation.FluentValidationValidator @ref="validator" />
+    
+    <small class="form-text text-danger">
+        <ValidationSummary />
+    </small>
+
+    <div class="form-group">
+        <label class="w-100">
+            Form name:
+            <InputText @bind-Value="@EditForm.FormName" class="form-control" @onfocusout="CheckValidationAsync" />
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => EditForm.FormName)" />
+            </small>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label class="w-100">
+            Start date:
+            <InputDate @bind-Value="@EditForm.FormStartDate" class="form-control" @onfocusout="CheckValidationAsync" />
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => EditForm.FormStartDate)" />
+            </small>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label class="w-100">
+            End date:
+            <InputDate @bind-Value="@EditForm.FormEndDate" class="form-control" @onfocusout="CheckValidationAsync" />
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => EditForm.FormEndDate)" />
+            </small>
+        </label>
+    </div>
+</EditForm>
+
+@if (IsUpdated)
+{
+    <p>Entity updated</p>
+}
+
+@foreach (var questionId in QuestionsIds)
+{
+     <QuestionEditComponent OnDelete="DeleteQuestionCallback" QuestionId=@questionId />
+}
+
+<button @onclick="@AddQuestionAsync">Add question</button>
+<button onclick="">Share Form</button>

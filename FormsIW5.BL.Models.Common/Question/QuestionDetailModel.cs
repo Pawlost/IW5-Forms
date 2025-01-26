@@ -10,14 +10,13 @@ public record QuestionDetailModel : IModel
 {
     public Guid Id { get; init; }
     public string? QuestionText { get; set; }
-    public int FromValue { get; set; }
-    public int ToValue { get; set; }
+    public int MinValue { get; set; }
+    public int MaxValue { get; set; }
     public QuestionType QuestionType { get; set; }
     public string? Description { get; set; }
 
     [Required]
     public Guid FormId { get; set; }
-
-    public ICollection<AnswerListModel> Answers { get; set; } = [];
-    public ICollection<QuestionOptionListModel> AnswerSelections { get; set; } = [];
+    public ICollection<AnswerDetailModel> Answers { get; set; } = null!;
+    public ICollection<QuestionOptionListModel> QuestionOptions { get; set; } = [];
 }

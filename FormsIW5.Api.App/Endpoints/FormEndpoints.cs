@@ -1,6 +1,8 @@
 ﻿using FormsIW5.Api.App.Extensions;
+using FormsIW5.Api.App.Filters;
 using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.BL.Models.Common.Form;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormsIW5.Api.App.Endpoints;
@@ -17,29 +19,42 @@ public static class FormEndpoints
         //Get list model By Id
         group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<FormListModel> facade) => await facade.GetSingleListModelByIdAsync(id));
 
-        //Get detail By Id
-        group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<FormDetailModel> facade) => await facade.GetByIdAsync(id)).AllowAnonymous();
+        //Get edit By Id
+        group.MapGet("edit/{id:guid}", async (Guid id, [FromServices] IUpdateFacade<FormEditModel> facade) => await facade.GetByIdAsync(id)).AllowAnonymous();
+
+        group.MapGet("detail/{id:guid}", async (Guid id, [FromServices] IFormFacade facade, IHttpContextAccessor httpContextAccessor) => {
+            var userId = EndpointExtensions.GetUserId(httpContextAccessor);
+            return await facade.GetFormDetailByOwnerIdAsync(id, userId); 
+        }).AllowAnonymous();
 
         //Create
         group.MapPost("", async (FormCreateModel newForm, [FromServices] ICreateFacade<FormCreateModel> facade, IHttpContextAccessor httpContextAccessor) =>
         {
             var userId = EndpointExtensions.GetUserId(httpContextAccessor);
             return await facade.CreateAsync(newForm, userId);
-        });
+        }).AddEndpointFilter<ValidationFilter<FormCreateModel>>();
 
         // Update
-        group.MapPut("", async (FormDetailModel form, [FromServices] IDetailFacade<FormDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>
+        group.MapPut("", async (FormEditModel form, [FromServices] IUpdateFacade<FormEditModel> facade, IHttpContextAccessor httpContextAccessor) =>
         {
             var userId = EndpointExtensions.GetUserId(httpContextAccessor);
-            await facade.UpdateAsync(form, userId);
+            return await facade.UpdateAsync(form, userId);
         });
 
         // Delete
-        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IDetailFacade<FormDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>
+        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IFormFacade facade, IHttpContextAccessor httpContextAccessor) =>
         {
+            bool isadmin = httpContextAccessor.HttpContext.User.IsInRole("admin");
             var userId = EndpointExtensions.GetUserId(httpContextAccessor);
             await facade.DeleteAsync(id, userId);
         });
+
+        //// Delete
+        //group.MapDelete("{id:guid}", async (Guid id, [FromServices] IFormFacade facade, IHttpContextAccessor httpContextAccessor) =>
+        //{
+        //    var userId = EndpointExtensions.GetUserId(httpContextAccessor);
+        //    await facade.DeleteAsync(id, userId);
+        //}).RequireAuthorization("AdminPolicy");
 
         return endpointRoute;
     }

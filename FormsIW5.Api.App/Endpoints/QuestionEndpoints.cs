@@ -2,7 +2,6 @@
 using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Api.DAL.Common.Queries;
 using FormsIW5.BL.Models.Common.Question;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormsIW5.Api.App.Endpoints;
@@ -16,11 +15,14 @@ public static class QuestionEndpoints
         //Get all
         group.MapGet("", async ([FromServices] IListFacade<QuestionEditModel> facade) => await facade.GetAllAsync());
 
+        //Get all ids
+        group.MapGet("questions/ids/{formId:guid}", async (Guid formId, [FromServices] IQuestionFacade facade) => await facade.GetQuestionsIdsAsync(formId));
+
         //Get list model By Id
         group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<QuestionEditModel> facade) => await facade.GetSingleListModelByIdAsync(id));
 
         //Get detail By Id
-        group.MapGet("{id:guid}", async (Guid id, [FromServices] IDetailFacade<QuestionDetailModel> facade) => await facade.GetByIdAsync(id));
+        group.MapGet("{id:guid}", async (Guid id, [FromServices] IUpdateFacade<QuestionDetailModel> facade) => await facade.GetByIdAsync(id));
 
         // Search by text
         group.MapGet("searchByText/{formId:guid}", async (Guid formId, [FromQuery] string? text, [FromServices] IQuestionFacade facade) => 
@@ -42,10 +44,14 @@ public static class QuestionEndpoints
         });
 
         // Update
-        group.MapPut("/updateQuestion", async (QuestionEditModel question, [FromServices] IQuestionFacade facade) => await facade.UpdateListQuestion(question));
+        group.MapPut("/update", async (QuestionEditModel question, [FromServices] IQuestionFacade facade, IHttpContextAccessor httpContextAccessor) =>
+        {
+            var userId = EndpointExtensions.GetUserId(httpContextAccessor);
+            await facade.UpdateListQuestion(question, userId);
+        });
 
         // Delete
-        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IDetailFacade<QuestionDetailModel> facade, IHttpContextAccessor httpContextAccessor) => {
+        group.MapDelete("{id:guid}", async (Guid id, [FromServices] IUpdateFacade<QuestionDetailModel> facade, IHttpContextAccessor httpContextAccessor) => {
             var userId = EndpointExtensions.GetUserId(httpContextAccessor);
             await facade.DeleteAsync(id, userId);
         });

@@ -3,7 +3,6 @@ using FormsIW5.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
 
 namespace FormsIW5.Web.App.Pages.Questions;
-
 public partial class QuestionSearchPage
 {
     [Parameter]
@@ -33,5 +32,10 @@ public partial class QuestionSearchPage
     public async Task PerformSearchByTextAsync() 
     {
         Questions = await questionFacade.SearchByTextAsync(Id, SearchText);
+    }
+
+    public void Back()
+    {
+        navigationManager.NavigateTo($"/forms/{Id}");
     }
 }

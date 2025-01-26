@@ -12,9 +12,19 @@ public class AnswerFacade : FacadeBase<AnswerEntity, AnswerListModel, AnswerDeta
     {
     }
 
-    public async Task<ICollection<AnswerDetailModel>> GetFormAnswersAsync(Guid formId)
+    public override async Task<Guid?> UpdateAsync(AnswerDetailModel detailModel, string? ownerId)
     {
-        var entity = await repository.GetFormAnswersAsync(formId);
-        return mapper.Map<List<AnswerDetailModel>>(entity);
+        var entity = mapper.Map<AnswerEntity>(detailModel);
+        entity.OwnerId = ownerId;
+
+        if (await ExistsAsync(detailModel.Id))
+        {
+            await ThrowIfWrongOwnerAsync(detailModel.Id, ownerId);
+            return await repository.UpdateAsync(entity);
+        }
+        else
+        {
+            return await repository.InsertAsync(entity);
+        }
     }
 }

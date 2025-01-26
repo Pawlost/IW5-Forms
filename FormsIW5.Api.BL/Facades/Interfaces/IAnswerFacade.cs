@@ -2,7 +2,6 @@
 
 namespace FormsIW5.Api.BL.Facades.Interfaces;
 
-public interface IAnswerFacade : IDetailFacade<AnswerDetailModel>, IListFacade<AnswerListModel>, ICreateFacade<AnswerCreateModel>
+public interface IAnswerFacade : IUpdateFacade<AnswerDetailModel>, IListFacade<AnswerListModel>, ICreateFacade<AnswerCreateModel>
 {
-    public Task<ICollection<AnswerDetailModel>> GetFormAnswersAsync(Guid formId);
 }

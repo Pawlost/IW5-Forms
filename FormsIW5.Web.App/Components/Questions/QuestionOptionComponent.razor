@@ -1,0 +1,7 @@
+﻿
+<div>
+    <InputText @bind-Value="@QuestionOption.QuestionOptionName" class="form-control" @onfocusout="UpdateQuestionOptionAsync" />
+    <button type="submit" class="btn-danger" @onclick="DeleteQuestionOptionAsync">
+        Delete
+    </button>
+</div>

@@ -1,3 +1,4 @@
+﻿using System.Web;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Models;
@@ -27,6 +28,8 @@ public class Index : PageModel
     [BindProperty]
     public InputModel Input { get; set; } = null!;
 
+    public string RegisterUrl { get; set; } 
+
     public Index(
         IIdentityServerInteractionService interaction,
         IAuthenticationSchemeProvider schemeProvider,
@@ -50,6 +53,8 @@ public class Index : PageModel
             // we only have one option for logging in and it's an external provider
             return RedirectToPage("/ExternalLogin/Challenge", new { scheme = View.ExternalLoginScheme, returnUrl });
         }
+
+        RegisterUrl = "./create?returnUrl=" + HttpUtility.UrlEncode(HttpContext.Request.Path + HttpContext.Request.QueryString);
 
         return Page();
     }
@@ -159,8 +164,7 @@ public class Index : PageModel
         }
 
         // something went wrong, show form with error
-        await BuildModelAsync(Input.ReturnUrl);
-        return Page();
+        return await OnGet(Input.ReturnUrl);
     }
 
     private async Task BuildModelAsync(string returnUrl)

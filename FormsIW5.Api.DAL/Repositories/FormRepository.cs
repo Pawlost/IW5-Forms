@@ -10,9 +10,11 @@ public class FormRepository : RepositoryBase<FormEntity>, IFormRepository
     : base(dbContext)
     {
     }
-    public override async Task<FormEntity?> GetByIdAsync(Guid id)
+
+    public async Task<FormEntity?> GetFormDetailAsync(Guid id) 
     {
-        return await dbContext.Set<FormEntity>().Include(f => f.Questions).ThenInclude(q => q.QuestionOptions).SingleOrDefaultAsync(entity => entity.Id == id);
+        return await dbContext.Set<FormEntity>().AsNoTracking().
+            Include(f => f.Questions).ThenInclude(q => q.QuestionOptions).SingleOrDefaultAsync(entity => entity.Id == id);
     }
 }
 

@@ -1,7 +1,11 @@
-﻿@page "/searchQuestions/{Id:guid}"
+﻿@page "/questions/search/{Id:guid}" 
 
 @using FormsIW5.Web.App.Components;
 @using FormsIW5.Web.App.Components.Questions
+
+<button type="submit" class="btn btn-success" @onclick="@Back">
+    Back
+</button>
 
 <h3>Search question for answers</h3>
 
@@ -21,6 +25,6 @@
 <div class="horizontal-selection-container">
     @foreach (var question in Questions)
     {
-        <QuestionCard QuestionListModel="question"/>
+        <QuestionDetailComponent Id="@question.Id" />
     }
 </div>

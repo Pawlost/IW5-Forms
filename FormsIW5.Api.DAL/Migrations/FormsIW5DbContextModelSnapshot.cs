@@ -17,7 +17,7 @@ namespace FormsIW5.Api.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.11")
+                .HasAnnotation("ProductVersion", "8.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -37,6 +37,9 @@ namespace FormsIW5.Api.DAL.Migrations
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("QuestionOptionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("TextAnswer")
                         .HasColumnType("nvarchar(max)");
 
@@ -53,21 +56,21 @@ namespace FormsIW5.Api.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime>("FormEndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FormName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("FormStartDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsPublished")
                         .HasColumnType("bit");
 
                     b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -86,7 +89,10 @@ namespace FormsIW5.Api.DAL.Migrations
                     b.Property<Guid>("FormId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("FromValue")
+                    b.Property<int>("MaxValue")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinValue")
                         .HasColumnType("int");
 
                     b.Property<string>("OwnerId")
@@ -96,9 +102,6 @@ namespace FormsIW5.Api.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("QuestionType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ToValue")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

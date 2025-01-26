@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-using FormsIW5.BL.Models.Common.Form;
-using FormsIW5.BL.Models.Common.Question;
+﻿using FormsIW5.BL.Models.Common.Form;
 using FormsIW5.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
 
@@ -10,4 +8,19 @@ public partial class FormCreatePage
 {
     [Parameter]
     public Guid Id { get; set; } = Guid.Empty;
+
+    [Inject]
+    private NavigationManager navigationManager { get; set; } = null!;
+
+    [Inject]
+    private FormFacade formFacade { get; set; } = null!;
+
+    public async Task CreateDraftAsync()
+    {
+        var createModel = FormCreateModel.Empty;
+        createModel.FormName = "New Form Draft";
+
+        var formId = await formFacade.FormPostAsync(createModel);
+        navigationManager.NavigateTo($"/forms/create/{formId}");
+    }
 }

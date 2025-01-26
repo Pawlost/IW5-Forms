@@ -2,13 +2,14 @@
 using FormsIW5.IdentityProvider.DAL.Entities;
 using FormsIW5.IdentityProvider.BL.Facades.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using FormsIW5.IdentityProvider.BL.Models.AppUser;
 using FormsIW5.BL.Models.Common.User;
+using FormsIW5.IdentityProvider.DAL.Repositories.Interfaces;
 
 namespace FormsIW5.IdentityProvider.BL.Facades;
 
 public class AppUserFacade(
     UserManager<AppUserEntity> userManager,
+    IAppUserRepository appUserRepository,
     IMapper mapper) : IAppUserFacade
 {
     public async Task<Guid?> CreateAppUserAsync(AppUserCreateModel appUserModel)
@@ -122,8 +123,16 @@ public class AppUserFacade(
 
     public async Task<IList<AppUserListModel>> SearchAsync(string searchString)
     {
-        //  var users = await appUserRepository.SearchAsync(searchString);
-        // return mapper.Map<List<AppUserListModel>>(new List[]);
-        throw new NotImplementedException();
+        var users = await appUserRepository.SearchAsync(searchString);
+        return mapper.Map<List<AppUserListModel>>(users);
+    }
+
+    public async Task DeleteUserAsync(Guid userId)
+    {
+        var user = await userManager.FindByIdAsync(userId.ToString());
+        if (user is not null)
+        {
+            await userManager.DeleteAsync(user);
+        }
     }
 }

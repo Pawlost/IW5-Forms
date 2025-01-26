@@ -6,4 +6,5 @@ public record AnswerEntity : EntityBase
     public int? IntegerAnswer { get; set; }
     public Guid QuestionId { get; set; }
     public QuestionEntity? Question { get; set; }
+    public Guid QuestionOptionId { get; set; }
 }

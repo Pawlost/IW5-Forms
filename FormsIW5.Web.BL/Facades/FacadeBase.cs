@@ -8,19 +8,17 @@ namespace FormsIW5.Web.BL.Facades
     {
         private readonly IHttpClientFactory clientFactory;
         protected readonly TClient client;
-        private readonly HttpClient originalClient;
 
         public FacadeBase(IHttpClientFactory clientFactory, TClient client)
         {
             this.client = client;
-            originalClient = client.HttpClient;
             this.clientFactory = clientFactory;
         }
 
-        protected void InitClient(string? clientName = null) {
+        protected void SwitchClient(string? clientName = null) {
             if (clientName is null)
             {
-                client.HttpClient = clientFactory.CreateClient(ClientNames.LogInClientName);
+                client.HttpClient = clientFactory.CreateClient(ClientNames.LogInApiClientName);
             } 
             else 
             {

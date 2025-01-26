@@ -1,5 +1,7 @@
 ﻿using FormsIW5.Common.Installer;
 using FormsIW5.IdentityProvider.DAL.Entities;
+using FormsIW5.IdentityProvider.DAL.Repositories.Interfaces;
+using FormsIW5.IdentityProvider.DAL.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +26,7 @@ public class IdentityProviderDALInstaller : IInstaller
 
         serviceCollection.AddDbContext<IdentityProviderDbContext>(options => options.UseSqlServer(connectionString, options => options.CommandTimeout(Timeout)));
 
+        serviceCollection.AddTransient<IAppUserRepository, AppUserRepository>();
 
         serviceCollection.AddScoped<IUserStore<AppUserEntity>, UserStore<AppUserEntity, AppRoleEntity, IdentityProviderDbContext, Guid, AppUserClaimEntity, AppUserRoleEntity, AppUserLoginEntity, AppUserTokenEntity, AppRoleClaimEntity>>();
         serviceCollection.AddScoped<IRoleStore<AppRoleEntity>, RoleStore<AppRoleEntity, IdentityProviderDbContext, Guid, AppUserRoleEntity, AppRoleClaimEntity>>();

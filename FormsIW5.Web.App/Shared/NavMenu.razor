@@ -16,7 +16,7 @@
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink href="/createForm" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
+                    <NavLink href="/forms/create" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
                         Create new form
                     </NavLink>
                 </li>
@@ -25,6 +25,15 @@
                         <Authorized>
                             <NavLink href="/userForms" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
                                 Your forms
+                            </NavLink>
+                        </Authorized>
+                    </AuthorizeView>
+                </li>
+                <li>
+                    <AuthorizeView Policy="AdminPolicy">
+                        <Authorized>
+                            <NavLink href="/users/manage" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
+                                Manage users
                             </NavLink>
                         </Authorized>
                     </AuthorizeView>

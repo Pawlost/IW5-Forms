@@ -2,9 +2,9 @@
 
 public record FormEntity : EntityBase
 {
-    public string FormName { get; set; } = "";
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
+    public required string FormName { get; set; } = "";
+    public required DateTime FormStartDate { get; set; }
+    public required DateTime FormEndDate { get; set; }
     public bool IsPublished { get; set; }
     public ICollection<QuestionEntity> Questions { get; set; } = [];
 }

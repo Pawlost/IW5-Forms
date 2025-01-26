@@ -2,8 +2,8 @@
 using Duende.IdentityServer.Extensions;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
+using FormsIW5.BL.Models.Common.User;
 using FormsIW5.IdentityProvider.BL.Facades.Interfaces;
-using FormsIW5.IdentityProvider.BL.Models.AppUser;
 
 namespace FormsIW5.IdentityProvider.App.Services;
 
