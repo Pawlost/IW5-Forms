@@ -6,12 +6,21 @@
 </button>
 
 <EditForm Model="@Model">
+    <Blazored.FluentValidation.FluentValidationValidator @ref="validator" />
+
+    <small class="form-text text-danger">
+        <ValidationSummary />
+    </small>
+
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label class="w-100">
                     Question Name:
-                    <InputText @bind-Value="@Model.QuestionText" class="form-control" @onfocusout="UpdateAsync" />
+                    <InputText @bind-Value="@Model.QuestionText" class="form-control" @onfocusout="CheckValidationAsync" />
+                    <small class="form-text text-danger">
+                        <ValidationMessage For="@(() => Model.QuestionText)" />
+                    </small>
                 </label>
             </div>
         </div>
@@ -22,7 +31,10 @@
             <div class="form-group">
                 <label class="w-100">
                     Question Description:
-                    <InputTextArea @bind-Value="@Model.Description" class="form-control" @onfocusout="UpdateAsync" />
+                    <InputTextArea @bind-Value="@Model.Description" class="form-control" @onfocusout="CheckValidationAsync" />
+                    <small class="form-text text-danger">
+                        <ValidationMessage For="@(() => Model.Description)" />
+                    </small>
                 </label>
             </div>
         </div>
@@ -32,12 +44,15 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label class="w-100 font-weight-bold">
-                    <InputSelect @bind-Value="Model.QuestionType" class="form-control" @onfocusout="UpdateAsync">
+                    <InputSelect @bind-Value="Model.QuestionType" class="form-control" @onfocusout="CheckValidationAsync">
                         @foreach (var foodType in Enum.GetValues<QuestionType>())
                         {
                             <option value="@foodType">@foodType.GetReadableName()</option>
                         }
                     </InputSelect>
+                    <small class="form-text text-danger">
+                        <ValidationMessage For="@(() => Model.QuestionType)" />
+                    </small>
                 </label>
             </div>
         </div>
@@ -45,10 +60,13 @@
 
     @if (Model.QuestionType == QuestionType.Multiselection)
     {
+        <small class="form-text text-danger">
+            <ValidationMessage For="@(() => Model.QuestionOptions)" />
+        </small>
         <div class="horizontal-selection-container">
             @foreach (var option in Model.QuestionOptions)
             {
-                <QuestionOptionComponent OnChanged="UpdateAsync" OnDelete="DeleteQuestionOptionAsync" QuestionOption="@option" />
+                <QuestionOptionComponent OnChanged="CheckValidationAsync" OnDelete="DeleteQuestionOptionAsync" QuestionOption="@option" />
             }
         </div>
         <button @onclick="@AddQuestionOptionAsync">Add Option</button>
@@ -62,9 +80,15 @@
                 </label>
                 <div class="input-group">
                     <div class="p-2">Min:</div>
-                    <InputNumber min="0" @bind-Value="Model.FromValue" class="form-control" id="durationInput" @onfocusout="UpdateAsync" />
+                    <InputNumber min="0" @bind-Value="Model.MinValue" class="form-control" id="durationInput" @onfocusout="CheckValidationAsync" />
+                    <small class="form-text text-danger">
+                        <ValidationMessage For="@(() => Model.MinValue)" />
+                    </small>
                     <div class="p-2">Max:</div>
-                    <InputNumber min="0" @bind-Value="Model.ToValue" class="form-control" @onfocusout="UpdateAsync" />
+                    <InputNumber min="0" @bind-Value="Model.MaxValue" class="form-control" @onfocusout="CheckValidationAsync" />
+                    <small class="form-text text-danger">
+                        <ValidationMessage For="@(() => Model.MaxValue)" />
+                    </small>
                 </div>
             </div>
         </div>

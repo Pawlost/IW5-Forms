@@ -1,4 +1,5 @@
-﻿using FormsIW5.BL.Models.Common.AnswerSelection;
+﻿using Blazored.FluentValidation;
+using FormsIW5.BL.Models.Common.AnswerSelection;
 using FormsIW5.BL.Models.Common.Question;
 using FormsIW5.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
@@ -13,7 +14,7 @@ public partial class QuestionEditComponent
     [Parameter]
     public Guid QuestionId { get; set; }
 
-    private QuestionEditModel Model { get; set; } = new();
+    private QuestionEditModel Model { get; set; } = new() {Id = new Guid() };
 
     [Inject]
     private QuestionFacade QuestionFacade { get; set; } = null!;
@@ -21,10 +22,25 @@ public partial class QuestionEditComponent
     [Inject]
     private QuestionOptionFacade QuestionOptionFacade { get; set; } = null!;
 
+    private FluentValidationValidator? validator;
+
+    private async Task CheckValidationAsync()
+    {
+        if (validator != null)
+        {
+            var isValid = await validator.ValidateAsync();
+            if (isValid)
+            {
+                await UpdateAsync();
+            }
+        }
+    }
+
     protected override async Task OnInitializedAsync()
     {
         Model = await QuestionFacade.ListAsync(QuestionId);
         await base.OnInitializedAsync();
+        await CheckValidationAsync();
     }
 
     public async Task UpdateAsync() {
@@ -43,6 +59,7 @@ public partial class QuestionEditComponent
     {
         Model.QuestionOptions.Remove(model);
         await QuestionOptionFacade.QuestionOptionDeleteAsync(model.Id);
+        await CheckValidationAsync();
         StateHasChanged();
     }
 

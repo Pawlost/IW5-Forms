@@ -15,7 +15,7 @@
     <div class="form-group">
         <label class="w-100">
             Form name:
-            <InputText @bind-Value="@EditForm.FormName" class="form-control" @onfocusout="CheckValidation" />
+            <InputText @bind-Value="@EditForm.FormName" class="form-control" @onfocusout="CheckValidationAsync" />
             <small class="form-text text-danger">
                 <ValidationMessage For="@(() => EditForm.FormName)" />
             </small>
@@ -25,7 +25,7 @@
     <div class="form-group">
         <label class="w-100">
             Start date:
-            <InputDate @bind-Value="@EditForm.FormStartDate" class="form-control" @onfocusout="CheckValidation" />
+            <InputDate @bind-Value="@EditForm.FormStartDate" class="form-control" @onfocusout="CheckValidationAsync" />
             <small class="form-text text-danger">
                 <ValidationMessage For="@(() => EditForm.FormStartDate)" />
             </small>
@@ -35,7 +35,7 @@
     <div class="form-group">
         <label class="w-100">
             End date:
-            <InputDate @bind-Value="@EditForm.FormEndDate" class="form-control" @onfocusout="CheckValidation" />
+            <InputDate @bind-Value="@EditForm.FormEndDate" class="form-control" @onfocusout="CheckValidationAsync" />
             <small class="form-text text-danger">
                 <ValidationMessage For="@(() => EditForm.FormEndDate)" />
             </small>

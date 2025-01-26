@@ -27,7 +27,7 @@ public partial class FormEditComponent
 
     private FluentValidationValidator? validator;
 
-    private async Task CheckValidation()
+    private async Task CheckValidationAsync()
     {
         if (validator != null)
         {

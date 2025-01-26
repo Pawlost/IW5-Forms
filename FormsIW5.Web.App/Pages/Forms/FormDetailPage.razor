@@ -50,7 +50,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <input class="mx-3" type="range" min="@question.FromValue" max="@question.ToValue" @bind=@question.Answer.IntegerAnswer @bind:event="oninput" />
+                                                    <input class="mx-3" type="range" min="@question.MinValue" max="@question.MaxValue" @bind=@question.Answer.IntegerAnswer @bind:event="oninput" />
                                                     <span class="ms-4">@question.Answer.IntegerAnswer</span>
                                                 </div>
                                             </div>

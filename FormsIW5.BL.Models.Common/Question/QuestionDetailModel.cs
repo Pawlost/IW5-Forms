@@ -10,8 +10,8 @@ public record QuestionDetailModel : IModel
 {
     public Guid Id { get; init; }
     public string? QuestionText { get; set; }
-    public int FromValue { get; set; }
-    public int ToValue { get; set; }
+    public int MinValue { get; set; }
+    public int MaxValue { get; set; }
     public QuestionType QuestionType { get; set; }
     public string? Description { get; set; }
 
