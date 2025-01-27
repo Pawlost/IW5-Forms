@@ -11,7 +11,6 @@ public class QuestionMapperProfile : Profile
         CreateMap<QuestionEntity, QuestionEditModel>().ReverseMap(); 
         CreateMap<QuestionEntity, QuestionListModel>();
         CreateMap<QuestionEntity, QuestionDetailModel>();
-        CreateMap<QuestionEntity, QuestionAnswerModel>().ForMember(desc => desc.Answer, src => src.Ignore());
         CreateMap<QuestionCreateModel, QuestionEntity>();
     }
 }

@@ -1,6 +1,8 @@
 ﻿using FormsIW5.Api.App.Extensions;
+using FormsIW5.Api.App.Filters;
 using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.BL.Models.Common.Answer;
+using FormsIW5.BL.Models.Common.Form;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormsIW5.Api.App.Endpoints;
@@ -17,6 +19,20 @@ public static class AnswerEndpoints
         //Get list model By Id
         group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<AnswerListModel> facade) => await facade.GetSingleListModelByIdAsync(id));
 
+        //Get list model By Id
+        group.MapGet("getUserAnswer/{questionId:guid}", async (Guid questionId, [FromServices] IAnswerFacade facade, IHttpContextAccessor httpContextAccessor) =>
+        {
+            var userId = EndpointExtensions.GetUserId(httpContextAccessor);
+            return await facade.GetUserAnswer(questionId, userId);
+        });
+
+        //Get list model By Id
+        group.MapGet("isUserAnswer/{questionId:guid}", async (Guid questionId, [FromServices] IAnswerFacade facade, IHttpContextAccessor httpContextAccessor) =>
+        {
+            var userId = EndpointExtensions.GetUserId(httpContextAccessor);
+            return await facade.HasQuestionUserAnswer(questionId, userId);
+        });
+
         //Get detail By Id
         group.MapGet("{id:guid}", async (Guid id, [FromServices] IUpdateFacade<AnswerDetailModel> facade) => await facade.GetByIdAsync(id));
 
@@ -32,7 +48,7 @@ public static class AnswerEndpoints
         {
             var userId = EndpointExtensions.GetUserId(httpContextAccessor);
             await facade.UpdateAsync(answer, userId);
-        });
+        }).AddEndpointFilter<ValidationFilter<AnswerDetailModel>>();
 
         // Delete
         group.MapDelete("{id:guid}", async (Guid id, [FromServices] IUpdateFacade<AnswerDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>

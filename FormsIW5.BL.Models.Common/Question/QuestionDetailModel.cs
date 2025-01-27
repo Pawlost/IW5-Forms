@@ -14,6 +14,7 @@ public record QuestionDetailModel : IModel
     public int MaxValue { get; set; }
     public QuestionType QuestionType { get; set; }
     public string? Description { get; set; }
+    public bool IsRequired { get; set; }
 
     [Required]
     public Guid FormId { get; set; }

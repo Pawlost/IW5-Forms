@@ -8,8 +8,19 @@ namespace FormsIW5.Api.BL.Facades;
 
 public class AnswerFacade : FacadeBase<AnswerEntity, AnswerListModel, AnswerDetailModel, AnswerCreateModel, IAnswerRepository>, IAnswerFacade
 {
-    public AnswerFacade(IAnswerRepository repository, IMapper mapper) : base(repository, mapper)
+    public AnswerFacade(IAnswerRepository repository, IMapper mapper, IQuestionRepository questionRepository) : base(repository, mapper)
     {
+    }
+
+    public async Task<bool> HasQuestionUserAnswer(Guid questionId, string? userId) {
+        return await repository.HasQuestionUserAnswer(questionId, userId);
+    }
+
+    public async Task<AnswerDetailModel> GetUserAnswer(Guid questionId, string? userId)
+    {
+
+        var answerEntity = await repository.GetUserAnswerAsync(questionId, userId);
+        return mapper.Map<AnswerDetailModel>(answerEntity);
     }
 
     public override async Task<Guid?> UpdateAsync(AnswerDetailModel detailModel, string? ownerId)

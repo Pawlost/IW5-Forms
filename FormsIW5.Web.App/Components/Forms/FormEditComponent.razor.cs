@@ -53,7 +53,10 @@ public partial class FormEditComponent
     }
     public async Task AddQuestionAsync()
     {
-        var draftQuestion = new QuestionCreateModel() { QuestionText = "Draft question", FormId = FormId };
+        var draftQuestion = QuestionCreateModel.Empty;
+        draftQuestion.QuestionText = "Draft question";
+        draftQuestion.FormId = FormId;
+
         var questionId = await QuestionFacade.QuestionPostAsync(draftQuestion);
         QuestionsIds.Add(questionId);
     }

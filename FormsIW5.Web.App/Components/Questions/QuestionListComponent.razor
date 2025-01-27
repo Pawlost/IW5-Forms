@@ -1,0 +1,18 @@
+﻿<div class="row">
+    <div class="col-md">
+        <div class="bg-sec h-100 rounded">
+            @if (Questions.Count != 0)
+            {
+                @foreach (var question in Questions)
+                {
+                    <p>Question: @question.QuestionText</p>
+                    <p>Question Type: @question.QuestionType</p>
+                }
+            }
+            else
+            {
+                <p>This form has no questions</p>
+            }
+        </div>
+    </div>
+</div>

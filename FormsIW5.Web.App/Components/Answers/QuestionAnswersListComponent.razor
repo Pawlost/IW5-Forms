@@ -1,0 +1,71 @@
+﻿@using FormsIW5.Common.Enums
+<div class="row">
+    <div class="col-md">
+        <div class="bg-sec h-100 rounded">
+            @if (Questions.Count != 0)
+            {
+
+                <EditForm Model="@Answers" OnValidSubmit="@SubmitAnswerAsync">
+                    <Blazored.FluentValidation.FluentValidationValidator @ref="validator" />
+                    @foreach (var answer in Answers)
+                    {
+                        <div class="horizontal-selection-container">
+                            <h4>@answer.Question.QuestionText</h4>
+                            @if (answer.Question.QuestionType == QuestionType.RangeType)
+                            {
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input class="mx-3" type="range" min="@answer.Question.MinValue" max="@answer.Question.MaxValue" @bind=@answer.IntegerAnswer @bind:event="oninput" />
+                                            <span class="ms-4">@answer.IntegerAnswer</span>
+                                            <small class="form-text text-danger">
+                                                <ValidationMessage For="@(() => answer.IntegerAnswer)" />
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else if (answer.Question.QuestionType == QuestionType.Multiselection)
+                            {
+                                <AnswersMultiselectionComponent InitialSelectedQuestionOption=answer?.QuestionOptionId QuestionOptions=@answer?.Question.QuestionOptions OnSelected=OnQuestionOptionMultiselection QuestionId=@answer.Question.Id />
+                                <small class="form-text text-danger">
+                                    <ValidationMessage For="@(() => answer.QuestionOptionId)" />
+                                </small>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <InputText width="100px" placeholder="Your Answer" @bind-Value="@answer.TextAnswer" class="form-control" />
+                                            <small class="form-text text-danger">
+                                                <ValidationMessage For="@(() => answer.TextAnswer)" />
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+
+                    <button type="submit" class="btn btn-success">
+                        Answer
+                    </button>
+
+                    @if (AnswerStatus == AnswerState.Submitted)
+                    {
+                        <p>Answer submitted</p>
+                    }
+                    else if (AnswerStatus == AnswerState.Updated)
+                    {
+                        <p>Answer updated</p>
+                    }
+                </EditForm>
+            }
+            else
+            {
+                <p>This form has no questions</p>
+            }
+        </div>
+    </div>
+</div>

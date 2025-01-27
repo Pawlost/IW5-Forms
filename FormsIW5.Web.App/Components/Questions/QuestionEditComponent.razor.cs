@@ -1,6 +1,7 @@
 ﻿using Blazored.FluentValidation;
 using FormsIW5.BL.Models.Common.AnswerSelection;
 using FormsIW5.BL.Models.Common.Question;
+using FormsIW5.Common.Enums;
 using FormsIW5.Web.BL.Facades;
 using Microsoft.AspNetCore.Components;
 
@@ -14,7 +15,7 @@ public partial class QuestionEditComponent
     [Parameter]
     public Guid QuestionId { get; set; }
 
-    private QuestionEditModel Model { get; set; } = new() {Id = new Guid() };
+    private QuestionEditModel Model { get; set; } = new() {Id = new Guid(), QuestionType = QuestionType.TextType };
 
     [Inject]
     private QuestionFacade QuestionFacade { get; set; } = null!;

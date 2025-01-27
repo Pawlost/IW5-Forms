@@ -4,5 +4,7 @@ namespace FormsIW5.Api.DAL.Common.Repositories;
 
 public interface IAnswerRepository : IApiRepository<AnswerEntity>
 {
-    Task<AnswerEntity?> GetAnswerByOwnerIdAsync(Guid questionId, string ownerId);
+    Task<bool> HasQuestionUserAnswer(Guid questionId, string? userId);
+
+    Task<AnswerEntity> GetUserAnswerAsync(Guid questionId, string? userId);
 }
