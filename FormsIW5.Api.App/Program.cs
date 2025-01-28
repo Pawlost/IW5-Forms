@@ -91,7 +91,8 @@ public class Program
         endpoints.AddFormEndpoints()
             .AddQuestionEndpoints()
             .AddAnswerEndpoints()
-            .AddQuestionOptionEndpoints();
+            .AddQuestionOptionEndpoints()
+            .AddUtilEndpoints();
     }
 
     public static void ConfigureAuthentication(IServiceCollection serviceCollection, IConfiguration? configuration)
@@ -108,6 +109,7 @@ public class Program
             {
                 options.Authority = apiBaseUrl;
                 options.TokenValidationParameters.ValidateAudience = false;
+                options.TokenValidationParameters.RoleClaimType = "role";
             });
 
         serviceCollection.AddAuthorizationBuilder()
