@@ -10,6 +10,5 @@ public class QuestionOptionMapperProfile : Profile
     {
         CreateMap<QuestionOptionEntity, QuestionOptionListModel>().ReverseMap();
         CreateMap<QuestionOptionEntity, QuestionOptionDetailModel>().ReverseMap();
-        CreateMap<QuestionOptionCreateModel, QuestionOptionEntity>();
     }
 }

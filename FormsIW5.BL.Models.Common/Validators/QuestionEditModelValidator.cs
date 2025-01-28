@@ -16,7 +16,7 @@ public class QuestionEditModelValidator : AbstractValidator<QuestionEditModel>
         RuleFor(q => q.QuestionText).NotEmpty();
 
         RuleFor(q => q.QuestionType).IsInEnum();
-        RuleFor(q => q.MinValue).NotEmpty().When(q => q.QuestionType == QuestionType.RangeType).WithMessage("Min range value must be set for range type");
-        RuleFor(q => q.MaxValue).NotEmpty().GreaterThan(q => q.MinValue).When(q => q.QuestionType == QuestionType.RangeType).WithMessage("Max range value must be greater than min range value for range type");
+        RuleFor(q => q.MinValue).NotNull().When(q => q.QuestionType == QuestionType.RangeType).WithMessage("Min range value must be set for range type");
+        RuleFor(q => q.MaxValue).NotNull().GreaterThan(q => q.MinValue).When(q => q.QuestionType == QuestionType.RangeType).WithMessage("Max range value must be greater than min range value for range type");
     }
 }

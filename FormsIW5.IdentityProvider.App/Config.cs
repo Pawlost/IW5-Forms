@@ -24,7 +24,7 @@ namespace FormsIW5.IdentityProvider.App
 
         public static IEnumerable<ApiResource> ApiResources =>
         [
-            new ("cookbookclientaudience")
+            new ("iw5FormsAudience")
         ];
 
         public static IEnumerable<ApiScope> ApiScopes =>

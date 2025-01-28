@@ -9,7 +9,7 @@ public class AnswerMapperProfile : Profile
     public AnswerMapperProfile() 
     {
         CreateMap<AnswerEntity, AnswerListModel>();
-        CreateMap<AnswerEntity, AnswerDetailModel>().ReverseMap();
+        CreateMap<AnswerEntity, AnswerDetailModel>().ForMember(dest => dest.Question, opt => opt.Ignore()).ReverseMap().ForMember(dest => dest.Question, opt => opt.Ignore());
         CreateMap<AnswerCreateModel, AnswerEntity>();
     }
 }

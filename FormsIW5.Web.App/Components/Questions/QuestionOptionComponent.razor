@@ -1,6 +1,12 @@
 ﻿
 <div>
-    <InputText @bind-Value="@QuestionOption.QuestionOptionName" class="form-control" @onfocusout="UpdateQuestionOptionAsync" />
+    <EditForm Model="@QuestionOption">
+    <Blazored.FluentValidation.FluentValidationValidator @ref="validator" />
+        <InputText @bind-Value="@QuestionOption.QuestionOptionName" class="form-control" @onfocusout="CheckValidationAsync" />
+        <small class="form-text text-danger">
+            <ValidationMessage For="@(() => QuestionOption.QuestionOptionName)" />
+        </small>
+    </EditForm>
     <button type="submit" class="btn-danger" @onclick="DeleteQuestionOptionAsync">
         Delete
     </button>

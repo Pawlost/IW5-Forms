@@ -8,31 +8,40 @@ public class AnswerFacade : FacadeBase<IAnswerApiClient>
     {
     }
 
-    public async Task<ICollection<AnswerListModel>> AnswerGetAsync()
+    public async Task<ICollection<AnswerListModel>> GetAnswerAsync()
     {
         return await client.AnswerGetAsync();
     }
 
-    public async Task<Guid> AnswerPostAsync(AnswerCreateModel createModel)
+    public async Task<AnswerDetailModel> GetUserAnswerAsync(Guid questionId)
+    {
+        return await client.GetUserAnswerAsync(questionId);
+    }
+    public async Task<bool> GetHasUserAnsweredAsync(Guid questionId)
+    {
+        return await client.IsUserAnswerAsync(questionId);
+    }
+
+    public async Task<Guid> PostAnswerAsync(AnswerCreateModel createModel)
     {
         return await client.AnswerPostAsync(createModel);
     }
 
-    public async Task AnswerPutAsync(AnswerDetailModel model)
+    public async Task PutAnswerAsync(AnswerDetailModel model)
     {
         await client.AnswerPutAsync(model);
     }
 
-    public async Task<AnswerListModel> ListAsync(Guid id)
+    public async Task<AnswerListModel> ListAnswerAsync(Guid id)
     {
         return await client.ListAsync(id);
     }
-    public async Task<AnswerDetailModel> AnswerGetAsync(Guid id)
+    public async Task<AnswerDetailModel> GetAnswerAsync(Guid id)
     {
         return await client.AnswerGetAsync(id);
     }
 
-    public async Task AnswerDeleteAsync(Guid id)
+    public async Task DeleteAnswerAsync(Guid id)
     {
         await client.AnswerDeleteAsync(id);
     }

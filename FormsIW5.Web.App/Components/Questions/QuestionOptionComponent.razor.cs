@@ -1,7 +1,6 @@
-﻿using FormsIW5.BL.Models.Common.AnswerSelection;
+﻿using Blazored.FluentValidation;
+using FormsIW5.BL.Models.Common.AnswerSelection;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-
 namespace FormsIW5.Web.App.Components.Questions;
 
 public partial class QuestionOptionComponent
@@ -15,7 +14,21 @@ public partial class QuestionOptionComponent
     [Parameter]
     public required EventCallback<QuestionOptionListModel> OnDelete { get; set; }
 
-    private async Task UpdateQuestionOptionAsync(FocusEventArgs e)
+    private FluentValidationValidator? validator;
+
+    private async Task CheckValidationAsync()
+    {
+        if (validator != null)
+        {
+            var isValid = await validator.ValidateAsync();
+            if (isValid)
+            {
+                await UpdateQuestionOptionAsync();
+            }
+        }
+    }
+
+    private async Task UpdateQuestionOptionAsync()
     {
         await OnChanged.InvokeAsync();
     }

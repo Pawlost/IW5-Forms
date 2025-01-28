@@ -10,5 +10,5 @@ public record FormDetailModel : IModel
     public DateTime FormStartDate { get; set; }
     public DateTime FormEndDate { get; set; }
     public bool IsOwner { get; set; }
-    public ICollection<QuestionAnswerModel> Questions { get; set; } = [];
+    public ICollection<QuestionListModel> Questions { get; set; } = [];
 }

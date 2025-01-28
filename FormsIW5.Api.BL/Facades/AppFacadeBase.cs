@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using FormsIW5.Api.BL.Facades.Interfaces;
+﻿using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Api.DAL.Common.Entities.Interfaces;
+using FormsIW5.Api.DAL.Common.Queries;
 using FormsIW5.Api.DAL.Common.Repositories;
 
 namespace FormsIW5.Api.BL.Facades;
@@ -18,16 +18,23 @@ public class AppFacadeBase<TRepository, TEntity> : IAppFacadeBase
         this.repository = repository;
     }
 
-    protected async Task ThrowIfWrongOwnerAsync(Guid id, string? ownerId)
+    protected async Task ThrowIfWrongOwnerAsync(Guid id, OwnerQueryObject ownerQuery)
     {
-        if (ownerId is not null)
+        if (ownerQuery.IsAdmin is true)
+        {
+            return;
+        }
+
+        if (ownerQuery.OwnerId is not null)
         {
             var entity = await repository.GetByIdAsync(id);
-            if (entity?.OwnerId != ownerId)
+            if (entity?.OwnerId == ownerQuery.OwnerId)
             {
-                throw new UnauthorizedAccessException();
+                return;
             }
         }
+
+        throw new UnauthorizedAccessException();
     }
 
     public async Task<bool> ExistsAsync(Guid id)
@@ -35,9 +42,9 @@ public class AppFacadeBase<TRepository, TEntity> : IAppFacadeBase
         return await repository.ExistsAsync(id);
     }
 
-    public async Task DeleteAsync(Guid id, string? ownerId)
+    public async Task DeleteAsync(Guid id, OwnerQueryObject ownerQuery)
     {
-        await ThrowIfWrongOwnerAsync(id, ownerId);
+        await ThrowIfWrongOwnerAsync(id, ownerQuery);
         await repository.RemoveAsync(id);
     }
 }

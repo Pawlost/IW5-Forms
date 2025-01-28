@@ -12,8 +12,7 @@ public static class QuestionOptionEndpoints
 
         // Delete
         group.MapDelete("{id:guid}", async (Guid id, [FromServices] IQuestionOptionFacade facade, IHttpContextAccessor httpContextAccessor) => {
-            var userId = EndpointExtensions.GetUserId(httpContextAccessor);
-            await facade.DeleteAsync(id, userId);
+            await facade.DeleteAsync(id, httpContextAccessor.ToUserQuery());
         });
 
         return endpointRoute;

@@ -8,6 +8,7 @@ public record QuestionEntity : EntityBase
     public string? Description { get; set; }
     public int MinValue { get; set; }
     public int MaxValue { get; set; }
+    public bool IsRequired { get; set; }
     public QuestionType QuestionType { get; set; }
     public Guid FormId { get; set; }
     public FormEntity? Form { get; set; }

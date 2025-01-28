@@ -21,15 +21,6 @@
                     </NavLink>
                 </li>
                 <li>
-                    <AuthorizeView>
-                        <Authorized>
-                            <NavLink href="/userForms" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
-                                Your forms
-                            </NavLink>
-                        </Authorized>
-                    </AuthorizeView>
-                </li>
-                <li>
                     <AuthorizeView Policy="AdminPolicy">
                         <Authorized>
                             <NavLink href="/users/manage" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">

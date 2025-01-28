@@ -14,8 +14,6 @@ builder.Services.Install<ValidatorInstaller>(builder.Configuration);
 
 builder.Services.AddTransient<AuthorizationMessageHandler>();
 
-const string scope = "iw5FormsScope";
-
 var apiBaseUrl = builder.Configuration.GetValue<Uri>("ApiBaseUrl");
 
 builder.Services.AddHttpClient(ClientNames.LogInApiClientName, client => client.BaseAddress = apiBaseUrl)
@@ -23,7 +21,7 @@ builder.Services.AddHttpClient(ClientNames.LogInApiClientName, client => client.
     => serviceProvider?.GetService<AuthorizationMessageHandler>()!
     .ConfigureHandler(
             authorizedUrls: [apiBaseUrl.ToString()],
-            scopes: [scope])
+            scopes: ["iw5FormsScope", "offline_access"])
     );
 
 builder.Services.AddHttpClient(ClientNames.AnonymousClientName, client => client.BaseAddress = apiBaseUrl);
@@ -39,19 +37,14 @@ if (identityUrl is not null)
     => serviceProvider?.GetService<AuthorizationMessageHandler>()!
     .ConfigureHandler(
             authorizedUrls: [identityUrl.ToString()],
-            scopes: [scope]));
+            scopes: ["iw5FormsScope", "offline_access"]));
 }
 
 builder.Services.AddOidcAuthentication(options =>
 {
     builder.Configuration?.Bind("IdentityProvider", options.ProviderOptions);
-    options.ProviderOptions.DefaultScopes.Add(scope);
-});
-
-builder.Services.AddAuthorizationCore(options =>
-{
-    options.AddPolicy("AdminPolicy", policy =>
-        policy.RequireClaim("sub", "admin"));
+    options.ProviderOptions.DefaultScopes.Add("offline_access");
+    options.ProviderOptions.DefaultScopes.Add("iw5FormsScope");
 });
 
 var host = builder.Build();

@@ -1,6 +1,8 @@
 ﻿@page "/forms/{Id:guid}"
 
 @using FormsIW5.Web.App.Components;
+@using FormsIW5.Web.App.Components.Answers
+@using FormsIW5.Web.App.Components.Questions
 
 <button type="submit" class="btn btn-success" @onclick="@Back">
     Back
@@ -8,7 +10,7 @@
 
 <AuthorizeView>
     <Authorized>
-        @if (FormModel.IsOwner)
+        @if (Model.IsOwner || IsAdmin)
         {
         <button type="submit" class="btn btn-success" @onclick="@Edit">
             Edit
@@ -25,85 +27,19 @@
 
 <h3>Form Detail</h3>
 
-<h1>@FormModel.FormName</h1>
-<h1>@FormModel.FormStartDate</h1>
-<h1>@FormModel.FormEndDate</h1>
+<h1>@Model.FormName</h1>
+<h1>@Model.FormStartDate</h1>
+<h1>@Model.FormEndDate</h1>
 
 <h3>QuestionsList</h3>
-@using FormsIW5.Common.Enums
-@using FormsIW5.Web.App.Components.Answers
-
-<div class="row">
-    <div class="col-md">
-        <div class="bg-sec h-100 rounded">
-            @if (FormModel.Questions.Count != 0)
-            {
-                <FormEdit Model="@FormModel">
-                    @foreach (var question in FormModel.Questions)
-                    {
-                        <AuthorizeView>
-                            <Authorized>
-                                <div class="horizontal-selection-container">
-                                    <h4>@question.QuestionText</h4>
-                                    @if (question.QuestionType == QuestionType.RangeType)
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <input class="mx-3" type="range" min="@question.MinValue" max="@question.MaxValue" @bind=@question.Answer.IntegerAnswer @bind:event="oninput" />
-                                                    <span class="ms-4">@question.Answer.IntegerAnswer</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else if (question.QuestionType == QuestionType.Multiselection)
-                                    {
-                                        <AnswersMultiselectionComponent InitialSelectedQuestionOption=question.Answer?.QuestionOptionId QuestionOptions=@question.QuestionOptions OnSelected=OnQuestionOptionMultiselection QuestionId=@question.Id />
-                                    }                                                    
-                                    else
-                                    {
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <InputText width="100px" placeholder="Your Answer" @bind-Value="@question.Answer.TextAnswer" class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                            </Authorized>
-                            <NotAuthorized>
-                                <p>@question.QuestionText</p>
-                            </NotAuthorized>
-                        </AuthorizeView>
-                    }
-                </FormEdit>
-            }
-            else
-            {
-                <p>This form has no questions</p>    
-            }
-        </div>
-    </div>
-</div>
 
 <AuthorizeView>
     <Authorized>
-        <button type="submit" class="btn btn-success" @onclick="@SubmitAnswerAsync">
-            Answer
-        </button>
-
-        @if (AnswerStatus == AnswerState.Submitted)
-        {
-            <p>Answer submitted</p>
-        } 
-        else if (AnswerStatus == AnswerState.Updated)
-        {
-            <p>Answer updated</p>
-        }
+        <QuestionAnswersListComponent Questions="Model.Questions"/>
     </Authorized>
     <NotAuthorized>
-        <p>You must be signed in to create a new form.</p>
+        <QuestionListComponent Questions="Model.Questions"/>
+        <p>You must be signed in to answer questions.</p>
         <a href="authentication/login" class="nav-link font-weight-bold">Log in</a>
     </NotAuthorized>
 </AuthorizeView>
