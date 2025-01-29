@@ -77,6 +77,7 @@ public class Index : PageModel
                 Password = Input.Password,
                 Email = Input.Email,
                 Subject = Input.Username,
+                ProfilePictureUrl = Input.ProfilePictureUrl
             };
             var user = await appUserFacade.CreateAppUserAsync(appUserCreateModel);
 

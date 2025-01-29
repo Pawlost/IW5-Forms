@@ -7,6 +7,7 @@ public class AppUserCreateModel
     public string UserName { get; set; } = null!;
     [Required]
     public string Password { get; set; } = null!;
+    public string? ProfilePictureUrl { get; set; }
     public string? Subject { get; set; }
     public string? Email { get; set; }
     public string? GivenName { get; set; }

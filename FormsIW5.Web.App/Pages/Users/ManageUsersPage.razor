@@ -10,16 +10,42 @@
 
             <div class="form-group">
                 <InputText placeholder="UserName" @bind-Value="@NewUser.UserName" class="form-control" autofocus />
+                <small class="form-text text-danger">
+                    <ValidationMessage For="@(() => NewUser.UserName)" />
+                </small>
             </div>
             <div class="form-group">
                 <InputText type="password" placeholder="Password" @bind-Value="@NewUser.Password" class="form-control" autocomplete="off" />
+                <small class="form-text text-danger">
+                    <ValidationMessage For="@(() => NewUser.Password)" />
+                </small>
             </div>
             <div class="form-group">
                 <InputText placeholder="Name" @bind-Value="@NewUser.Subject" class="form-control" />
+                <small class="form-text text-danger">
+                    <ValidationMessage For="@(() => NewUser.Subject)" />
+                </small>
             </div>
             <div class="form-group">
                 <InputText type="email" placeholder="Email" @bind-Value="@NewUser.Email" class="form-control" />
+                <small class="form-text text-danger">
+                    <ValidationMessage For="@(() => NewUser.Email)" />
+                </small>
             </div>
+
+            <div class="form-group">
+                <label class="w-100">
+                    <InputText placeholder="ImageUrl" @bind-Value="@NewUser.ProfilePictureUrl" class="form-control" />
+                    <small class="form-text text-danger">
+                        <ValidationMessage For="@(() => NewUser.ProfilePictureUrl)" />
+                    </small>
+                </label>
+                <img src="@NewUser.ProfilePictureUrl" height="100px" />
+                <small class="form-text text-danger">
+                    <ValidationMessage For="@(() => NewUser.ProfilePictureUrl)" />
+                </small>
+            </div>
+
             
             <button type="submit" class="btn btn-success">Create</button>
 

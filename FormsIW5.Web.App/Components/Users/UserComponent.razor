@@ -1,6 +1,9 @@
 ﻿
 <div class="form-card">
     <h4>Username: @User.UserName </h4>
+    <h4>Profile Picture:</h4>
+    <img src="@User.ProfilePictureUrl" height="100px" />
+
     <button type="submit" class="btn-danger" @onclick="DeleteQuestionOptionAsync">
         Delete
     </button>
