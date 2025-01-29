@@ -1,10 +1,14 @@
-﻿namespace FormsIW5.BL.Models.Common.User;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FormsIW5.BL.Models.Common.User;
 public class AppUserCreateModel
 {
-    public required string UserName { get; set; }
-    public required string Password { get; set; }
-    public required string Subject { get; set; }
-    public required string Email { get; set; }
+    [Required]
+    public string UserName { get; set; } = null!;
+    [Required]
+    public string Password { get; set; } = null!;
+    public string? Subject { get; set; }
+    public string? Email { get; set; }
     public string? GivenName { get; set; }
     public string? FamilyName { get; set; }
 }

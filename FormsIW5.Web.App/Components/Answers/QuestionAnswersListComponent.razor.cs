@@ -29,8 +29,6 @@ public partial class QuestionAnswersListComponent
 
     private ICollection<AnswerDetailModel> Answers { get; set; } = [];
 
-    private FluentValidationValidator? validator;
-
     protected override async Task OnParametersSetAsync()
     {
         Answers.Clear();
