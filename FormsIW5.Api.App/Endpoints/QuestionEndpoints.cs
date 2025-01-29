@@ -1,6 +1,8 @@
 ﻿using FormsIW5.Api.App.Extensions;
+using FormsIW5.Api.App.Filters;
 using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.Api.DAL.Common.Queries;
+using FormsIW5.BL.Models.Common.Form;
 using FormsIW5.BL.Models.Common.Question;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,13 +42,13 @@ public static class QuestionEndpoints
         group.MapPost("", async (QuestionCreateModel newQuestion, [FromServices] ICreateFacade<QuestionCreateModel> facade, IHttpContextAccessor httpContextAccessor) => 
         {
             return await facade.CreateAsync(newQuestion, httpContextAccessor.ToUserQuery());
-        });
+        }).AddEndpointFilter<ValidationFilter<QuestionCreateModel>>(); ;
 
         // Update
         group.MapPut("/update", async (QuestionEditModel question, [FromServices] IQuestionFacade facade, IHttpContextAccessor httpContextAccessor) =>
         {
             await facade.UpdateListQuestion(question, httpContextAccessor.ToUserQuery());
-        });
+        }).AddEndpointFilter<ValidationFilter<QuestionEditModel>>();
 
         // Delete
         group.MapDelete("{id:guid}", async (Guid id, [FromServices] IUpdateFacade<QuestionDetailModel> facade, IHttpContextAccessor httpContextAccessor) => {

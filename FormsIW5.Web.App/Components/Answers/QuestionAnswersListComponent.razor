@@ -5,9 +5,9 @@
             @if (Questions.Count != 0)
             {
 
-                <EditForm Model="@Answers" OnValidSubmit="@SubmitAnswerAsync">
+                <EditForm Model="@AnswersModel" OnValidSubmit="@SubmitAnswerAsync">
                     <Blazored.FluentValidation.FluentValidationValidator />
-                    @foreach (var answer in Answers)
+                    @foreach (var answer in AnswersModel.Answers)
                     {
                         <div class="horizontal-selection-container">
                             <h4>@answer.Question.QuestionText</h4>

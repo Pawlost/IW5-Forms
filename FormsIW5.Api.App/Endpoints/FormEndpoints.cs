@@ -2,6 +2,7 @@
 using FormsIW5.Api.App.Extensions;
 using FormsIW5.Api.App.Filters;
 using FormsIW5.Api.BL.Facades.Interfaces;
+using FormsIW5.BL.Models.Common.Answer;
 using FormsIW5.BL.Models.Common.Form;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,20 +38,13 @@ public static class FormEndpoints
         group.MapPut("", async (FormEditModel form, [FromServices] IUpdateFacade<FormEditModel> facade, IHttpContextAccessor httpContextAccessor) =>
         {
             return await facade.UpdateAsync(form, httpContextAccessor.ToUserQuery());
-        });
+        }).AddEndpointFilter<ValidationFilter<FormEditModel>>();
 
         // Delete
         group.MapDelete("{id:guid}", async (Guid id, [FromServices] IFormFacade facade, IHttpContextAccessor httpContextAccessor) =>
         {
             await facade.DeleteAsync(id, httpContextAccessor.ToUserQuery());
         });
-
-        //// Delete
-        //group.MapDelete("{id:guid}", async (Guid id, [FromServices] IFormFacade facade, IHttpContextAccessor httpContextAccessor) =>
-        //{
-        //    var userId = EndpointExtensions.GetUserId(httpContextAccessor);
-        //    await facade.DeleteAsync(id, userId);
-        //}).RequireAuthorization("AdminPolicy");
 
         return endpointRoute;
     }

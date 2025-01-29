@@ -19,7 +19,7 @@ public partial class ManageUsersPage
     [Inject]
     private NavigationManager navigationManager { get; set; } = null!;
 
-    private string Username { get; set; } = "";
+    private string UsernameSearch { get; set; } = "";
 
     private bool UserCreated { get; set; } = false;
 
@@ -34,7 +34,7 @@ public partial class ManageUsersPage
     public async Task CreateUserAsync() 
     {
         await UserFacade.CreateUserAsync(NewUser);
-        Users = await UserFacade.SearchUserAsync("");
+        Users = await UserFacade.SearchUserAsync(UsernameSearch);
         NewUser = new();
     }
 
@@ -46,7 +46,7 @@ public partial class ManageUsersPage
 
     public async Task SearchUser() 
     {
-        Users = await UserFacade.SearchUserAsync(Username);
+        Users = await UserFacade.SearchUserAsync(UsernameSearch);
     }
 
     public void Back()
