@@ -19,4 +19,10 @@ public class UserFacade : FacadeBase<IUserApiClient>
         SwitchClient(ClientNames.UserApiClientName);
         await client.DeleteAsync(id);
     }
+
+    public async Task CreateUserAsync(AppUserCreateModel newUser)
+    {
+        SwitchClient(ClientNames.UserApiClientName);
+        await client.UserAsync(newUser);
+    }
 }

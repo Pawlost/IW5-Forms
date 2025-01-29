@@ -1,11 +1,43 @@
 ﻿@page "/users/manage" 
 @using FormsIW5.Web.App.Components.Users
+<h3>Create user</h3>
+
+<div class="row">
+    <div class="col-sm-6">
+
+        <EditForm Model="@NewUser" OnValidSubmit="@CreateUserAsync">
+            <DataAnnotationsValidator />
+
+            <div class="form-group">
+                <InputText placeholder="UserName" @bind-Value="@NewUser.UserName" class="form-control" autofocus />
+            </div>
+            <div class="form-group">
+                <InputText type="password" placeholder="Password" @bind-Value="@NewUser.Password" class="form-control" autocomplete="off" />
+            </div>
+            <div class="form-group">
+                <InputText placeholder="Name" @bind-Value="@NewUser.Subject" class="form-control" />
+            </div>
+            <div class="form-group">
+                <InputText type="email" placeholder="Email" @bind-Value="@NewUser.Email" class="form-control" />
+            </div>
+            
+            <button type="submit" class="btn btn-success">Create</button>
+
+                    @if (UserCreated)
+                    {
+                        <p>New user created</p>
+                    }
+          </EditForm>
+    </div>
+
+</div>
+
 
 <h3>Search users</h3>
 
  <div class="search-bar">
     <label for="textSearch">Search by username</label>
-    <input id="textSearch" type="text" @bind-value="@Username" @bind-value:event="oninput" placeholder="Search user..." />
+    <input id="textSearch" type="text" @bind-value="@UsernameSearch" @bind-value:event="oninput" placeholder="Search user..." />
     <button class="search-button" @onclick="SearchUser">Search</button>
 </div>
 

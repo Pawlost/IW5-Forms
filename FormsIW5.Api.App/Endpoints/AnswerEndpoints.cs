@@ -37,7 +37,7 @@ public static class AnswerEndpoints
         group.MapPost("", async (AnswerCreateModel newAnswer, [FromServices] ICreateFacade<AnswerCreateModel> facade, IHttpContextAccessor httpContextAccessor) =>
             {
                 return await facade.CreateAsync(newAnswer, httpContextAccessor.ToUserQuery());
-            });
+            }).AddEndpointFilter<ValidationFilter<AnswerCreateModel>>();
 
         // Update
         group.MapPut("", async (AnswerDetailModel answer, [FromServices] IUpdateFacade<AnswerDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>

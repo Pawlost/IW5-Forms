@@ -3,6 +3,7 @@ using Blazored.FluentValidation;
 using FormsIW5.BL.Models.Common.Answer;
 using FormsIW5.BL.Models.Common.Question;
 using FormsIW5.Web.BL.Facades;
+using FormsIW5.Web.BL.Models;
 using Microsoft.AspNetCore.Components;
 using static FormsIW5.Web.App.Components.Answers.AnswersMultiselectionComponent;
 
@@ -26,14 +27,11 @@ public partial class QuestionAnswersListComponent
 
     private AnswerState answerState = AnswerState.Submitted;
     private AnswerState AnswerStatus { get; set; } = AnswerState.NoChange;
-
-    private ICollection<AnswerDetailModel> Answers { get; set; } = [];
-
-    private FluentValidationValidator? validator;
+    private AnswersModel AnswersModel { get; set; } = new();
 
     protected override async Task OnParametersSetAsync()
     {
-        Answers.Clear();
+        AnswersModel.Answers.Clear();
         foreach (var question in Questions)
         {
             AnswerDetailModel adm;
@@ -50,7 +48,7 @@ public partial class QuestionAnswersListComponent
             }
 
             adm.Question = question;
-            Answers.Add(adm);
+            AnswersModel.Answers.Add(adm);
         }
 
         await base.OnParametersSetAsync();
@@ -58,7 +56,7 @@ public partial class QuestionAnswersListComponent
 
     private async Task SubmitAnswerAsync()
     {
-        foreach (var answer in Answers)
+        foreach (var answer in AnswersModel.Answers)
         {
             await AnswerFacade.PutAnswerAsync(answer);
             AnswerStatus = answerState;
@@ -67,7 +65,7 @@ public partial class QuestionAnswersListComponent
 
     public void OnQuestionOptionMultiselection(QuestionOptionId selectedIds)
     {
-        var answer = Answers.Single(f => f.Question.Id == selectedIds.QuestionId);
+        var answer = AnswersModel.Answers.Single(f => f.Question.Id == selectedIds.QuestionId);
         if (answer is not null)
         {
             answer.QuestionOptionId = selectedIds.OptionId;

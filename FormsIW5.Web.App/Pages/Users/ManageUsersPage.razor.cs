@@ -5,26 +5,37 @@ using Microsoft.AspNetCore.Components;
 
 namespace FormsIW5.Web.App.Pages.Users;
 
-[Authorize(Policy="AdminPolicy")]
+[Authorize]
 public partial class ManageUsersPage
 {
     [Parameter]
     public Guid Id { get; set; }
 
     [Inject]
-    private UserFacade userFacade { get; set; } = null!;
+    private UserFacade UserFacade { get; set; } = null!;
 
     private ICollection<AppUserListModel> Users { get; set; } = [];
 
     [Inject]
     private NavigationManager navigationManager { get; set; } = null!;
 
-    private string Username { get; set; } = "";
+    private string UsernameSearch { get; set; } = "";
+
+    private bool UserCreated { get; set; } = false;
+
+    private AppUserCreateModel NewUser { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
-        Users = await userFacade.SearchUserAsync("");
+        Users = await UserFacade.SearchUserAsync("");
         await base.OnInitializedAsync();
+    }
+
+    public async Task CreateUserAsync() 
+    {
+        await UserFacade.CreateUserAsync(NewUser);
+        Users = await UserFacade.SearchUserAsync(UsernameSearch);
+        NewUser = new();
     }
 
     public void OnUserDelete(Guid userId) 
@@ -35,7 +46,7 @@ public partial class ManageUsersPage
 
     public async Task SearchUser() 
     {
-        Users = await userFacade.SearchUserAsync(Username);
+        Users = await UserFacade.SearchUserAsync(UsernameSearch);
     }
 
     public void Back()
