@@ -1,4 +1,4 @@
-// Copyright (c) Duende Software. All rights reserved.
+﻿// Copyright (c) Duende Software. All rights reserved.
 // See LICENSE in the project root for license information.
 
 using System.ComponentModel.DataAnnotations;
@@ -15,6 +15,7 @@ public class InputModel
 
     public string? Name { get; set; }
     public string? Email { get; set; }
+    public string? ProfilePictureUrl { get; set; }
 
     public string? ReturnUrl { get; set; }
 

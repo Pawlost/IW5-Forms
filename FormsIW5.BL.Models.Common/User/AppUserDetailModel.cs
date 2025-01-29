@@ -8,4 +8,5 @@ public class AppUserDetailModel
     public string Email { get; set; }
     public string? GivenName { get; set; }
     public string? FamilyName { get; set; }
+    public string? ProfilePictureUrl { get; set; }
 }
