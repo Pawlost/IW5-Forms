@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FormsIW5.Api.BL.Facades.Interfaces;
+using FormsIW5.Api.BL.Queries;
 using FormsIW5.Api.DAL.Common.Entities;
-using FormsIW5.Api.DAL.Common.Queries;
 using FormsIW5.Api.DAL.Common.Repositories;
 using FormsIW5.BL.Models.Common.Form;
 
@@ -13,7 +13,7 @@ public class FormFacade : FacadeBase<FormEntity, FormListModel, FormEditModel, F
     {
     }
 
-    public async Task<FormDetailModel?> GetFormDetailByOwnerIdAsync(Guid id, OwnerQueryObject ownerQuery)
+    public async Task<FormDetailModel?> GetFormDetailByOwnerIdAsync(Guid id, OwnerQueryParameters ownerQuery)
     {
         var entity = await repository.GetFormDetailAsync(id);
         var formDetail = mapper.Map<FormDetailModel>(entity);

@@ -1,4 +1,4 @@
-﻿using FormsIW5.Api.DAL.Common.Queries;
+﻿using FormsIW5.Api.BL.Queries;
 using FormsIW5.BL.Models.Common.Interfaces;
 
 namespace FormsIW5.Api.BL.Facades.Interfaces;
@@ -6,5 +6,5 @@ namespace FormsIW5.Api.BL.Facades.Interfaces;
 public interface ICreateFacade<TCreateModelBase> : IAppFacadeBase
     where TCreateModelBase : ICreateModel
 {
-    Task<Guid> CreateAsync(TCreateModelBase createModel, OwnerQueryObject userQuery);
+    Task<Guid> CreateAsync(TCreateModelBase createModel, OwnerQueryParameters userQuery);
 }

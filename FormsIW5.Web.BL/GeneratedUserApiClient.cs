@@ -68,7 +68,7 @@ namespace FormsIW5.Web.BL
         public UserApiClient(System.Net.Http.HttpClient httpClient)
     #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
-            BaseUrl = "https://localhost:5001";
+            BaseUrl = "https://localhost:7175";
             _httpClient = httpClient;
             Initialize();
         }
@@ -125,8 +125,8 @@ namespace FormsIW5.Web.BL
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "user/search"
-                    urlBuilder_.Append("user/search");
+                    // Operation Path: "api/user/search"
+                    urlBuilder_.Append("api/user/search");
                     urlBuilder_.Append('?');
                     urlBuilder_.Append(System.Uri.EscapeDataString("searchString")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(searchString, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
                     urlBuilder_.Length--;
@@ -206,8 +206,8 @@ namespace FormsIW5.Web.BL
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "user/delete/{userId}"
-                    urlBuilder_.Append("user/delete/");
+                    // Operation Path: "api/user/delete/{userId}"
+                    urlBuilder_.Append("api/user/delete/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(userId, System.Globalization.CultureInfo.InvariantCulture)));
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -285,8 +285,8 @@ namespace FormsIW5.Web.BL
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "user"
-                    urlBuilder_.Append("user");
+                    // Operation Path: "api/user"
+                    urlBuilder_.Append("api/user");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 

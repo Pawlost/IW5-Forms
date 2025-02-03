@@ -2,7 +2,7 @@
 
 namespace FormsIW5.IdentityProvider.BL.Facades.Interfaces;
 
-public interface IAppUserClaimsFacade : IIdentityFacade
+public interface IAppUserClaimsFacade
 {
     Task<IEnumerable<AppUserClaimListModel>> GetAppUserClaimsByUserIdAsync(Guid userId);
 }

@@ -21,13 +21,13 @@ public static class AnswerEndpoints
         //Get list model By Id
         group.MapGet("getUserAnswer/{questionId:guid}", async (Guid questionId, [FromServices] IAnswerFacade facade, IHttpContextAccessor httpContextAccessor) =>
         {
-            return await facade.GetUserAnswer(questionId, httpContextAccessor.ToUserQuery());
+            return await facade.GetUserAnswer(questionId, httpContextAccessor.ToOwnerQuery());
         });
 
         //Get list model By Id
         group.MapGet("isUserAnswer/{questionId:guid}", async (Guid questionId, [FromServices] IAnswerFacade facade, IHttpContextAccessor httpContextAccessor) =>
         {
-            return await facade.HasQuestionUserAnswer(questionId, httpContextAccessor.ToUserQuery());
+            return await facade.HasQuestionUserAnswer(questionId, httpContextAccessor.ToOwnerQuery());
         });
 
         //Get detail By Id
@@ -36,19 +36,19 @@ public static class AnswerEndpoints
         //Create
         group.MapPost("", async (AnswerCreateModel newAnswer, [FromServices] ICreateFacade<AnswerCreateModel> facade, IHttpContextAccessor httpContextAccessor) =>
             {
-                return await facade.CreateAsync(newAnswer, httpContextAccessor.ToUserQuery());
+                return await facade.CreateAsync(newAnswer, httpContextAccessor.ToOwnerQuery());
             }).AddEndpointFilter<ValidationFilter<AnswerCreateModel>>();
 
         // Update
         group.MapPut("", async (AnswerDetailModel answer, [FromServices] IUpdateFacade<AnswerDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>
         {
-            await facade.UpdateAsync(answer, httpContextAccessor.ToUserQuery());
+            await facade.UpdateAsync(answer, httpContextAccessor.ToOwnerQuery());
         }).AddEndpointFilter<ValidationFilter<AnswerDetailModel>>();
 
         // Delete
         group.MapDelete("{id:guid}", async (Guid id, [FromServices] IUpdateFacade<AnswerDetailModel> facade, IHttpContextAccessor httpContextAccessor) =>
         {
-            await facade.DeleteAsync(id, httpContextAccessor.ToUserQuery());
+            await facade.DeleteAsync(id, httpContextAccessor.ToOwnerQuery());
         });
 
         return endpointRoute;

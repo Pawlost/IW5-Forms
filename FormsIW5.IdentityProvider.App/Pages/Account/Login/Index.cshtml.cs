@@ -19,7 +19,7 @@ public class Index : PageModel
 {
     private readonly IIdentityServerInteractionService _interaction;
     private readonly IEventService _events;
-    private readonly IAppUserFacade appUserFacade;
+    private readonly IAppUserManagerFacade appUserFacade;
     private readonly IAuthenticationSchemeProvider _schemeProvider;
     private readonly IIdentityProviderStore _identityProviderStore;
 
@@ -35,7 +35,7 @@ public class Index : PageModel
         IAuthenticationSchemeProvider schemeProvider,
         IIdentityProviderStore identityProviderStore,
         IEventService events,
-        IAppUserFacade appUserFacade)
+        IAppUserManagerFacade appUserFacade)
     {
         _interaction = interaction;
         _schemeProvider = schemeProvider;

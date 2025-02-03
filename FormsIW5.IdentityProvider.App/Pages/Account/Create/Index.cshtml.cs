@@ -13,14 +13,14 @@ namespace FormsIW5.IdentityProvider.App.Pages.Create;
 public class Index : PageModel
 {
     private readonly IIdentityServerInteractionService _interaction;
-    private readonly IAppUserFacade appUserFacade;
+    private readonly IAppUserManagerFacade appUserFacade;
 
     [BindProperty]
     public InputModel Input { get; set; }
 
     public Index(
         IIdentityServerInteractionService interaction,
-        IAppUserFacade appUserFacade)
+        IAppUserManagerFacade appUserFacade)
     {
         _interaction = interaction;
         this.appUserFacade = appUserFacade;

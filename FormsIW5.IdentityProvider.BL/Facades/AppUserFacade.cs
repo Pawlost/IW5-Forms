@@ -1,16 +1,19 @@
 ﻿using AutoMapper;
 using FormsIW5.IdentityProvider.DAL.Entities;
-using FormsIW5.IdentityProvider.BL.Facades.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using FormsIW5.BL.Models.Common.User;
 using FormsIW5.IdentityProvider.DAL.Repositories.Interfaces;
+using FormsIW5.IdentityProvider.BL.Facades.Interfaces;
+using FormsIW5.IdentityProvider.BL.Installer;
+using AutoMapper.Internal;
+using FormsIW5.IdentityProvider.BL.Common.Facades.Interfaces;
 
 namespace FormsIW5.IdentityProvider.BL.Facades;
 
 public class AppUserFacade(
     UserManager<AppUserEntity> userManager,
     IAppUserRepository appUserRepository,
-    IMapper mapper) : IAppUserFacade
+    IMapper mapper) : IAppUserManagerFacade, ILayerInstallable
 {
     public async Task<Guid?> CreateAppUserAsync(AppUserCreateModel appUserModel)
     {

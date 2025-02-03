@@ -14,31 +14,13 @@ builder.Services.Install<ValidatorInstaller>(builder.Configuration);
 
 builder.Services.AddTransient<AuthorizationMessageHandler>();
 
-var apiBaseUrl = builder.Configuration.GetValue<Uri>("ApiBaseUrl");
 
-builder.Services.AddHttpClient(ClientNames.LogInApiClientName, client => client.BaseAddress = apiBaseUrl)
-    .AddHttpMessageHandler(serviceProvider
-    => serviceProvider?.GetService<AuthorizationMessageHandler>()!
-    .ConfigureHandler(
-            authorizedUrls: [apiBaseUrl.ToString()],
-            scopes: ["iw5FormsScope", "offline_access"])
-    );
+var apiBaseUrl = AddApiUrl(builder, ClientNames.LogInApiClientName, "ApiUrl:Base");
+AddApiUrl(builder, ClientNames.UserApiClientName, "ApiUrl:User");
 
 builder.Services.AddHttpClient(ClientNames.AnonymousClientName, client => client.BaseAddress = apiBaseUrl);
 
 builder.Services.AddScoped(serviceProvider => serviceProvider.GetService<IHttpClientFactory>()!.CreateClient(ClientNames.LogInApiClientName));
-
-Uri? identityUrl = builder.Configuration?.GetValue<Uri?>("IdentityProvider:Authority");
-
-if (identityUrl is not null)
-{
-    builder.Services.AddHttpClient(ClientNames.UserApiClientName, client => client.BaseAddress = identityUrl)
-    .AddHttpMessageHandler(serviceProvider
-    => serviceProvider?.GetService<AuthorizationMessageHandler>()!
-    .ConfigureHandler(
-            authorizedUrls: [identityUrl.ToString()],
-            scopes: ["iw5FormsScope", "offline_access"]));
-}
 
 builder.Services.AddOidcAuthentication(options =>
 {
@@ -50,3 +32,20 @@ builder.Services.AddOidcAuthentication(options =>
 var host = builder.Build();
 
 await host.RunAsync();
+
+
+static Uri? AddApiUrl(WebAssemblyHostBuilder builder, string clientName, string configurationPath) {
+    Uri? clientUrl = builder.Configuration?.GetValue<Uri?>(configurationPath);
+
+    if (clientUrl is not null)
+    {
+        builder.Services.AddHttpClient(clientName, client => client.BaseAddress = clientUrl)
+        .AddHttpMessageHandler(serviceProvider
+        => serviceProvider?.GetService<AuthorizationMessageHandler>()!
+        .ConfigureHandler(
+                authorizedUrls: [clientUrl.ToString()],
+                scopes: ["iw5FormsScope", "offline_access"]));
+    }
+
+    return clientUrl;
+}

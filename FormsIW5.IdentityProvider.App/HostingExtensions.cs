@@ -6,7 +6,6 @@ using Serilog;
 using FormsIW5.IdentityProvider.DAL.Installer;
 using FormsIW5.IdentityProvider.DAL;
 using Microsoft.EntityFrameworkCore;
-using FormsIW5.IdentityProvider.App.Endpoints;
 
 namespace FormsIW5.IdentityProvider.App
 {
@@ -37,10 +36,6 @@ namespace FormsIW5.IdentityProvider.App
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddOpenApiDocument();
-
-            builder.Services.AddAuthorizationBuilder()
-                .AddPolicy("AdminPolicy", policy =>
-                    policy.RequireClaim("sub", "admin"));
 
             builder.Services.AddIdentityServer(options =>
                 {
@@ -83,13 +78,6 @@ namespace FormsIW5.IdentityProvider.App
             app.UseIdentityServer();
 
             app.MapRazorPages().RequireAuthorization();
-            app.UseUserEndpoints();
-
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseOpenApi();
-                app.UseSwaggerUi();
-            }
 
             return app;
         }

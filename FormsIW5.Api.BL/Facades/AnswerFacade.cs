@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FormsIW5.Api.BL.Facades.Interfaces;
+using FormsIW5.Api.BL.Queries;
 using FormsIW5.Api.DAL.Common.Entities;
-using FormsIW5.Api.DAL.Common.Queries;
 using FormsIW5.Api.DAL.Common.Repositories;
 using FormsIW5.BL.Models.Common.Answer;
 
@@ -13,25 +13,25 @@ public class AnswerFacade : FacadeBase<AnswerEntity, AnswerListModel, AnswerDeta
     {
     }
 
-    public async Task<bool> HasQuestionUserAnswer(Guid questionId, OwnerQueryObject ownerQuery) {
+    public async Task<bool> HasQuestionUserAnswer(Guid questionId, OwnerQueryParameters ownerQuery) {
         return await repository.HasQuestionUserAnswer(questionId, ownerQuery.OwnerId);
     }
 
-    public async Task<AnswerDetailModel> GetUserAnswer(Guid questionId, OwnerQueryObject ownerQuery)
+    public async Task<AnswerDetailModel> GetUserAnswer(Guid questionId, OwnerQueryParameters ownerQuery)
     {
 
         var answerEntity = await repository.GetUserAnswerAsync(questionId, ownerQuery.OwnerId);
         return mapper.Map<AnswerDetailModel>(answerEntity);
     }
 
-    public override async Task<Guid?> UpdateAsync(AnswerDetailModel detailModel, OwnerQueryObject ownerQuery)
+    public override async Task<Guid?> UpdateAsync(AnswerDetailModel detailModel, OwnerQueryParameters ownerQuery)
     {
         var entity = mapper.Map<AnswerEntity>(detailModel);
 
 
         if (await ExistsAsync(detailModel.Id))
         {
-            if (ownerQuery.IsAdmin is not true)
+            if (!ownerQuery.IsAdmin)
             {
                 entity.OwnerId = ownerQuery.OwnerId;
             }

@@ -2,7 +2,7 @@
 
 namespace FormsIW5.IdentityProvider.BL.Facades.Interfaces;
 
-public interface IAppUserFacade : IIdentityFacade
+public interface IAppUserManagerFacade 
 {
     Task<Guid?> CreateAppUserAsync(AppUserCreateModel appUserModel);
     Task<bool> ValidateCredentialsAsync(string userName, string password);

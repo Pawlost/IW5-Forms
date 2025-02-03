@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using FormsIW5.Api.App.Endpoints;
 using FormsIW5.Api.DAL;
-using FormsIW5.Api.DAL.Common.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using FormsIW5.Api.DAL.Installer;
 using FormsIW5.Api.BL.Installer;
@@ -30,16 +29,7 @@ public class Program
             options.AddDefaultPolicy(o => o.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
         });
 
-        builder.Services.AddAutoMapper(typeof(EntityBase), typeof(ApiBLInstaller));
-
-
-        if (builder.Environment.EnvironmentName != "QA")
-        {
-            builder.Services.Install<ApiDALInstaller>(builder.Configuration);
-        }
-
-        builder.Services.Install<ApiBLInstaller>(builder.Configuration);
-        builder.Services.Install<ValidatorInstaller>(builder.Configuration);
+        InstallLayers(builder);
 
         var app = builder.Build();
 
@@ -71,6 +61,17 @@ public class Program
         app.UseSwaggerUi();
 
         app.Run();
+    }
+
+    public static void InstallLayers(WebApplicationBuilder builder)
+    {
+        if (builder.Environment.EnvironmentName != "QA")
+        {
+            builder.Services.Install<ApiDALInstaller>(builder.Configuration);
+        }
+
+        builder.Services.Install<ApiBLInstaller>(builder.Configuration);
+        builder.Services.Install<ValidatorInstaller>(builder.Configuration);
     }
 
     public static void MigrateDB(IServiceProvider services)
