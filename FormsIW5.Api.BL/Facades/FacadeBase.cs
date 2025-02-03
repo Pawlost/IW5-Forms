@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FormsIW5.Api.BL.Facades.Interfaces;
+using FormsIW5.Api.BL.Queries;
 using FormsIW5.Api.DAL.Common.Entities.Interfaces;
-using FormsIW5.Api.DAL.Common.Queries;
 using FormsIW5.Api.DAL.Common.Repositories;
 using FormsIW5.BL.Models.Common.Interfaces;
 
@@ -24,7 +24,7 @@ public class FacadeBase<TEntity, TListModel, TEditModel, TCreateModel, TReposito
         this.mapper = mapper;
     }
 
-    public async Task<Guid> CreateAsync(TCreateModel createModel, OwnerQueryObject ownerQuery)
+    public async Task<Guid> CreateAsync(TCreateModel createModel, OwnerQueryParameters ownerQuery)
     {
         var entity = mapper.Map<TEntity>(createModel);
         entity.OwnerId = ownerQuery.OwnerId;
@@ -49,11 +49,11 @@ public class FacadeBase<TEntity, TListModel, TEditModel, TCreateModel, TReposito
         return mapper.Map<TEditModel>(entity);
     }
 
-    public virtual async Task<Guid?> UpdateAsync(TEditModel detailModel, OwnerQueryObject ownerQuery)
+    public virtual async Task<Guid?> UpdateAsync(TEditModel detailModel, OwnerQueryParameters ownerQuery)
     {
         await ThrowIfWrongOwnerAsync(detailModel.Id, ownerQuery);
         var entity = mapper.Map<TEntity>(detailModel);
-        if (ownerQuery.IsAdmin is not true)
+        if (!ownerQuery.IsAdmin)
         {
             entity.OwnerId = ownerQuery.OwnerId;
         }

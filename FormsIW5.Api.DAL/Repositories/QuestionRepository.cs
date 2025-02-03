@@ -1,5 +1,5 @@
-﻿using FormsIW5.Api.DAL.Common.Entities;
-using FormsIW5.Api.DAL.Common.Queries;
+﻿using FormsIW5.Api.DAL.Common.DTO;
+using FormsIW5.Api.DAL.Common.Entities;
 using FormsIW5.Api.DAL.Common.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,18 +18,18 @@ public class QuestionRepository : RepositoryBase<QuestionEntity>, IQuestionRepos
         return await dbContext.Set<QuestionEntity>().Include(q => q.Answers).Include(q => q.QuestionOptions).SingleOrDefaultAsync(entity => entity.Id == id);
     }
 
-    private IQueryable<QuestionEntity> GetBasicSearchQuery(QuestionQueryObject questionQuery) {
+    private IQueryable<QuestionEntity> GetBasicSearchQuery(QuestionQueryDTO questionQuery) {
         return dbContext.Set<QuestionEntity>().Where(q => q.FormId == questionQuery.FormId);
     }
 
-    public async Task<ICollection<QuestionEntity>?> SearchByText(QuestionQueryObject questionQuery)
+    public async Task<ICollection<QuestionEntity>?> SearchByText(QuestionQueryDTO questionQuery)
     {
         var query = GetBasicSearchQuery(questionQuery)
             .Where(q => EF.Functions.Like(q.QuestionText, $"%{questionQuery.TextMatch}%"));
         return await query.ToListAsync();
     }
 
-    public async Task<ICollection<QuestionEntity>?> SearchByDescription(QuestionQueryObject questionQuery)
+    public async Task<ICollection<QuestionEntity>?> SearchByDescription(QuestionQueryDTO questionQuery)
     {
         var query = GetBasicSearchQuery(questionQuery)
             .Where(q => EF.Functions.Like(q.Description, $"%{questionQuery.TextMatch}%"));

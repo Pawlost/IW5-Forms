@@ -1,10 +1,7 @@
-﻿using System.Security.Claims;
-using FormsIW5.Api.App.Extensions;
+﻿using FormsIW5.Api.App.Extensions;
 using FormsIW5.Api.App.Filters;
 using FormsIW5.Api.BL.Facades.Interfaces;
-using FormsIW5.BL.Models.Common.Answer;
 using FormsIW5.BL.Models.Common.Form;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormsIW5.Api.App.Endpoints;
@@ -25,25 +22,25 @@ public static class FormEndpoints
         group.MapGet("edit/{id:guid}", async (Guid id, [FromServices] IUpdateFacade<FormEditModel> facade) => await facade.GetByIdAsync(id)).AllowAnonymous();
 
         group.MapGet("detail/{id:guid}", async (Guid id, [FromServices] IFormFacade facade, IHttpContextAccessor httpContextAccessor) => {
-            return await facade.GetFormDetailByOwnerIdAsync(id, httpContextAccessor.ToUserQuery()); 
+            return await facade.GetFormDetailByOwnerIdAsync(id, httpContextAccessor.ToOwnerQuery()); 
         }).AllowAnonymous();
 
         //Create
         group.MapPost("", async (FormCreateModel newForm, [FromServices] ICreateFacade<FormCreateModel> facade, IHttpContextAccessor httpContextAccessor) =>
         {
-            return await facade.CreateAsync(newForm, httpContextAccessor.ToUserQuery());
+            return await facade.CreateAsync(newForm, httpContextAccessor.ToOwnerQuery());
         }).AddEndpointFilter<ValidationFilter<FormCreateModel>>();
 
         // Update
         group.MapPut("", async (FormEditModel form, [FromServices] IUpdateFacade<FormEditModel> facade, IHttpContextAccessor httpContextAccessor) =>
         {
-            return await facade.UpdateAsync(form, httpContextAccessor.ToUserQuery());
+            return await facade.UpdateAsync(form, httpContextAccessor.ToOwnerQuery());
         }).AddEndpointFilter<ValidationFilter<FormEditModel>>();
 
         // Delete
         group.MapDelete("{id:guid}", async (Guid id, [FromServices] IFormFacade facade, IHttpContextAccessor httpContextAccessor) =>
         {
-            await facade.DeleteAsync(id, httpContextAccessor.ToUserQuery());
+            await facade.DeleteAsync(id, httpContextAccessor.ToOwnerQuery());
         });
 
         return endpointRoute;

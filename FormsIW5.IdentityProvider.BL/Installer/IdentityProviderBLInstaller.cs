@@ -1,5 +1,4 @@
 ﻿using FormsIW5.Common.Installer;
-using FormsIW5.IdentityProvider.BL.Facades.Interfaces;
 using FormsIW5.IdentityProvider.BL.MapperProfiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +13,7 @@ public class IdentityProviderBLInstaller : IInstaller
 
         serviceCollection.Scan(selector =>
             selector.FromAssemblyOf<IdentityProviderBLInstaller>()
-                .AddClasses(classes => classes.AssignableTo<IIdentityFacade>())
+                .AddClasses(classes => classes.AssignableTo<ILayerInstallable>())
                 .AsSelfWithInterfaces()
                 .WithScopedLifetime());
     }

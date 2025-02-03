@@ -1,6 +1,6 @@
 ﻿using FormsIW5.Api.BL.Facades.Interfaces;
+using FormsIW5.Api.BL.Queries;
 using FormsIW5.Api.DAL.Common.Entities.Interfaces;
-using FormsIW5.Api.DAL.Common.Queries;
 using FormsIW5.Api.DAL.Common.Repositories;
 
 namespace FormsIW5.Api.BL.Facades;
@@ -18,9 +18,9 @@ public class AppFacadeBase<TRepository, TEntity> : IAppFacadeBase
         this.repository = repository;
     }
 
-    protected async Task ThrowIfWrongOwnerAsync(Guid id, OwnerQueryObject ownerQuery)
+    protected async Task ThrowIfWrongOwnerAsync(Guid id, OwnerQueryParameters ownerQuery)
     {
-        if (ownerQuery.IsAdmin is true)
+        if (ownerQuery.IsAdmin)
         {
             return;
         }
@@ -42,7 +42,7 @@ public class AppFacadeBase<TRepository, TEntity> : IAppFacadeBase
         return await repository.ExistsAsync(id);
     }
 
-    public async Task DeleteAsync(Guid id, OwnerQueryObject ownerQuery)
+    public async Task DeleteAsync(Guid id, OwnerQueryParameters ownerQuery)
     {
         await ThrowIfWrongOwnerAsync(id, ownerQuery);
         await repository.RemoveAsync(id);

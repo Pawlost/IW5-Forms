@@ -12,8 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FormsIW5.BL.Models.Common\FormsIW5.BL.Models.Common.csproj" />
-    <ProjectReference Include="..\FormsIW5.IdentityProvider.DAL\FormsIW5.IdentityProvider.DAL.csproj" />
+    <ProjectReference Include="..\FormsIW5.IdentityProvider.BL.Common\FormsIW5.IdentityProvider.BL.Common.csproj" />
   </ItemGroup>
 
 </Project>

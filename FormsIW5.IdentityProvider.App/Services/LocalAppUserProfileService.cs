@@ -9,11 +9,11 @@ namespace FormsIW5.IdentityProvider.App.Services;
 
 public class LocalAppUserProfileService : IProfileService
 {
-    private readonly IAppUserFacade appUserFacade;
+    private readonly IAppUserManagerFacade appUserFacade;
     private readonly IAppUserClaimsFacade appUserClaimsFacade;
 
     public LocalAppUserProfileService(
-        IAppUserFacade appUserFacade,
+        IAppUserManagerFacade appUserFacade,
         IAppUserClaimsFacade appUserClaimsFacade)
     {
         this.appUserFacade = appUserFacade;

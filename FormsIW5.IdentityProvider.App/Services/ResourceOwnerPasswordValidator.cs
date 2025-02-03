@@ -6,9 +6,9 @@ namespace FormsIW5.IdentityProvider.App.Services;
 
 public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
 {
-    private readonly IAppUserFacade appUserFacade;
+    private readonly IAppUserManagerFacade appUserFacade;
 
-    public ResourceOwnerPasswordValidator(IAppUserFacade appUserFacade)
+    public ResourceOwnerPasswordValidator(IAppUserManagerFacade appUserFacade)
     {
         this.appUserFacade = appUserFacade;
     }

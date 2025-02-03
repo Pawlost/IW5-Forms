@@ -3,10 +3,11 @@ using FormsIW5.IdentityProvider.BL.Facades.Interfaces;
 using FormsIW5.IdentityProvider.DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using FormsIW5.BL.Models.Common.User;
+using FormsIW5.IdentityProvider.BL.Installer;
 
 namespace FormsIW5.IdentityProvider.BL.Facades;
 
-public class AppUserClaimsFacade : IAppUserClaimsFacade
+public class AppUserClaimsFacade : IAppUserClaimsFacade, ILayerInstallable
 {
     private readonly UserManager<AppUserEntity> userManager;
     private readonly IMapper mapper;

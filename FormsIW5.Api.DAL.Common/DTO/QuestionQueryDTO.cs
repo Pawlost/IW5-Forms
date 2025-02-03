@@ -1,6 +1,6 @@
-﻿namespace FormsIW5.Api.DAL.Common.Queries;
+﻿namespace FormsIW5.Api.DAL.Common.DTO;
 
-public record QuestionQueryObject
+public record QuestionQueryDTO
 {
     public string? TextMatch { get; set; }
     public required Guid FormId { get; set; }

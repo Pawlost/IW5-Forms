@@ -1,15 +1,15 @@
-﻿@page "/users/manage" 
-@using FormsIW5.Web.App.Components.Users
+﻿@page "/manage" 
+@using Microsoft.AspNetCore.Components.Forms
 <h3>Create user</h3>
 
 <div class="row">
     <div class="col-sm-6">
 
-        <EditForm Model="@NewUser" OnValidSubmit="@CreateUserAsync">
+        <EditForm Model="NewUser" OnValidSubmit="CreateUserAsync">
             <DataAnnotationsValidator />
 
-            <div class="form-group">
-                <InputText placeholder="UserName" @bind-Value="@NewUser.UserName" class="form-control" autofocus />
+@*             <div class="form-group">
+                <Component />
                 <small class="form-text text-danger">
                     <ValidationMessage For="@(() => NewUser.UserName)" />
                 </small>
@@ -46,13 +46,13 @@
                 </small>
             </div>
 
-            
+             *@
             <button type="submit" class="btn btn-success">Create</button>
-
+@* 
                     @if (UserCreated)
                     {
                         <p>New user created</p>
-                    }
+                    } *@
           </EditForm>
     </div>
 
@@ -62,14 +62,14 @@
 <h3>Search users</h3>
 
  <div class="search-bar">
-    <label for="textSearch">Search by username</label>
+@*     <label for="textSearch">Search by username</label>
     <input id="textSearch" type="text" @bind-value="@UsernameSearch" @bind-value:event="oninput" placeholder="Search user..." />
-    <button class="search-button" @onclick="SearchUser">Search</button>
+    <button class="search-button" @onclick="SearchUser">Search</button> *@
 </div>
 
 <div class="horizontal-selection-container">
-    @foreach (var user in Users)
+@*     @foreach (var user in Users)
     {
         <UserComponent User="@user" OnDelete="OnUserDelete" />
-    }
+    } *@
 </div>  

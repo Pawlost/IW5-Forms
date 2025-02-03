@@ -1,9 +1,9 @@
-﻿using FormsIW5.Api.DAL.Common.Queries;
+﻿using FormsIW5.Api.BL.Queries;
 
 namespace FormsIW5.Api.BL.Facades.Interfaces;
 
 public interface IAppFacadeBase
 {
-    Task DeleteAsync(Guid id, OwnerQueryObject userQuery);
+    Task DeleteAsync(Guid id, OwnerQueryParameters userQuery);
     Task<bool> ExistsAsync(Guid id);
 }
