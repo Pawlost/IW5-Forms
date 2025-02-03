@@ -5,7 +5,7 @@
     <Authorized>
             @if (IsAdmin)
             {
-                <NavLink href="/users/manage" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
+            <NavLink href="@UsersManageUrl" Match="NavLinkMatch.All" ActiveClass="active border-bottom border-success" class="nav-link font-weight-bold">
                     Manage users
                 </NavLink>
             }

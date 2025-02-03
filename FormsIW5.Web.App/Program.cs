@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using FormsIW5.Common.Installer;
 using FormsIW5.Web.BL;
 using FormsIW5.BL.Models.Common.Installers;
+using FormsIW5.Web.App.Options;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("app");
@@ -13,10 +14,10 @@ builder.Services.Install<WebBLInstaller>(builder.Configuration);
 builder.Services.Install<ValidatorInstaller>(builder.Configuration);
 
 builder.Services.AddTransient<AuthorizationMessageHandler>();
+builder.Services.AddOptions<ClientUrlOptions>().BindConfiguration("ClientUrl");
 
 
-var apiBaseUrl = AddApiUrl(builder, ClientNames.LogInApiClientName, "ApiUrl:Base");
-AddApiUrl(builder, ClientNames.UserApiClientName, "ApiUrl:User");
+var apiBaseUrl = AddApiUrl(builder, ClientNames.LogInApiClientName, "ClientUrl:BaseApi");
 
 builder.Services.AddHttpClient(ClientNames.AnonymousClientName, client => client.BaseAddress = apiBaseUrl);
 
