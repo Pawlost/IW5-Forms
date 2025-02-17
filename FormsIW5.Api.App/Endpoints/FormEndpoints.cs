@@ -1,7 +1,9 @@
-﻿using FormsIW5.Api.App.Extensions;
+﻿using System.Security.Claims;
+using FormsIW5.Api.App.Extensions;
 using FormsIW5.Api.App.Filters;
 using FormsIW5.Api.BL.Facades.Interfaces;
 using FormsIW5.BL.Models.Common.Form;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormsIW5.Api.App.Endpoints;
@@ -13,7 +15,12 @@ public static class FormEndpoints
         var group = endpointRoute.MapGroup("form").WithTags("form");
 
         //Get all
-        group.MapGet("", async ([FromServices] IListFacade<FormListModel> facade) => await facade.GetAllAsync()).AllowAnonymous();
+        group.MapGet("", async ([FromServices] IListFacade<FormListModel> facade, IHttpContextAccessor httpContextAccessor) => 
+        {
+            var idClaim = httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier);
+            await facade.GetAllAsync();
+         }
+        ).AllowAnonymous();
 
         //Get list model By Id
         group.MapGet("list/{id:guid}", async (Guid id, [FromServices] IListFacade<FormListModel> facade) => await facade.GetSingleListModelByIdAsync(id));

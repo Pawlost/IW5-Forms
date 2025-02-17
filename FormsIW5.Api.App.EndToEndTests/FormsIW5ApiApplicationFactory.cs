@@ -1,9 +1,12 @@
 ﻿using System.Reflection;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
-using FormsIW5.Common.Installer;
+using System.Text;
 using FormsIW5.Api.DAL;
 using FormsIW5.Api.DAL.Installer;
+using FormsIW5.Common.Installer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FormsIW5.Api.App.EndToEndTests;
 
@@ -24,6 +27,20 @@ public class FormsIW5ApiApplicationFactory : WebApplicationFactory<Program>
               collection.AddMvc().AddApplicationPart(Assembly.Load(controllerAssemblyName));
 
               collection.Install<ApiDALInstaller>(context.Configuration);
+              collection.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.Authority = "https://localhost:5001";
+                options.TokenValidationParameters.ValidateAudience = false;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = "https://localhost:5001",
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("aVeryVeryVeryLongSecretKey1234567890")),
+                };
+            });
+
+              collection.AddHttpContextAccessor();
           });
 
           var host = base.CreateHost(builder);

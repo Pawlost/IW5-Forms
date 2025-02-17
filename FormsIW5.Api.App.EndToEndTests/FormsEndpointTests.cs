@@ -1,4 +1,6 @@
-﻿using FormsIW5.BL.Models.Common.Form;
+﻿using System.Net;
+using System.Net.Http.Headers;
+using FormsIW5.BL.Models.Common.Form;
 
 namespace FormsIW5.Api.App.EndToEndTests;
 
@@ -9,8 +11,8 @@ public class FormsEndpointTests
 
     public FormsEndpointTests()
     {
-      //  var application = new FormsIW5ApiApplicationFactory();
-        //_client = new Lazy<HttpClient>(application.CreateClient());
+       var application = new FormsIW5ApiApplicationFactory();
+        _client = new Lazy<HttpClient>(application.CreateClient());
     }
 
     //DummyClass
@@ -42,6 +44,24 @@ public class FormsEndpointTests
         var result = await response.Content.ReadFromJsonAsync<Guid>();
         Assert.NotEqual(Guid.Empty, result);*/
         Assert.True(true);
+    }
+
+    [Fact]
+    public async Task GetIngredients_Success()
+    {
+        var httpClient = new HttpClient();
+
+        var accessToken = TokenHelper.GenerateToken("aVeryVeryVeryLongSecretKey1234567890", "https://localhost:5001", "https://localhost:5001", "user", 60);
+
+        var httpRequest = new HttpRequestMessage();
+        httpRequest.Method = new HttpMethod("GET");
+        httpRequest.RequestUri = new Uri("https://localhost:44378/form");
+        httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+        var response = await httpClient.SendAsync(httpRequest);
+
+        Assert.True(response.IsSuccessStatusCode);
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
     /*
